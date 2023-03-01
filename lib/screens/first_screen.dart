@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/screens/home_screen.dart';
+import 'package:spendee/screens/login.dart';
+import 'package:spendee/screens/secondscreen.dart';
 import 'package:spendee/screens/statitics.dart';
+import 'package:spendee/widgets/bottomnavigation.dart';
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
@@ -47,7 +50,9 @@ class FirstScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Statitics()),
+                    MaterialPageRoute(
+                        builder: (context) => const SecondScreen()),
+                    //builder: (context) => const Bottom_NavBar()),
                   );
                 },
                 child: const Text('Get started'),

@@ -69,6 +69,15 @@ flutter:
       - assets/images/Vector.png
       - assets/images/ph_money-fill.png
       - assets/images/Vector (1).png
+      - assets/images/image/food.png
+      - assets/images/image/education.png
+      - assets/images/image/health.png
+      - assets/images/image/transportation.png
+      - assets/images/loginpic.png
+      - assets/images/secondpic.png
+    
+      
+      
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:spendee/data/top.dart';
+
 import 'package:spendee/widgets/chart.dart';
 
 class Statitics extends StatefulWidget {
@@ -109,11 +109,63 @@ class _StatiticsState extends State<Statitics> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  const Chart(),
                   SizedBox(height: 20),
-                  //Chart(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          'Top Spending',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Icon(
+                          Icons.swap_vert,
+                          size: 25,
+                          color: Colors.grey,
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
+            ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ListTile(
+                  leading: Image.asset(
+                    'assets/images/${geter_top()[index].image!}',
+                    height: 40,
+                  ),
+                  title: Text(
+                    geter_top()[index].name!,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  subtitle: Text(
+                    geter_top()[index].time!,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: Text(
+                    geter_top()[index].fee!,
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold),
+                  ),
+                );
+              },
+              childCount: geter_top().length,
+            ))
           ],
         ),
       ),

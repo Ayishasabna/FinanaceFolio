@@ -3,42 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:spendee/data/listdata.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        currentIndex: 0,
-        elevation: 8,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.money), label: 'Transactions'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: 'category'),
-          BottomNavigationBarItem(
-            /* icon: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Statitics()),
-                    );
-                  },
-                  icon: Icon(Icons.insert_chart),
-                  label: Text('chart'))), */
-
-            icon: Icon(Icons.insert_chart),
-            label: 'chart',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'settings'),
-        ],
-      ),
       body: SafeArea(
           child: CustomScrollView(
         slivers: [
@@ -110,8 +79,21 @@ class Home extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 240,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(248, 253, 76, 6),
+              decoration: BoxDecoration(
+                  gradient: new LinearGradient(colors: [
+                    Color.fromRGBO(199, 12, 12, 0.88),
+                    Color.fromRGBO(255, 67, 40, 0.88),
+                    Color.fromRGBO(255, 152, 100, 0.88)
+                  ]),
+
+                  //Color.fromRGBO(199, 12, 12, 0.88),
+                  // Color.fromRGBO(255, 67, 40, 0.88),
+
+                  //rgba(199, 12, 12, 0.88)
+                  //rgba(255, 67, 40, 0.88)
+                  //rgba(255, 152, 100, 0.88)
+
+                  //color: Colors.yellowAccent,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20))),
