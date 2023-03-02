@@ -29,7 +29,7 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
               .push(MaterialPageRoute(builder: (context) => Add_Screen()));
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.red,
         /*  child: Container(
           height: 60,
           width: 60,
@@ -60,8 +60,9 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   },
                   child: Icon(Icons.home,
                       size: 30,
-                      color:
-                          index_color == 0 ? Color(0xff368983) : Colors.grey)),
+                      color: index_color == 0
+                          ? Color.fromARGB(255, 238, 233, 94)
+                          : Colors.grey)),
               GestureDetector(
                   onTap: () {
                     setState(() {
@@ -71,7 +72,9 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   child: Icon(
                     Icons.category,
                     size: 30,
-                    color: index_color == 1 ? Color(0xff368983) : Colors.grey,
+                    color: index_color == 1
+                        ? Color.fromARGB(255, 238, 233, 94)
+                        : Colors.grey,
                   )),
               SizedBox(width: 20),
               GestureDetector(

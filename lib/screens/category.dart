@@ -10,6 +10,19 @@ class category extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            actions: [
+              GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.search,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              )
+            ],
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: new LinearGradient(colors: [

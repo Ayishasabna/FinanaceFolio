@@ -15,7 +15,16 @@ class settings extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.amber,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: new LinearGradient(colors: [
+                Color.fromRGBO(199, 12, 12, 0.88),
+                Color.fromRGBO(255, 67, 40, 0.88),
+                Color.fromRGBO(255, 152, 100, 0.88)
+              ]),
+            ),
+          ),
+          //backgroundColor: Colors.amber,
           title: Text('Settings'),
           //automaticallyImplyLeading: false,
         ),
@@ -31,12 +40,12 @@ class settings extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => About()));
                     },
                     child: Icon(
-                      Icons.info,
+                      Icons.info_outline,
                       size: 30,
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
                     'About',
@@ -63,7 +72,7 @@ class settings extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
                     'Reset',
@@ -90,7 +99,7 @@ class settings extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
                     'Share',
@@ -112,12 +121,12 @@ class settings extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Terms()));
                     },
                     child: Icon(
-                      Icons.edit_document,
+                      Icons.document_scanner_outlined,
                       size: 30,
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
                     'Terms&Conditions',
@@ -139,12 +148,12 @@ class settings extends StatelessWidget {
                           builder: (context) => PrivacyPolicy()));
                     },
                     child: Icon(
-                      Icons.privacy_tip,
+                      Icons.privacy_tip_outlined,
                       size: 30,
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
                   Text(
                     'Privacy Policy',

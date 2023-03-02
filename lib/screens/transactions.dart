@@ -14,6 +14,19 @@ class _TransactionsState extends State<Transactions> {
     (ctx, studentModel, Widget? child) {};
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          GestureDetector(
+            onTap: () {},
+            child: Icon(
+              Icons.search,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: new LinearGradient(colors: [
@@ -108,7 +121,7 @@ class _TransactionsState extends State<Transactions> {
                         );
                       }),
                       icon: const Icon(
-                        Icons.delete_outline,
+                        Icons.delete,
                         color: Colors.red,
                       ),
                       tooltip: 'Delete',
