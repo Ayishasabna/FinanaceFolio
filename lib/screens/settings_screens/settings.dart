@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:spendee/screens/about.dart';
-import 'package:spendee/screens/privacypolicy.dart';
-import 'package:spendee/screens/reset.dart';
-import 'package:spendee/screens/share.dart';
-import 'package:spendee/screens/termsandconditions.dart';
+import 'package:spendee/screens/settings_screens/about.dart';
+import 'package:spendee/screens/settings_screens/privacypolicy.dart';
+import 'package:spendee/screens/settings_screens/reset.dart';
+import 'package:spendee/screens/settings_screens/share.dart';
+import 'package:spendee/screens/settings_screens/termsandconditions.dart';
 
 class settings extends StatelessWidget {
   const settings({super.key});

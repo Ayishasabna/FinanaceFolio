@@ -6,7 +6,7 @@ import 'package:spendee/screens/add.dart';
 import 'package:spendee/screens/add_category.dart';
 import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
-import 'package:spendee/screens/settings.dart';
+import 'package:spendee/screens/settings_screens/settings.dart';
 import 'package:spendee/screens/statitics.dart';
 
 class Bottom_NavBar extends StatefulWidget {

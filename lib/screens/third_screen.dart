@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/screens/login.dart';
-import 'package:spendee/screens/third_screen.dart';
 
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,16 +10,28 @@ class SecondScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            Image.asset('assets/images/secondpic.png'),
+            Image.asset('assets/images/thirdpic.png'),
             SizedBox(
               height: 20,
             ),
-            Text(
-              '"Never Spend your\nmoney before\n you have it"',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
+            Container(
+              padding: EdgeInsets.only(top: 15),
+              width: 250,
+              height: 150,
+              child: Text(
+                '    Money moves from\n      those who do not\n    manage it to those\n              who do.',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+              decoration: BoxDecoration(
+                gradient: new LinearGradient(colors: [
+                  Color.fromRGBO(199, 12, 12, 0.88),
+                  Color.fromRGBO(255, 67, 40, 0.88),
+                  Color.fromRGBO(255, 152, 100, 0.88)
+                ]),
+              ),
             ),
             SizedBox(
-              height: 80,
+              height: 40,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,8 +53,8 @@ class SecondScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ThirdScreen()));
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Login()));
                   },
                   child: Text('Next'),
                   style: ElevatedButton.styleFrom(
@@ -52,7 +63,7 @@ class SecondScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20))),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

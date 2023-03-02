@@ -33,14 +33,16 @@ class FirstScreen extends StatelessWidget {
                 //color: Color.fromARGB(255, 243, 83, 72),
                 ),
             child: SizedBox(
-              height: 50,
-              width: 50,
+              // height: 50,
+              //width: 50,
               child: Padding(
+                // padding:
+                //EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
                 padding: const EdgeInsets.all(70.0),
                 child: Container(
-                  height: 70,
-                  width: 70,
-                  padding: EdgeInsets.only(left: 70, right: 70),
+                  // height: 50,
+                  //width: 50,
+                  //padding: EdgeInsets.only(left: 70, right: 70),
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage('assets/images/Vector.png'),

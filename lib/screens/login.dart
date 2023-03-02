@@ -54,6 +54,7 @@ class Login extends StatelessWidget {
                           width: 250,
                           height: 50,
                           child: Material(
+                            borderRadius: BorderRadius.circular(20),
                             elevation: 10,
                             shadowColor: Colors.white,
                             child: TextFormField(
@@ -91,8 +92,8 @@ class Login extends StatelessWidget {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amber,
-                                shadowColor: Colors.amber,
+                                backgroundColor: Colors.red,
+                                //shadowColor: Colors.amber,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
                           ),
