@@ -16,13 +16,22 @@ class FirstScreen extends StatelessWidget {
           Container(
             height: 400,
             width: 500,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+                gradient: new LinearGradient(colors: [
+                  Color.fromRGBO(199, 12, 12, 0.88),
+                  Color.fromRGBO(255, 67, 40, 0.88),
+                  Color.fromRGBO(255, 152, 100, 0.88)
+                ]),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))
+
+                /* borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
-              ),
-              color: Color.fromARGB(255, 243, 83, 72),
-            ),
+              ), */
+                //color: Color.fromARGB(255, 243, 83, 72),
+                ),
             child: SizedBox(
               height: 50,
               width: 50,
@@ -40,26 +49,42 @@ class FirstScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 70,
+          ),
           const Text(
-            "Lets \nManage\n money with us",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            "Let's \n Manage\n  money with us",
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 30,
+                shadows: <Shadow>[
+                  Shadow(
+                      offset: Offset(3, 3), blurRadius: 1.0, color: Colors.grey)
+                ]),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SecondScreen()),
-                    //builder: (context) => const Bottom_NavBar()),
-                  );
-                },
-                child: const Text('Get started'),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(255, 240, 75, 64)),
-                )),
+            padding: const EdgeInsets.only(top: 70),
+            child: SizedBox(
+              height: 40,
+              width: 150,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SecondScreen()),
+                      //builder: (context) => const Bottom_NavBar()),
+                    );
+                  },
+                  child: const Text(
+                    'Get started',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                        Color.fromARGB(255, 240, 75, 64)),
+                  )),
+            ),
           )
         ],
       ),

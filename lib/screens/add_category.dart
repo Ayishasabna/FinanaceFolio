@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Add_Screen extends StatefulWidget {
-  const Add_Screen({super.key});
+class add_category extends StatefulWidget {
+  const add_category({super.key});
 
   @override
-  State<Add_Screen> createState() => _Add_ScreenState();
+  State<add_category> createState() => _add_categoryState();
 }
 
-class _Add_ScreenState extends State<Add_Screen> {
+class _add_categoryState extends State<add_category> {
   DateTime date = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
@@ -60,17 +60,9 @@ class _Add_ScreenState extends State<Add_Screen> {
           ),
           name(),
           const SizedBox(
-            height: 30,
+            height: 50,
           ),
           explain(),
-          const SizedBox(
-            height: 30,
-          ),
-          Amount(),
-          const SizedBox(
-            height: 30,
-          ),
-          finance(),
           const SizedBox(
             height: 30,
           ),
@@ -140,90 +132,6 @@ class _Add_ScreenState extends State<Add_Screen> {
         ));
   }
 
-  Padding finance() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-          width: 300,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              )),
-          child: DropdownButton<String>(
-            value: selecteditemi,
-            onChanged: ((value) {
-              setState(() {
-                selecteditemi = value!;
-              });
-            }),
-            items: _iteminex
-                .map((e) => DropdownMenuItem(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            child: Image.asset('assets/images/image/${e}.png'),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            e,
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            selectedItemBuilder: (context) {
-              _item.map((e) => null);
-              return [];
-            },
-            hint: const Text(
-              'Select',
-              style: TextStyle(color: Colors.grey),
-            ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-          )),
-    );
-  }
-
-  Padding Amount() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: SizedBox(
-        width: 300,
-        child: TextField(
-          keyboardType: TextInputType.number,
-          focusNode: amount,
-          controller: amount_c,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            labelText: 'Amount',
-            labelStyle: const TextStyle(fontSize: 17, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 2, color: Colors.black),
-            ),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(width: 2, color: Colors.grey)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(width: 2, color: Colors.green)),
-          ),
-        ),
-      ),
-    );
-  }
-
   Padding explain() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -256,54 +164,29 @@ class _Add_ScreenState extends State<Add_Screen> {
   Padding name() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-          width: 300,
-          decoration: BoxDecoration(
+      child: SizedBox(
+        width: 300,
+        child: TextField(
+          focusNode: ex,
+          controller: explain_C,
+          decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            labelText: 'Enter Category Name',
+            labelStyle: const TextStyle(fontSize: 17, color: Colors.grey),
+            border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              )),
-          child: DropdownButton<String>(
-            value: selecteditem,
-            items: _item
-                .map((e) => DropdownMenuItem(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            child: Image.asset('assets/images/image/${e}.png'),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            e,
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            selectedItemBuilder: (context) {
-              _item.map((e) => null);
-              return [];
-            },
-            hint: const Text(
-              'Name',
-              style: TextStyle(color: Colors.grey),
+              borderSide: const BorderSide(width: 2, color: Colors.black),
             ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-            onChanged: ((value) {
-              setState(() {
-                selecteditem = value!;
-              });
-            }),
-          )),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(width: 2, color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(width: 2, color: Colors.green)),
+          ),
+        ),
+      ),
     );
   }
 
@@ -352,7 +235,7 @@ class _Add_ScreenState extends State<Add_Screen> {
                       width: 80,
                     ),
                     const Text(
-                      'Add Transaction',
+                      'Add Category',
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,

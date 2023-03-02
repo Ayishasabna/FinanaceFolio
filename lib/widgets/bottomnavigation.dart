@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spendee/screens/add.dart';
+import 'package:spendee/screens/add_category.dart';
 import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings.dart';
