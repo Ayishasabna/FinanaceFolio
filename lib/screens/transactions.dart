@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/data/listdata.dart';
+import 'package:spendee/screens/search.dart';
 
 class Transactions extends StatefulWidget {
   const Transactions({super.key});
@@ -10,155 +12,108 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   @override
   Widget build(BuildContext context) {
-    builder:
-    (ctx, studentModel, Widget? child) {};
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Icon(
-              Icons.search,
-              size: 30,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          )
-        ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: new LinearGradient(colors: [
-              Color.fromRGBO(199, 12, 12, 0.88),
-              Color.fromRGBO(255, 67, 40, 0.88),
-              Color.fromRGBO(255, 152, 100, 0.88)
-            ]),
-          ),
-        ),
-        //backgroundColor: Colors.red,
-        title: Center(
-          child: Text('Transactions'),
-        ),
-        //automaticallyImplyLeading: false,
-      ),
-      body: ListView.builder(
-          itemBuilder: ((context, index) {
-            //final data = studentModel[index];
-            return Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 30,
-                  /* backgroundImage: FileImage(
-                      File(data.photo),
-                      ), */
-                ),
-                //title: Text(data.name),
-                trailing: Wrap(
-                  spacing: 12, // space between two icons
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: (() {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: ((context) {
-                              return Text('hello');
-                              /*  return EditStudent(
-                                    name: data.name,
-                                    age: data.age,
-                                    address: data.address,
-                                    number: data.phnNumber,
-                                    index: index,
-                                    image: data.photo,
-                                  ); */
-                            }),
-                          ),
-                        );
-                        // EditStudent();
-                      }),
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.blue,
-                      ),
-                      tooltip: 'Edit',
-                    ),
-
-                    IconButton(
-                      onPressed: (() {
-                        showDialog(
-                          context: context,
-                          builder: ((context) {
-                            return Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: AlertDialog(
-                                title: const Text(
-                                  'Alert!',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                content: const Text(
-                                  "Do you want to delete this student",
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: (() {
-                                      popoutfuction(context);
-                                      // deleteStudent(index);
-                                    }),
-                                    child: const Text('Yes'),
-                                  ),
-                                  TextButton(
-                                      onPressed: (() {
-                                        popoutfuction(context);
-                                      }),
-                                      child: const Text('No'))
-                                ],
-                              ),
-                            );
-                          }),
-                        );
-                      }),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      tooltip: 'Delete',
-                    ),
-                    // icon-2
-                  ],
-                ),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: SearchWidget(),
+                    );
+                  },
+                  icon: const Icon(Icons.search))
+            ],
+            /* actions: [
+              GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) {
-                        return Text('gdfg');
-                        /* return DisplayStudent(
-                              name: data.name,
-                              age: data.age,
-                              address: data.address,
-                              number: data.phnNumber,
-                              index: index,
-                              photo: data.photo,
-                            ); */
-                      }),
-                    ),
-                  );
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const Search()));
                 },
+                child: const Icon(
+                  Icons.search,
+                  size: 30,
+                  color: Colors.white,
+                ),
               ),
-            );
-          }),
-          /*  separatorBuilder: ((context, index) {
-            return const Divider();
-          }), */
-          //itemCount: studentModel.length);
-          itemCount: 6),
-    );
-  }
+              const SizedBox(
+                width: 20,
+              )
+            ], */
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Color.fromRGBO(247, 22, 22, 0.878),
+                  Color.fromRGBO(255, 67, 40, 0.88),
+                  Color.fromRGBO(255, 152, 100, 0.88),
+                ]),
+              ),
+            ),
 
-  popoutfuction(BuildContext context) {
-    return Navigator.of(context).pop();
+            title: const Center(
+              child: Text('Transactions'),
+            ),
+            //automaticallyImplyLeading: false,
+          ),
+          body: CustomScrollView(
+            slivers: [
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.asset(
+                            'assets/images/${geter()[index].image!}',
+                            height: 40),
+                      ),
+                      title: Text(
+                        geter()[index].name!,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 15, 14, 14)),
+                      ),
+                      subtitle: Text(
+                        geter()[index].time!,
+                        style: const TextStyle(
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 15, 14, 14)),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(geter()[index].fee!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: geter()[index].buy!
+                                      ? Colors.red
+                                      : Colors.green
+                                  //Color.fromARGB(255, 15, 14, 14)
+                                  )),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Icon(
+                            Icons.edit,
+                            color: Colors.amber,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Icon(
+                            Icons.delete_outline,
+                            color: Colors.red,
+                          ),
+                        ],
+                      ));
+                },
+                childCount: geter().length,
+              ))
+            ],
+          )),
+    );
   }
 }

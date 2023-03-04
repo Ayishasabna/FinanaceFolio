@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spendee/screens/settings_screens/about.dart';
 import 'package:spendee/screens/settings_screens/privacypolicy.dart';
 import 'package:spendee/screens/settings_screens/reset.dart';
 import 'package:spendee/screens/settings_screens/share.dart';
 import 'package:spendee/screens/settings_screens/termsandconditions.dart';
+import 'package:spendee/widgets/app_bar.dart';
 
 class settings extends StatelessWidget {
   const settings({super.key});
@@ -14,20 +13,7 @@ class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: new LinearGradient(colors: [
-                Color.fromRGBO(199, 12, 12, 0.88),
-                Color.fromRGBO(255, 67, 40, 0.88),
-                Color.fromRGBO(255, 152, 100, 0.88)
-              ]),
-            ),
-          ),
-          //backgroundColor: Colors.amber,
-          title: Text('Settings'),
-          //automaticallyImplyLeading: false,
-        ),
+        appBar: appbar('Settings', false),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, top: 20),
           child: Column(
@@ -36,18 +22,18 @@ class settings extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => About()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const About()));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.info_outline,
                       size: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     'About',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -56,25 +42,25 @@ class settings extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Reset()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Reset()));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.restore,
                       size: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     'Reset',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -83,25 +69,25 @@ class settings extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => share()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const share()));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.share,
                       size: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     'Share',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -110,25 +96,25 @@ class settings extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Terms()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const Terms()));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.document_scanner_outlined,
                       size: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     'Terms&Conditions',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
@@ -137,7 +123,7 @@ class settings extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -145,17 +131,17 @@ class settings extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PrivacyPolicy()));
+                          builder: (context) => const PrivacyPolicy()));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.privacy_tip_outlined,
                       size: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     'Privacy Policy',
                     style: TextStyle(
                         fontWeight: FontWeight.w400,

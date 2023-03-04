@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:spendee/data/listdata.dart';
-
 import 'package:spendee/screens/transactions.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -27,7 +25,7 @@ class _HomeState extends State<Home> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Recent Transactions',
+                  const Text('Recent Transactions',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -37,7 +35,7 @@ class _HomeState extends State<Home> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Transactions()));
                     },
-                    child: Text('See all',
+                    child: const Text('See all',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 17,
@@ -58,14 +56,14 @@ class _HomeState extends State<Home> {
                 ),
                 title: Text(
                   geter()[index].name!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
                       color: Color.fromARGB(255, 15, 14, 14)),
                 ),
                 subtitle: Text(
                   geter()[index].time!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 17, color: Color.fromARGB(255, 15, 14, 14)),
                 ),
                 trailing: Text(geter()[index].fee!,
@@ -92,21 +90,12 @@ class _HomeState extends State<Home> {
             Container(
               width: double.infinity,
               height: 240,
-              decoration: BoxDecoration(
-                  gradient: new LinearGradient(colors: [
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [
                     Color.fromRGBO(199, 12, 12, 0.88),
                     Color.fromRGBO(255, 67, 40, 0.88),
                     Color.fromRGBO(255, 152, 100, 0.88)
                   ]),
-
-                  //Color.fromRGBO(199, 12, 12, 0.88),
-                  // Color.fromRGBO(255, 67, 40, 0.88),
-
-                  //rgba(199, 12, 12, 0.88)
-                  //rgba(255, 67, 40, 0.88)
-                  //rgba(255, 152, 100, 0.88)
-
-                  //color: Colors.yellowAccent,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20))),
@@ -117,19 +106,6 @@ class _HomeState extends State<Home> {
                       left: 340,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(7),
-                        /* child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color.fromRGBO(250, 250, 250, 0.1),
-                          /*  child: GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.search,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                          ), */
-                        ), */
                       )),
                   Padding(
                     padding: const EdgeInsets.only(top: 35, left: 10),
@@ -195,7 +171,7 @@ class _HomeState extends State<Home> {
                           fontSize: 19,
                           color: Color.fromARGB(255, 15, 14, 14))),
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
@@ -242,7 +218,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(

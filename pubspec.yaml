@@ -76,6 +76,9 @@ flutter:
       - assets/images/loginpic.png
       - assets/images/secondpic.png
       - assets/images/thirdpic.png
+      - assets/images/allocation.png
+      - assets/images/iconmoneymanager.png
+      - assets/images/smartphone.png
       
       
 

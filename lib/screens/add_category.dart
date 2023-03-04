@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/widgets/button.dart';
 
 class add_category extends StatefulWidget {
   const add_category({super.key});
@@ -20,7 +21,7 @@ class _add_categoryState extends State<add_category> {
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
   final List<String> _iteminex = ['Income', 'Expence'];
   @override
-  void initstate() {
+  /*  void initstate() {
     super.initState();
     ex.addListener(() {
       setState(() {});
@@ -28,7 +29,7 @@ class _add_categoryState extends State<add_category> {
     amount.addListener(() {
       setState(() {});
     });
-  }
+  } */
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,27 +74,7 @@ class _add_categoryState extends State<add_category> {
           const Spacer(),
           GestureDetector(
             onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(199, 12, 12, 0.88),
-                  Color.fromRGBO(255, 67, 40, 0.88),
-                  Color.fromRGBO(255, 152, 100, 0.88),
-                ]),
-              ),
-              width: 120,
-              height: 50,
-              child: const Text(
-                'save',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            child: button(120, 50, 'Save', 18),
           ),
           const SizedBox(
             height: 20,
@@ -212,8 +193,6 @@ class _add_categoryState extends State<add_category> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
                         onTap: () {
@@ -223,14 +202,6 @@ class _add_categoryState extends State<add_category> {
                           Icons.arrow_back,
                           color: Colors.white,
                         )),
-                    /* IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                        ),
-                         */
                     const SizedBox(
                       width: 80,
                     ),
@@ -241,10 +212,6 @@ class _add_categoryState extends State<add_category> {
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
-                    /* Icon(
-                      Icons.attach_file_outlined,
-                      color: Colors.black,
-                    ) */
                   ],
                 ),
               )

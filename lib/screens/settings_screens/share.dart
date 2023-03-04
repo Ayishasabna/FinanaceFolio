@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:spendee/widgets/app_bar.dart';
 
 class share extends StatelessWidget {
   const share({super.key});
@@ -8,11 +7,7 @@ class share extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: Text('Share'),
-        //automaticallyImplyLeading: false,
-      ),
+      appBar: appbar('Share', true, Icons.share),
     );
   }
 }

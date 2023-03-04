@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/screens/login.dart';
 import 'package:spendee/screens/third_screen.dart';
+import 'package:spendee/widgets/button.dart';
 
 class SecondScreen extends StatelessWidget {
   const SecondScreen({super.key});
@@ -12,44 +13,46 @@ class SecondScreen extends StatelessWidget {
         body: Column(
           children: [
             Image.asset('assets/images/secondpic.png'),
-            SizedBox(
-              height: 20,
+            const SizedBox(
+              height: 50,
             ),
-            Text(
+            const Text(
               '"Never Spend your\nmoney before\n you have it"',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                //Padding(padding: EdgeInsets.only(left: 20)),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Login()));
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Login()),
+                      );
                     },
-                    child: Text('skip'),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)))),
-                SizedBox(
+                    child: button(70, 30, 'Skip', 18),
+                  ),
+                ),
+                const SizedBox(
                   width: 40,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ThirdScreen()));
-                  },
-                  child: Text('Next'),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20))),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ThirdScreen()),
+                      );
+                    },
+                    child: button(70, 30, 'Next', 18),
+                  ),
                 ),
               ],
             )

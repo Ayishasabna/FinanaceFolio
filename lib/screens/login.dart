@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
+import 'package:spendee/widgets/button.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -12,97 +11,58 @@ class Login extends StatelessWidget {
       child: Scaffold(
         body: Wrap(
           children: [
-            Container(
-              child: Column(
-                children: [
-                  Stack(
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Image.asset('assets/images/smartphone.png'),
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Form(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 50, top: 50),
-                        height: 400,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            gradient: new LinearGradient(colors: [
-                              Color.fromRGBO(199, 12, 12, 0.88),
-                              Color.fromRGBO(255, 67, 40, 0.88),
-                              Color.fromRGBO(255, 152, 100, 0.88)
-                            ]),
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
+                      SizedBox(
+                        width: 250,
+                        height: 50,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(20),
+                          elevation: 10,
+                          shadowColor: Colors.white,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                isDense: true,
+                                //contentPadding: EdgeInsets.zero,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                hintText: 'Username'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(50.0),
-                        child: Column(
-                          children: [
-                            Image.asset('assets/images/loginpic.png'),
-                          ],
+                        padding: const EdgeInsets.only(top: 20),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Bottom_NavBar()),
+                            );
+                          },
+                          child: button(120, 50, 'Login', 18),
                         ),
-                      )
+                      ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(40.0),
-                    child: Form(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          height: 50,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20),
-                            elevation: 10,
-                            shadowColor: Colors.white,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  isDense: true,
-                                  //contentPadding: EdgeInsets.zero,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  hintText: 'Username'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        /* Align(
-                          alignment: Alignment.bottomCenter,
-                        ), */
-                        SizedBox(
-                          //height: 100,
-                          width: 100,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Bottom_NavBar()),
-                                //builder: (context) => const Bottom_NavBar()),
-                              );
-                            },
-                            child: Text(
-                              'Login',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                //shadowColor: Colors.amber,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                          ),
-                        )
-                      ],
-                    )),
-                  )
-                ],
-              ),
+                  )),
+                )
+              ],
             ),
           ],
         ),

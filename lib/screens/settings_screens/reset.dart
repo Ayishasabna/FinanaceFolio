@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:spendee/widgets/app_bar.dart';
 
 class Reset extends StatelessWidget {
   const Reset({super.key});
@@ -8,18 +9,7 @@ class Reset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Text('Reset'),
-        //automaticallyImplyLeading: false,
-        actions: const [
-          //Padding(padding: EdgeInsets.only(right: 20)),
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.restore),
-          ),
-        ],
-      ),
+      appBar: appbar('Reset', true, Icons.restore),
     );
   }
 }

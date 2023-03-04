@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/widgets/button.dart';
 
 class Add_Screen extends StatefulWidget {
   const Add_Screen({super.key});
@@ -81,27 +82,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           const Spacer(),
           GestureDetector(
             onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(199, 12, 12, 0.88),
-                  Color.fromRGBO(255, 67, 40, 0.88),
-                  Color.fromRGBO(255, 152, 100, 0.88),
-                ]),
-              ),
-              width: 120,
-              height: 50,
-              child: const Text(
-                'save',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            child: button(120, 50, 'Save', 18),
           ),
           const SizedBox(
             height: 20,
@@ -329,8 +310,6 @@ class _Add_ScreenState extends State<Add_Screen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
                         onTap: () {
@@ -340,14 +319,6 @@ class _Add_ScreenState extends State<Add_Screen> {
                           Icons.arrow_back,
                           color: Colors.white,
                         )),
-                    /* IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                        ),
-                         */
                     const SizedBox(
                       width: 80,
                     ),
@@ -358,10 +329,6 @@ class _Add_ScreenState extends State<Add_Screen> {
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
-                    /* Icon(
-                      Icons.attach_file_outlined,
-                      color: Colors.black,
-                    ) */
                   ],
                 ),
               )

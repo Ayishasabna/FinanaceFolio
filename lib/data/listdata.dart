@@ -3,7 +3,7 @@ import 'package:spendee/data/1.dart';
 
 List<money> geter() {
   money salary = money();
-  salary.name = 'salary';
+  salary.name = 'Salary';
   salary.time = 'today';
   salary.fee = '+300';
   salary.buy = false;

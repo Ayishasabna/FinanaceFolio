@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:spendee/widgets/app_bar.dart';
 
 class Terms extends StatelessWidget {
   const Terms({super.key});
@@ -9,12 +8,27 @@ class Terms extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amber,
-          title: Text('Terms & Conditins'),
-          //automaticallyImplyLeading: false,
-        ),
-      ),
+          appBar: appbar(
+              'Terms & Conditins', true, Icons.document_scanner_outlined),
+          body: Column(
+            children: [
+              Title(
+                  color: Colors.black,
+                  child: Text(
+                    'Money Manager',
+                    style: TextStyle(fontSize: 17),
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                  'These terms and conditions outline the rules and regulations for the use of money manager.By using this app we assume that you accept these terms and conditins.')
+            ],
+          )
+
+          /* Text(
+            'Welcome to Money Manager\nThese terms and conditions outline the rules and regulations for the use of money manager.By using this app we assume that you accept these terms and conditins'), */
+          ),
     );
   }
 }

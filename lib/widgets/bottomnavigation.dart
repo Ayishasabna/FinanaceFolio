@@ -1,9 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spendee/screens/add.dart';
-import 'package:spendee/screens/add_category.dart';
 import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/settings.dart';
@@ -25,28 +21,15 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => Add_Screen()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const Add_Screen()));
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.red,
-        /*  child: Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: new LinearGradient(colors: [
-              Color.fromRGBO(199, 12, 12, 0.88),
-              Color.fromRGBO(255, 67, 40, 0.88),
-              Color.fromRGBO(255, 152, 100, 0.88)
-            ]),
-          ),
-          child: Icon(Icons.add),
-        ), */
+        child: const Icon(Icons.add),
+        backgroundColor: const Color.fromRGBO(255, 67, 40, 0.88),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
           child: Row(
@@ -60,9 +43,7 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   },
                   child: Icon(Icons.home,
                       size: 30,
-                      color: index_color == 0
-                          ? Color.fromARGB(255, 238, 233, 94)
-                          : Colors.grey)),
+                      color: index_color == 0 ? Colors.amber : Colors.grey)),
               GestureDetector(
                   onTap: () {
                     setState(() {
@@ -72,11 +53,9 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   child: Icon(
                     Icons.category,
                     size: 30,
-                    color: index_color == 1
-                        ? Color.fromARGB(255, 238, 233, 94)
-                        : Colors.grey,
+                    color: index_color == 1 ? Colors.amber : Colors.grey,
                   )),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               GestureDetector(
                   onTap: () {
                     setState(() {
@@ -86,7 +65,7 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   child: Icon(
                     Icons.insert_chart,
                     size: 30,
-                    color: index_color == 2 ? Color(0xff368983) : Colors.grey,
+                    color: index_color == 2 ? Colors.amber : Colors.grey,
                   )),
               GestureDetector(
                   onTap: () {
@@ -97,7 +76,7 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
                   child: Icon(
                     Icons.settings,
                     size: 30,
-                    color: index_color == 3 ? Color(0xff368983) : Colors.grey,
+                    color: index_color == 3 ? Colors.amber : Colors.grey,
                   )),
             ],
           ),

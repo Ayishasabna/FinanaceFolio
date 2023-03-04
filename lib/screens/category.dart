@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/data/listdata.dart';
 import 'package:spendee/screens/add_category.dart';
+import 'package:spendee/screens/search.dart';
+import 'package:spendee/widgets/button.dart';
 
 class category extends StatelessWidget {
   const category({super.key});
@@ -10,22 +13,20 @@ class category extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            actions: [
-              GestureDetector(
-                onTap: () {},
-                child: Icon(
-                  Icons.search,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              )
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: SearchWidget(),
+                    );
+                  },
+                  icon: const Icon(Icons.search))
             ],
+
             flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: new LinearGradient(colors: [
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
                   Color.fromRGBO(199, 12, 12, 0.88),
                   Color.fromRGBO(255, 67, 40, 0.88),
                   Color.fromRGBO(255, 152, 100, 0.88)
@@ -33,102 +34,65 @@ class category extends StatelessWidget {
               ),
             ),
             backgroundColor: Colors.red,
-            title: Center(
+            title: const Center(
               child: Text('Category'),
             ),
             //automaticallyImplyLeading: false,
           ),
-          /*  body: ListView.builder(
-              itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('wages'),
-              leading: Icon(Icons.abc),
-              trailing: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.edit,
-                    color: Colors.blue,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ],
-              ),
-            );
-              },
-              itemCount: 4,
-            ) */
-
           body: SafeArea(
             child: Column(
               children: [
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: ListView.builder(
-                      itemBuilder: (ctx, index) {
-                        return const ListTile(
-                          //subtitle: Text('Message$index'),
-                          //leading: avatar(index),
-                          leading: Icon(Icons.abc),
-                          title: Text('wages'),
-                          trailing: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-
-                          /*  trailing: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(
-                                  Icons.edit,
-                                  color: Colors.blue,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ],
-                            ) */
-                        );
-                      },
-                      itemCount: 6,
-                    ),
-                  ),
+                      padding: const EdgeInsets.all(20.0),
+                      child: CustomScrollView(
+                        slivers: [
+                          SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ListTile(
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.asset(
+                                        'assets/images/${geter()[index].image!}',
+                                        height: 60),
+                                  ),
+                                  minLeadingWidth: 50,
+                                  dense: true,
+                                  title: Text(
+                                    geter()[index].name!,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                        color: Color.fromARGB(255, 15, 14, 14)),
+                                  ),
+                                  /* subtitle: Text(
+                                    geter()[index].time!,
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        color: Color.fromARGB(255, 15, 14, 14)),
+                                  ), */
+                                  trailing: const Icon(
+                                    Icons.delete_outlined,
+                                    color: Colors.red,
+                                  ));
+                            },
+                            childCount: geter().length,
+                          ))
+                        ],
+                      )),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const add_category()),
-                        //builder: (context) => const Bottom_NavBar()),
-                      );
-                    },
-                    child: Text(
-                      'Add',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    /*  style: ElevatedButton.styleFrom(
-                  
-                      backgroundColor: Colors.amber,
-                      shadowColor: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20))), */
-
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          Color.fromARGB(255, 240, 75, 64)),
-                    )),
-                SizedBox(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const add_category()),
+                    );
+                  },
+                  child: button(120, 50, 'Add', 18),
+                ),
+                const SizedBox(
                   height: 100,
                 )
               ],
