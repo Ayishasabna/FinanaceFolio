@@ -12,11 +12,11 @@ class _add_categoryState extends State<add_category> {
   DateTime date = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
-  final TextEditingController explain_C = TextEditingController();
+  /* final TextEditingController explain_C = TextEditingController();
   FocusNode ex = FocusNode();
 
   final TextEditingController amount_c = TextEditingController();
-  FocusNode amount = FocusNode();
+  FocusNode amount = FocusNode(); */
 
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
   final List<String> _iteminex = ['Income', 'Expence'];
@@ -63,9 +63,70 @@ class _add_categoryState extends State<add_category> {
           const SizedBox(
             height: 50,
           ),
-          explain(),
+          //explain(),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Container(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+                width: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.grey,
+                    )),
+                child: DropdownButton<String>(
+                  value: selecteditem,
+                  items: _item
+                      .map((e) => DropdownMenuItem(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 40,
+                                  child:
+                                      Image.asset('assets/images/image/$e.png'),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                            value: e,
+                          ))
+                      .toList(),
+                  selectedItemBuilder: (BuildContext context) => _item
+                      .map((e) => Row(
+                            children: [
+                              Container(
+                                width: 40,
+                                child:
+                                    Image.asset('assets/images/image/$e.png'),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ))
+                      //return [];
+                      .toList(),
+                  hint: const Text(
+                    'Image',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  underline: Container(),
+                  onChanged: ((value) {
+                    setState(() {
+                      selecteditem = value!;
+                    });
+                  }),
+                )),
+          ),
+
           const SizedBox(
-            height: 30,
+            height: 50,
           ),
           date_time(),
           const SizedBox(
@@ -119,8 +180,8 @@ class _add_categoryState extends State<add_category> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          focusNode: ex,
-          controller: explain_C,
+          // focusNode: ex,
+          //controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -148,8 +209,8 @@ class _add_categoryState extends State<add_category> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          focusNode: ex,
-          controller: explain_C,
+          // focusNode: ex,
+          //controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

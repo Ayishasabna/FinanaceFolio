@@ -46,7 +46,7 @@ class ThirdScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const Login()),
                       );
                     },
-                    child: button(70, 30, 'Next', 18),
+                    child: button(70, 30, 'Skip', 18),
                   ),
                 ),
                 const SizedBox(
@@ -61,7 +61,7 @@ class ThirdScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const Login()),
                       );
                     },
-                    child: button(70, 30, 'Skip', 18),
+                    child: button(70, 30, 'Next', 18),
                   ),
                 ),
               ],

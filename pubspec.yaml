@@ -79,6 +79,8 @@ flutter:
       - assets/images/allocation.png
       - assets/images/iconmoneymanager.png
       - assets/images/smartphone.png
+      - assets/images/image/expense.png
+      - assets/images/image/income.png
       
       
 

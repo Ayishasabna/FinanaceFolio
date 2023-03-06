@@ -12,15 +12,15 @@ class _Add_ScreenState extends State<Add_Screen> {
   DateTime date = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
-  final TextEditingController explain_C = TextEditingController();
+  /* final TextEditingController explain_C = TextEditingController();
   FocusNode ex = FocusNode();
 
   final TextEditingController amount_c = TextEditingController();
   FocusNode amount = FocusNode();
-
+ */
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
-  final List<String> _iteminex = ['Income', 'Expence'];
-  @override
+  final List<String> _iteminex = ['income', 'expense'];
+  /* @override
   void initstate() {
     super.initState();
     ex.addListener(() {
@@ -29,7 +29,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     amount.addListener(() {
       setState(() {});
     });
-  }
+  } */
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +146,7 @@ class _Add_ScreenState extends State<Add_Screen> {
                         children: [
                           Container(
                             width: 40,
-                            child: Image.asset('assets/images/image/${e}.png'),
+                            child: Image.asset('assets/images/image/$e.png'),
                           ),
                           const SizedBox(
                             width: 10,
@@ -160,10 +160,24 @@ class _Add_ScreenState extends State<Add_Screen> {
                       value: e,
                     ))
                 .toList(),
-            selectedItemBuilder: (context) {
-              _item.map((e) => null);
-              return [];
-            },
+            selectedItemBuilder: (BuildContext context) => _iteminex
+                .map((e) => Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          child: Image.asset('assets/images/image/$e.png'),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          e,
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ))
+                //return [];
+                .toList(),
             hint: const Text(
               'Select',
               style: TextStyle(color: Colors.grey),
@@ -182,8 +196,8 @@ class _Add_ScreenState extends State<Add_Screen> {
         width: 300,
         child: TextField(
           keyboardType: TextInputType.number,
-          focusNode: amount,
-          controller: amount_c,
+          // focusNode: amount,
+          //controller: amount_c,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -211,8 +225,8 @@ class _Add_ScreenState extends State<Add_Screen> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          focusNode: ex,
-          controller: explain_C,
+          // focusNode: ex,
+          // controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -254,7 +268,7 @@ class _Add_ScreenState extends State<Add_Screen> {
                         children: [
                           Container(
                             width: 40,
-                            child: Image.asset('assets/images/image/${e}.png'),
+                            child: Image.asset('assets/images/image/$e.png'),
                           ),
                           const SizedBox(
                             width: 10,
@@ -268,10 +282,24 @@ class _Add_ScreenState extends State<Add_Screen> {
                       value: e,
                     ))
                 .toList(),
-            selectedItemBuilder: (context) {
-              _item.map((e) => null);
-              return [];
-            },
+            selectedItemBuilder: (BuildContext context) => _item
+                .map((e) => Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          child: Image.asset('assets/images/image/$e.png'),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          e,
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ))
+                //return [];
+                .toList(),
             hint: const Text(
               'Name',
               style: TextStyle(color: Colors.grey),

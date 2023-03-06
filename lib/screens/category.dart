@@ -66,12 +66,6 @@ class category extends StatelessWidget {
                                         fontSize: 20,
                                         color: Color.fromARGB(255, 15, 14, 14)),
                                   ),
-                                  /* subtitle: Text(
-                                    geter()[index].time!,
-                                    style: const TextStyle(
-                                        fontSize: 17,
-                                        color: Color.fromARGB(255, 15, 14, 14)),
-                                  ), */
                                   trailing: const Icon(
                                     Icons.delete_outlined,
                                     color: Colors.red,

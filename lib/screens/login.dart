@@ -54,8 +54,9 @@ class Login extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text('Enter the Monthly Limit'),
-                                    content: TextField(
+                                    title:
+                                        const Text('Enter the Monthly Limit'),
+                                    content: const TextField(
                                       style: TextStyle(fontSize: 20),
                                       keyboardType: TextInputType.number,
                                     ),
@@ -67,24 +68,19 @@ class Login extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Bottom_NavBar()),
+                                                      const Bottom_NavBar()),
                                             );
                                           },
-                                          child: Text('Save'),
-                                          style: ButtonStyle(
+                                          style: const ButtonStyle(
                                               backgroundColor:
                                                   MaterialStatePropertyAll(
                                                       Colors.redAccent)),
+                                          child: const Text('Save'),
                                         ),
                                       )
                                     ],
                                   );
                                 });
-                            /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Bottom_NavBar()),
-                            ); */
                           },
                           child: button(120, 50, 'Login', 18),
                         ),
