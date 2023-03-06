@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/about.dart';
 import 'package:spendee/screens/settings_screens/privacypolicy.dart';
 import 'package:spendee/screens/settings_screens/reset.dart';
 import 'package:spendee/screens/settings_screens/share.dart';
 import 'package:spendee/screens/settings_screens/termsandconditions.dart';
 import 'package:spendee/widgets/app_bar.dart';
+import 'package:spendee/widgets/bottomnavigation.dart';
 
 class settings extends StatelessWidget {
   const settings({super.key});
@@ -18,6 +20,64 @@ class settings extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, top: 20),
           child: Column(
             children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Enter the Limit'),
+                              content: TextField(
+                                style: TextStyle(fontSize: 20),
+                                keyboardType: TextInputType.number,
+                              ),
+                              actions: [
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Bottom_NavBar()),
+                                      );
+                                    },
+                                    child: Text('Save'),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.redAccent)),
+                                  ),
+                                )
+                              ],
+                            );
+                          });
+
+                      /* Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const About())); */
+                    },
+                    child: const Icon(
+                      Icons.warning,
+                      size: 30,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  const Text(
+                    'Change Limit',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 19,
+                        color: Color.fromARGB(255, 11, 11, 11)),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   GestureDetector(

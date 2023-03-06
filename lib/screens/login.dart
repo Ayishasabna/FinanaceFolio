@@ -50,11 +50,41 @@ class Login extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 20),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Enter the Monthly Limit'),
+                                    content: TextField(
+                                      style: TextStyle(fontSize: 20),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                    actions: [
+                                      Center(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Bottom_NavBar()),
+                                            );
+                                          },
+                                          child: Text('Save'),
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                      Colors.redAccent)),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                });
+                            /* Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Bottom_NavBar()),
-                            );
+                            ); */
                           },
                           child: button(120, 50, 'Login', 18),
                         ),

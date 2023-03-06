@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/data/top.dart';
+import 'package:spendee/widgets/app_bar.dart';
 
 import 'package:spendee/widgets/chart.dart';
 
@@ -17,19 +18,20 @@ class _StatiticsState extends State<Statitics> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: appbar('Statitics', true),
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  const SizedBox(
+                  /* const SizedBox(
                     height: 20,
-                  ),
-                  const Text('Statitics',
+                  ), */
+                  /* const Text('Statitics',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
-                          color: Color.fromARGB(255, 15, 14, 14))),
+                          color: Color.fromARGB(255, 15, 14, 14))), */
                   SizedBox(
                     height: 20,
                   ),
@@ -51,7 +53,7 @@ class _StatiticsState extends State<Statitics> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: index_color == index
-                                    ? Color.fromARGB(255, 15, 190, 146)
+                                    ? Colors.amber
                                     : Colors.white,
                               ),
                               alignment: Alignment.center,
