@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spendee/data/listdata.dart';
+import 'package:spendee/data/utility.dart';
+import 'package:spendee/models/transactions/add_data.dart';
 import 'package:spendee/screens/transactions.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:sizer/sizer.dart';
+
+var history;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,75 +17,113 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final box = Hive.box<Add_Data>('data');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(height: 350, child: _head()),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Recent Transactions',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                          color: Color.fromARGB(255, 15, 14, 14))),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Transactions()));
+          child: ValueListenableBuilder(
+        valueListenable: box.listenable(),
+        builder: (context, value, child) {
+          return ValueListenableBuilder(
+            valueListenable: box.listenable(),
+            builder: (context, value, child) {
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SizedBox(height: 350, child: _head()),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Recent Transactions',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 15, 14, 14))),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Transactions()));
+                            },
+                            child: const Text('See all',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Color.fromARGB(255, 15, 14, 14))),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      history = box.values.toList()[index];
+                      return getList(history, index);
                     },
-                    child: const Text('See all',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                            color: Color.fromARGB(255, 15, 14, 14))),
-                  )
+                    //childCount: geter().length,
+                    childCount: box.length,
+                  ))
                 ],
-              ),
-            ),
-          ),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset('assets/images/${geter()[index].image!}',
-                      height: 40),
-                ),
-                title: Text(
-                  geter()[index].name!,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      color: Color.fromARGB(255, 15, 14, 14)),
-                ),
-                subtitle: Text(
-                  geter()[index].time!,
-                  style: const TextStyle(
-                      fontSize: 17, color: Color.fromARGB(255, 15, 14, 14)),
-                ),
-                trailing: Text(geter()[index].fee!,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 17,
-                        color: geter()[index].buy! ? Colors.red : Colors.green
-                        //Color.fromARGB(255, 15, 14, 14)
-                        )),
               );
             },
-            childCount: geter().length,
-          ))
-        ],
+          );
+        },
       )),
+    );
+  }
+
+  Widget getList(Add_Data history, int index) {
+    return Dismissible(
+        key: UniqueKey(),
+        onDismissed: (Direction) {
+          history.delete();
+        },
+        child: get(index, history));
+  }
+
+  ListTile get(int index, Add_Data history) {
+    return ListTile(
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child:
+            Image.asset('assets/images/image/${history.name}.png', height: 40),
+      ),
+      title: Text(
+        //geter()[index].name!,
+        history.name,
+
+        style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 17,
+            color: Color.fromARGB(255, 15, 14, 14)),
+      ),
+      subtitle: Text(
+        //geter()[index].time!,
+        //history.explain,
+        //
+        // '${day[history.datetime.weekday-1]} ${history.datetime.year}',
+        '${[
+          history.datetime.weekday - 1
+        ]} ${history.datetime.year}-${history.datetime.day}-${history.datetime.month}',
+        //'Date : ${date.year}/${date.month}/${date.day}',
+        style: const TextStyle(
+            fontSize: 17, color: Color.fromARGB(255, 15, 14, 14)),
+      ),
+      trailing: Text(history.amount,
+          //geter()[index].fee!,
+
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 17,
+              //color: geter()[index].buy! ? Colors.red : Colors.green
+              color: history.IN == 'income' ? Colors.green : Colors.red
+              //Color.fromARGB(255, 15, 14, 14)
+              )),
     );
   }
 
@@ -163,9 +208,9 @@ class _HomeState extends State<Home> {
                           color: Color.fromARGB(255, 15, 14, 14))),
                 ),
                 const SizedBox(height: 7),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 15),
-                  child: Text('Rs.2000',
+                  child: Text('Rs. ${total()}',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,
@@ -223,13 +268,13 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('Rs.300',
+                    children: [
+                      Text('Rs.${income()}',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 19,
                               color: Colors.green)),
-                      Text('Rs.300',
+                      Text('Rs.${expense()}',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 19,

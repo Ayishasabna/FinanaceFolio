@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+import '../main.dart';
 
+class Login extends StatelessWidget {
+  Login({super.key});
+
+  final _usernameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,70 +29,88 @@ class Login extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: Form(
+                      key: _formKey,
                       child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 250,
-                        height: 50,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(20),
-                          elevation: 10,
-                          shadowColor: Colors.white,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                isDense: true,
-                                //contentPadding: EdgeInsets.zero,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                hintText: 'Username'),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 250,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _usernameController,
+                              decoration: InputDecoration(
+                                  isDense: true,
+
+                                  //contentPadding: EdgeInsets.zero,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  hintText: 'Username'),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Required Name';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title:
-                                        const Text('Enter the Monthly Limit'),
-                                    content: const TextField(
-                                      style: TextStyle(fontSize: 20),
-                                      keyboardType: TextInputType.number,
-                                    ),
-                                    actions: [
-                                      Center(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Bottom_NavBar()),
-                                            );
-                                          },
-                                          style: const ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                      Colors.redAccent)),
-                                          child: const Text('Save'),
-                                        ),
-                                      )
-                                    ],
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  //checkLogin(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Bottom_NavBar()),
                                   );
-                                });
-                          },
-                          child: button(120, 50, 'Login', 18),
-                        ),
-                      ),
-                    ],
-                  )),
+                                } else {
+                                  print('data empty');
+                                }
+
+                                /* showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                            'Enter Monthly Expense Limit'),
+                                        content: const TextField(
+                                          style: TextStyle(fontSize: 20),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                        actions: [
+                                          Center(
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Bottom_NavBar()),
+                                                );
+                                              },
+                                              style: const ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          Colors.redAccent)),
+                                              child: const Text('Save'),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    }); */
+                              },
+                              child: button(120, 50, 'Login', 18),
+                            ),
+                          ),
+                        ],
+                      )),
                 )
               ],
             ),
@@ -94,5 +118,34 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void checkLogin(BuildContext ctx) async {
+    final username = _usernameController.text;
+
+    if (username == 'ayisha') {
+      // print('username and password match');
+      //go to home
+      final sharedPref = await SharedPreferences.getInstance();
+      await sharedPref.setBool(SAVE_KEY_NAME, true);
+
+      Navigator.pushReplacement(
+          ctx, MaterialPageRoute(builder: (ctx1) => Home()));
+    } else {
+      //print('username and password does not match');
+
+      final errorMessage = 'Username Password does not match';
+
+      //snackbar
+
+      /*  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(10),
+        content: Text(errorMessage),
+        duration: Duration(seconds: 10),
+      )
+      ); */
+    }
   }
 }

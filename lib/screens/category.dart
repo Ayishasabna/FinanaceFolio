@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/data/listdata.dart';
+import 'package:spendee/db/category/category_db.dart';
 import 'package:spendee/screens/add_category.dart';
 import 'package:spendee/screens/search.dart';
 import 'package:spendee/widgets/button.dart';
 
-class category extends StatelessWidget {
+class category extends StatefulWidget {
   const category({super.key});
+
+  @override
+  State<category> createState() => _categoryState();
+}
+
+class _categoryState extends State<category>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabcontroller;
+  @override
+  /* void initstate() {
+    _tabcontroller = TabController(length: 2, vsync: this);
+    CategoryDB().getcategories().then((value) {
+      print('Categories get');
+      print(value);
+    });
+  } */
 
   @override
   Widget build(BuildContext context) {

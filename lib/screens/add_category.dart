@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spendee/db/category/category_db.dart';
+import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/widgets/button.dart';
 
 class add_category extends StatefulWidget {
@@ -12,25 +14,10 @@ class _add_categoryState extends State<add_category> {
   DateTime date = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
-  /* final TextEditingController explain_C = TextEditingController();
-  FocusNode ex = FocusNode();
-
-  final TextEditingController amount_c = TextEditingController();
-  FocusNode amount = FocusNode(); */
 
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
-  final List<String> _iteminex = ['Income', 'Expence'];
-  @override
-  /*  void initstate() {
-    super.initState();
-    ex.addListener(() {
-      setState(() {});
-    });
-    amount.addListener(() {
-      setState(() {});
-    });
-  } */
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -63,68 +50,7 @@ class _add_categoryState extends State<add_category> {
           const SizedBox(
             height: 50,
           ),
-          //explain(),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Container(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-                width: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      width: 2,
-                      color: Colors.grey,
-                    )),
-                child: DropdownButton<String>(
-                  value: selecteditem,
-                  items: _item
-                      .map((e) => DropdownMenuItem(
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 40,
-                                  child:
-                                      Image.asset('assets/images/image/$e.png'),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            ),
-                            value: e,
-                          ))
-                      .toList(),
-                  selectedItemBuilder: (BuildContext context) => _item
-                      .map((e) => Row(
-                            children: [
-                              Container(
-                                width: 40,
-                                child:
-                                    Image.asset('assets/images/image/$e.png'),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ))
-                      //return [];
-                      .toList(),
-                  hint: const Text(
-                    'Image',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  dropdownColor: Colors.white,
-                  isExpanded: true,
-                  underline: Container(),
-                  onChanged: ((value) {
-                    setState(() {
-                      selecteditem = value!;
-                    });
-                  }),
-                )),
-          ),
-
+          image(),
           const SizedBox(
             height: 50,
           ),
@@ -134,7 +60,13 @@ class _add_categoryState extends State<add_category> {
           ),
           const Spacer(),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              final _sample = CategoryModel(
+                  id: DateTime.now().microsecondsSinceEpoch.toString(),
+                  name: 'hh',
+                  type: CategoryType.expense);
+              //CategoryDB().insertCategory(_sample).then((value) {});
+            },
             child: button(120, 50, 'Save', 18),
           ),
           const SizedBox(
@@ -142,6 +74,66 @@ class _add_categoryState extends State<add_category> {
           ),
         ],
       ),
+    );
+  }
+
+  Padding image() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+          width: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                width: 2,
+                color: Colors.grey,
+              )),
+          child: DropdownButton<String>(
+            value: selecteditem,
+            items: _item
+                .map((e) => DropdownMenuItem(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            child: Image.asset('assets/images/image/$e.png'),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                      value: e,
+                    ))
+                .toList(),
+            selectedItemBuilder: (BuildContext context) => _item
+                .map((e) => Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          child: Image.asset('assets/images/image/$e.png'),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    ))
+                //return [];
+                .toList(),
+            hint: const Text(
+              'Image',
+              style: TextStyle(color: Colors.grey),
+            ),
+            dropdownColor: Colors.white,
+            isExpanded: true,
+            underline: Container(),
+            onChanged: ((value) {
+              setState(() {
+                selecteditem = value!;
+              });
+            }),
+          )),
     );
   }
 
@@ -159,17 +151,14 @@ class _add_categoryState extends State<add_category> {
                 initialDate: date,
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2100));
-            if (newDate == Null) return;
+
             setState(() {
               date = newDate!;
             });
           },
           child: Text(
             'Date : ${date.year}/${date.month}/${date.day}',
-            style: const TextStyle(
-                fontSize: 16,
-                //fontWeight: FontWeight.normal,
-                color: Colors.black),
+            style: const TextStyle(fontSize: 16, color: Colors.black),
           ),
         ));
   }
@@ -180,8 +169,6 @@ class _add_categoryState extends State<add_category> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          // focusNode: ex,
-          //controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -209,8 +196,6 @@ class _add_categoryState extends State<add_category> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          // focusNode: ex,
-          //controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

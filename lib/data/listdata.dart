@@ -16,5 +16,12 @@ List<money> geter() {
   Health.buy = true;
   Health.image = 'Vector (1).png';
 
-  return [salary, Health];
+  money education = money();
+  salary.name = 'education';
+  salary.time = 'today';
+  salary.fee = '+300';
+  salary.buy = false;
+  salary.image = 'ph_money-fill.png';
+
+  return [salary, Health, education];
 }

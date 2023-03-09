@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/models/transactions/add_data.dart';
 import 'package:spendee/widgets/button.dart';
 
 class Add_Screen extends StatefulWidget {
@@ -9,18 +11,22 @@ class Add_Screen extends StatefulWidget {
 }
 
 class _Add_ScreenState extends State<Add_Screen> {
+  final box = Hive.box<Add_Data>('data');
   DateTime date = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
-  /* final TextEditingController explain_C = TextEditingController();
-  FocusNode ex = FocusNode();
 
+  final _formKey = GlobalKey<FormState>();
+  final _nameOfStudent = TextEditingController();
+  final TextEditingController explain_C = TextEditingController();
+
+  FocusNode ex = FocusNode();
   final TextEditingController amount_c = TextEditingController();
   FocusNode amount = FocusNode();
- */
+
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
   final List<String> _iteminex = ['income', 'expense'];
-  /* @override
+
   void initstate() {
     super.initState();
     ex.addListener(() {
@@ -29,7 +35,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     amount.addListener(() {
       setState(() {});
     });
-  } */
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,40 +60,54 @@ class _Add_ScreenState extends State<Add_Screen> {
           borderRadius: BorderRadius.circular(20), color: Colors.white),
       height: 550,
       width: 340,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          name(),
-          const SizedBox(
-            height: 30,
-          ),
-          explain(),
-          const SizedBox(
-            height: 30,
-          ),
-          Amount(),
-          const SizedBox(
-            height: 30,
-          ),
-          finance(),
-          const SizedBox(
-            height: 30,
-          ),
-          date_time(),
-          const SizedBox(
-            height: 30,
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {},
-            child: button(120, 50, 'Save', 18),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 50,
+            ),
+            name(),
+            const SizedBox(
+              height: 30,
+            ),
+            explain(),
+            const SizedBox(
+              height: 30,
+            ),
+            Amount(),
+            const SizedBox(
+              height: 30,
+            ),
+            finance(),
+            const SizedBox(
+              height: 30,
+            ),
+            date_time(),
+            const SizedBox(
+              height: 30,
+            ),
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  //checkLogin(context);
+                  var add = Add_Data(selecteditemi!, amount_c.text, date,
+                      explain_C.text, selecteditem!);
+                  box.add(add);
+                  Navigator.of(context).pop();
+                } else {
+                  print('data empty');
+                }
+                //_nameOfStudent.text.isEmpty ? validate = true : _validate = false;
+              },
+              child: button(120, 50, 'Save', 18),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -167,12 +187,12 @@ class _Add_ScreenState extends State<Add_Screen> {
                           width: 40,
                           child: Image.asset('assets/images/image/$e.png'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           e,
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         )
                       ],
                     ))
@@ -196,8 +216,8 @@ class _Add_ScreenState extends State<Add_Screen> {
         width: 300,
         child: TextField(
           keyboardType: TextInputType.number,
-          // focusNode: amount,
-          //controller: amount_c,
+          focusNode: amount,
+          controller: amount_c,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -225,8 +245,8 @@ class _Add_ScreenState extends State<Add_Screen> {
       child: SizedBox(
         width: 300,
         child: TextField(
-          // focusNode: ex,
-          // controller: explain_C,
+          focusNode: ex,
+          controller: explain_C,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -251,6 +271,21 @@ class _Add_ScreenState extends State<Add_Screen> {
   Padding name() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
+      /* child: TextFormField(
+        controller: _nameOfStudent,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'name',
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Required Name';
+          } else {
+            return null;
+          }
+        },
+      ), */
+
       child: Container(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
           width: 300,
@@ -260,7 +295,10 @@ class _Add_ScreenState extends State<Add_Screen> {
                 width: 2,
                 color: Colors.grey,
               )),
-          child: DropdownButton<String>(
+          child: DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white))),
             value: selecteditem,
             items: _item
                 .map((e) => DropdownMenuItem(
@@ -289,12 +327,12 @@ class _Add_ScreenState extends State<Add_Screen> {
                           width: 40,
                           child: Image.asset('assets/images/image/$e.png'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           e,
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         )
                       ],
                     ))
@@ -306,12 +344,22 @@ class _Add_ScreenState extends State<Add_Screen> {
             ),
             dropdownColor: Colors.white,
             isExpanded: true,
-            underline: Container(),
+            //underline: Container(),
             onChanged: ((value) {
-              setState(() {
-                selecteditem = value!;
-              });
+              setState(
+                () {
+                  selecteditem = value!;
+                },
+              );
             }),
+
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Required Name';
+              } else {
+                return null;
+              }
+            },
           )),
     );
   }
