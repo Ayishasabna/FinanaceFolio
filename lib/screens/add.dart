@@ -1,6 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/models/transactions/add_data.dart';
+import 'package:spendee/screens/category.dart';
+import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/button.dart';
 
 class Add_Screen extends StatefulWidget {
@@ -24,7 +31,27 @@ class _Add_ScreenState extends State<Add_Screen> {
   final TextEditingController amount_c = TextEditingController();
   FocusNode amount = FocusNode();
 
-  final List<String> _item = ['food', 'transportation', 'health', 'education'];
+  //final List<String> _item = ['food', 'transportation', 'health', 'education'];
+
+  // var model = box1.values.toList();
+  //List<CategoryModel> item =model. ;
+
+  //final List<String> _item = List<String>.from(box1.values);
+
+//var box1 = await Hive.openBox('boxName');
+//final box1 = await Hive.openBox<CategoryModel>('category');
+/* final category = box1.values.toList();
+final _item = category.map((CategoryModel) => CategoryModel.name).toList(); */
+//await box.close();
+
+  // final _item =ModelNotifier.map((CategoryModel) => CategoryModel.name).toList();
+
+//final box1 = await Hive.openBox<CategoryModel>('category');
+  //final _item = box1.values.toList();
+
+  //final names = categories.map((category) => category.name).toList();
+
+  //final List<String> _item =;
   final List<String> _iteminex = ['income', 'expense'];
 
   void initstate() {
@@ -268,7 +295,9 @@ class _Add_ScreenState extends State<Add_Screen> {
     );
   }
 
-  Padding name() {
+  /*  Padding name() {
+    //getAllCategory();
+    // print(ModelNotifier.value);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       /* child: TextFormField(
@@ -287,15 +316,27 @@ class _Add_ScreenState extends State<Add_Screen> {
       ), */
 
       child: Container(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-          width: 300,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              )),
-          child: DropdownButtonFormField<String>(
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+        width: 300,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 2,
+              color: Colors.grey,
+            )),
+        child: DropdownButtonFormField<String>(
+          
+          items: dropdownitems,
+          onChanged: ((value) {
+            setState(
+              () {
+                selecteditem = value!;
+              },
+            );
+          }),
+        ),
+
+        /* child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
                 border: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white))),
@@ -360,9 +401,124 @@ class _Add_ScreenState extends State<Add_Screen> {
                 return null;
               }
             },
-          )),
+          ) */
+      ),
     );
   }
+
+  List<DropdownMenuItem<String>> get dropdownitems {
+   /*  List<DropdownMenuItem<String>> menuitems = List.generate(
+        box1.length,
+        (index) => DropdownMenuItem(
+            //value: box1.name,
+            //value: model.name,
+            value: ,
+            
+
+            /* value: CategoryModel(
+                    id: model.id, name: model.name, image: model.image)
+                .toString(), */
+            child: Wrap(
+              children: [
+                Text(model.name),
+                /* Text(CategoryModel(
+                        id: model.id, name: model.name, image: model.image)
+                    .toString()), */
+              ],
+            ))); */
+
+
+List<DropdownMenuItem<String>> menuitems = box1.get((item) =>
+    DropdownMenuItem<String>(
+      value:  item.name,
+      child: Text(item.name),
+    )
+  ).toList();
+
+
+
+    return menuitems;
+  } */
+
+  Padding name() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 2,
+            color: Colors.grey,
+          ),
+        ),
+        child: DropdownButtonFormField<String>(
+          items: dropdownitems(),
+          onChanged: (value) {
+            setState(() {
+              selecteditem = value!;
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+/* List<DropdownMenuItem<String>> dropdownitems() {
+  return box1
+      .map(
+        (item) => DropdownMenuItem<String>(
+          value: item.name,
+          child: Text(item.name),
+        ),
+      )
+      .toList();
+} */
+
+  /* var model = box1.values.toList();
+  List<DropdownMenuItem<String>> dropdownitems() {
+  return box1
+      .get(
+        (item) => DropdownMenuItem<String>(
+          value: item.name,
+          child: Text(item.name),
+        ),
+      )
+      .toList();
+} */
+  List<CategoryModel> get items => model.toList();
+  List<DropdownMenuItem<String>> dropdownitems() {
+    var boxItems = box1.values.map(
+      (item) => DropdownMenuItem<String>(
+          value: item.name,
+          child: Row(children: [
+            Text(item.name),
+            Container(
+              width: 40,
+              child: Image.asset('assets/images/image/${item.image}.png'),
+            )
+          ])
+          //Text(item.name),
+          ),
+    );
+    return boxItems.toList();
+  }
+
+  /* List<DropdownMenuItem<String>> dropdownitem(
+      List<CategoryModel> modelNotifier) {
+    List<DropdownMenuItem<String>> menu;
+    menu = [
+      modelNotifier
+      .map((e) => DropdownMenuItem(value: e.name, child: Wrap(
+        children: [
+          Text(e.name),
+        ],
+      )))
+      .toList(),
+    ];
+    return menu;
+  } */
 
   Column background_container(BuildContext context) {
     return Column(

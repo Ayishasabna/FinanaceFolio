@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/data/utility.dart';
+import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/models/transactions/add_data.dart';
 
-ValueNotifier<List<Add_Data>> StudentListNotifier = ValueNotifier([]);
+ValueNotifier<List<Add_Data>> ListNotifier = ValueNotifier([]);
+ValueNotifier<List<CategoryModel>> ModelNotifier = ValueNotifier([]);
 
 /* Future<void> addStudent(Add_Data value) async {
   // print(value.toString());
@@ -10,41 +13,56 @@ ValueNotifier<List<Add_Data>> StudentListNotifier = ValueNotifier([]);
   final studentdb = await Hive.openBox<Add_Data>('student_db');
   final _id = await studentdb.add(value);
   value.id = _id;
-  StudentListNotifier.value.add(value);
-  StudentListNotifier.notifyListeners();
+  ListNotifier.value.add(value);
+  ListNotifier.notifyListeners();
   print('hai');
 } */
 //final box = Hive.box<Add_Data>('data');
 
 Future<void> getAllStudents() async {
   final box = await Hive.openBox<Add_Data>('data');
-  StudentListNotifier.value.clear();
-  StudentListNotifier.value.addAll(box.values);
+  ListNotifier.value.clear();
+  ListNotifier.value.addAll(box.values);
   // ignore: invalid_use_of_protected_member
-  StudentListNotifier.notifyListeners();
+  ListNotifier.notifyListeners();
 }
 
-Future<void> deleteStudent(int id) async {
+Future<void> getAllCategory() async {
+  final box1 = await Hive.openBox<CategoryModel>('category');
+  ModelNotifier.value.clear();
+  ModelNotifier.value.addAll(box1.values);
+  // ignore: invalid_use_of_protected_member
+  ModelNotifier.notifyListeners();
+}
+
+Future<void> deleteTransaction(int id) async {
   final box = await Hive.openBox<Add_Data>('data');
   await box.delete(id);
   getAllStudents();
-  StudentListNotifier.notifyListeners();
+  ListNotifier.notifyListeners();
 }
 
-/* Future<void> updateStudent(int id) async {
+Future<void> deleteCategory(int id) async {
+  final box1 = await Hive.openBox<CategoryModel>('category');
+  await box1.delete(id);
+  getAllCategory();
+  ModelNotifier.notifyListeners();
+}
+
+Future<void> updateStudent(int id) async {
   final box = await Hive.openBox<Add_Data>('data');
   //await studentdb.delete(id);
-  final student = studentdb.get(id);
-  final item = student?.name;
+  final student = box.get(id);
+  //final item = student?.name;
   //updateStudent(id);
   //_nameController.text = student.name;
 
   //getAllStudents();
-  StudentListNotifier.notifyListeners();
+  ListNotifier.notifyListeners();
 }
- */
-/* Future<void> editList(int id, StudentModel value) async {
-  final studentDatabase = await Hive.openBox<StudentModel>('student_db');
-  studentDatabase.putAt(id, value);
+
+Future<void> editList(int id, Add_Data value) async {
+  final box = await Hive.openBox<Add_Data>('data');
+  box.putAt(id, value);
   getAllStudents();
-} */
+}

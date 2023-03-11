@@ -12,12 +12,14 @@ class Statitics extends StatefulWidget {
   State<Statitics> createState() => _StatiticsState();
 }
 
-ValueNotifier kj = ValueNotifier(0);
+ValueNotifier statiNotifier = ValueNotifier(0);
 
 class _StatiticsState extends State<Statitics> {
   List day = ['Day', 'Week', 'Month', 'Year'];
-  List f = [today(), week(), month(), year()];
-  List<Add_Data> a = [];
+  List function = [today(), week(), month(), year()];
+  List<Add_Data> stati = ([]);
+
+  //List<Add_Data> stati = [];
   int index_color = 0;
   //ValueNotifier kj = ValueNotifier(0);
   @override
@@ -28,9 +30,9 @@ class _StatiticsState extends State<Statitics> {
 
         //body: custom(),
         body: ValueListenableBuilder(
-            valueListenable: kj,
+            valueListenable: statiNotifier,
             builder: (BuildContext context, dynamic value, Widget? child) {
-              a = f[value];
+              stati = function[value];
               return custom();
             }),
       ),
@@ -56,7 +58,7 @@ class _StatiticsState extends State<Statitics> {
                         onTap: () {
                           setState(() {
                             index_color = index;
-                            kj.value = index;
+                            statiNotifier.value = index;
                           });
                         },
                         child: Container(
@@ -124,9 +126,9 @@ class _StatiticsState extends State<Statitics> {
                 ),
               ),
               const SizedBox(height: 20),
-              Chart(
+              /* Chart(
                 indexx: index_color,
-              ),
+              ), */
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -157,12 +159,13 @@ class _StatiticsState extends State<Statitics> {
             return ListTile(
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: Image.asset('assets/images/image/${a[index].name}.png',
+                child: Image.asset(
+                    'assets/images/image/${stati[index].name}.png',
                     height: 40),
               ),
               title: Text(
                 //geter()[index].name!,
-                a[index].name,
+                stati[index].name,
 
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -175,20 +178,22 @@ class _StatiticsState extends State<Statitics> {
                 //
                 // '${day[history.datetime.weekday-1]} ${history.datetime.year}',
                 '${[
-                  a[index].datetime.weekday - 1
-                ]} ${a[index].datetime.year}-${a[index].datetime.day}-${a[index].datetime.month}',
+                  stati[index].datetime.weekday - 1
+                ]} ${stati[index].datetime.year}-${stati[index].datetime.day}-${stati[index].datetime.month}',
                 //'Date : ${date.year}/${date.month}/${date.day}',
                 style: const TextStyle(
                     fontSize: 17, color: Color.fromARGB(255, 15, 14, 14)),
               ),
-              trailing: Text(a[index].amount,
+              trailing: Text(stati[index].amount,
                   //geter()[index].fee!,
 
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
                       //color: geter()[index].buy! ? Colors.red : Colors.green
-                      color: a[index].IN == 'income' ? Colors.green : Colors.red
+                      color: stati[index].IN == 'income'
+                          ? Colors.green
+                          : Colors.red
                       //Color.fromARGB(255, 15, 14, 14)
                       )),
 
@@ -217,7 +222,7 @@ class _StatiticsState extends State<Statitics> {
               ), */
             );
           },
-          childCount: a.length,
+          childCount: stati.length,
         ))
       ],
     );

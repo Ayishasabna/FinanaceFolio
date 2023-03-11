@@ -39,7 +39,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.4.52
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  sizer: ^2.0.15
+  
   sharedpreference: ^0.0.1
   shared_preferences: ^2.0.18
   

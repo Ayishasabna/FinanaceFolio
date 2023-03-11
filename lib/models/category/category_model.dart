@@ -9,8 +9,8 @@ enum CategoryType {
   expense
 }
 
-@HiveType(typeId: 1)
-class CategoryModel {
+@HiveType(typeId: 2)
+class CategoryModel extends HiveObject {
   @HiveField(0)
   final String id;
   @HiveField(1)
@@ -18,11 +18,13 @@ class CategoryModel {
   @HiveField(2)
   final bool isDeleted;
   @HiveField(3)
-  final CategoryType type;
+  final String image;
+
+  static var item;
 
   CategoryModel(
       {required this.id,
       required this.name,
-      required this.type,
+      required this.image,
       this.isDeleted = false});
 }

@@ -5,9 +5,9 @@ import 'package:spendee/data/utility.dart';
 import 'package:spendee/models/transactions/add_data.dart';
 import 'package:spendee/screens/transactions.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:sizer/sizer.dart';
 
 var history;
+var model;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child:
-            Image.asset('assets/images/image/${history.name}.png', height: 40),
+            Image.asset('assets/images/image/${model.image!}.png', height: 40),
       ),
       title: Text(
         //geter()[index].name!,

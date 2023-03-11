@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/models/transactions/add_data.dart';
 
 int totals = 0;
 final box = Hive.box<Add_Data>('data');
+final box1 = Hive.box<CategoryModel>('category');
 //final studentdb = Hive.openBox<StudentModel>('student_db');
 int total() {
   var history2 = box.values.toList();
@@ -31,7 +33,7 @@ int expense() {
   var history2 = box.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].IN == 'expense' ? 0 : int.parse(history2[i].amount) * -1);
+    a.add(history2[i].IN == 'income' ? 0 : int.parse(history2[i].amount) * -1);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;

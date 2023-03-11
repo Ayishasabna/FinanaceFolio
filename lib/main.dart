@@ -20,6 +20,9 @@ Future<void> main() async {
   Hive.registerAdapter(AddDataAdapter());
   await Hive.openBox<Add_Data>('data');
 
+  Hive.registerAdapter(CategoryModelAdapter());
+  await Hive.openBox<CategoryModel>('category');
+
   runApp(const MyApp());
 }
 
