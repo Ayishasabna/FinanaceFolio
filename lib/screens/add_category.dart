@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/category/category_db.dart';
+import 'package:spendee/db/functions/db_functions.dart';
+
 import 'package:spendee/models/category/category_model.dart';
-import 'package:spendee/models/transactions/add_data.dart';
+
 import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
@@ -28,6 +30,7 @@ class _add_categoryState extends State<add_category> {
 
   void initstate() {
     super.initState();
+
     _nameOfCategory.addListener(() {
       setState(() {});
     });
@@ -91,12 +94,11 @@ class _add_categoryState extends State<add_category> {
                     image: selecteditem!,
                     //image: _categoryimage.text
                   );
-                  box1.add(add);
+                  //CategoryDB.instance.insertCategory(add);
+                  categoryDB.add(add);
                   //print(selecteditem);
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Bottom_NavBar()));
-                } else {
-                  print('data empty');
                 }
 
                 /* final _sample = CategoryModel(
@@ -171,7 +173,7 @@ class _add_categoryState extends State<add_category> {
             onChanged: ((value) {
               setState(() {
                 selecteditem = value!;
-                print(selecteditem);
+                // print(selecteditem);
               });
             }),
           )),

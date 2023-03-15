@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 
 appbar(String text, bool value, [IconData? icon]) {
   return AppBar(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.red,
+      statusBarIconBrightness: Brightness.light,
+    ),
     flexibleSpace: Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
@@ -15,7 +19,6 @@ appbar(String text, bool value, [IconData? icon]) {
     //backgroundColor: Colors.amber,
     title: Center(child: Text(text)),
     actions: [
-      //Padding(padding: EdgeInsets.only(right: 20)),
       Padding(
         padding: const EdgeInsets.only(right: 20),
         child: Icon(icon),

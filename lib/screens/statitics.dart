@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/data/top.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/models/transactions/add_data.dart';
+import 'package:spendee/models/transactions/transaction_model.dart';
+
+import 'package:spendee/screens/home_screen.dart';
+import 'package:spendee/screens/transactions.dart';
 import 'package:spendee/widgets/app_bar.dart';
 import 'package:spendee/widgets/chart.dart';
 
@@ -15,9 +18,10 @@ class Statitics extends StatefulWidget {
 ValueNotifier statiNotifier = ValueNotifier(0);
 
 class _StatiticsState extends State<Statitics> {
+  var finanace;
   List day = ['Day', 'Week', 'Month', 'Year'];
   List function = [today(), week(), month(), year()];
-  List<Add_Data> stati = ([]);
+  List<TransactionModel> stati = ([]);
 
   //List<Add_Data> stati = [];
   int index_color = 0;
@@ -154,76 +158,36 @@ class _StatiticsState extends State<Statitics> {
           ),
         ),
         SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.asset(
-                    'assets/images/image/${stati[index].name}.png',
-                    height: 40),
-              ),
-              title: Text(
-                //geter()[index].name!,
-                stati[index].name,
+            delegate: SliverChildBuilderDelegate((context, index) {
+          var expenseTransactions =
+              stati.where((item) => item.IN != 'income').toList();
 
+          expenseTransactions.sort((a, b) => b.amount.compareTo(a.amount));
+
+          var topThreeTransactions = expenseTransactions.take(3).toList();
+          print(topThreeTransactions);
+
+          for (var i = 0; i < topThreeTransactions.length; i++) {
+            var transaction = topThreeTransactions[i];
+
+            return ListTile(
+              title: Text(
+                transaction.name,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 17,
                     color: Color.fromARGB(255, 15, 14, 14)),
               ),
               subtitle: Text(
-                //geter()[index].time!,
-                //history.explain,
-                //
-                // '${day[history.datetime.weekday-1]} ${history.datetime.year}',
-                '${[
-                  stati[index].datetime.weekday - 1
-                ]} ${stati[index].datetime.year}-${stati[index].datetime.day}-${stati[index].datetime.month}',
-                //'Date : ${date.year}/${date.month}/${date.day}',
+                '${day[stati[index].datetime.weekday - 1]} ${stati[index].datetime.year}-${stati[index].datetime.day}-${stati[index].datetime.month}',
                 style: const TextStyle(
                     fontSize: 17, color: Color.fromARGB(255, 15, 14, 14)),
               ),
-              trailing: Text(stati[index].amount,
-                  //geter()[index].fee!,
-
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                      //color: geter()[index].buy! ? Colors.red : Colors.green
-                      color: stati[index].IN == 'income'
-                          ? Colors.green
-                          : Colors.red
-                      //Color.fromARGB(255, 15, 14, 14)
-                      )),
-
-              /* leading: Image.asset(
-                'assets/images/${geter_top()[index].image!}',
-                height: 40,
-              ),
-              title: Text(
-                geter_top()[index].name!,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-              subtitle: Text(
-                geter_top()[index].time!,
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w500),
-              ),
-              trailing: Text(
-                geter_top()[index].fee!,
-                style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold),
-              ), */
+              trailing: Text(transaction.amount),
             );
-          },
-          childCount: stati.length,
-        ))
+          }
+          return SizedBox.shrink();
+        }, childCount: 2))
       ],
     );
   }

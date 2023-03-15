@@ -14,7 +14,8 @@ class Bottom_NavBar extends StatefulWidget {
 
 class _Bottom_NavBarState extends State<Bottom_NavBar> {
   int index_color = 0;
-  List Screen = [Home(), category(), Statitics(), settings()];
+  List Screen = [Home(), Category(), Statitics(), settings()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

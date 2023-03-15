@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/models/transactions/add_data.dart';
+import 'package:spendee/models/category/category_model.dart';
+
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/button.dart';
 
-/* class EditTransaction extends StatefulWidget {
+class EditTransaction extends StatefulWidget {
   final String name;
   final String explain;
   final String amount;
@@ -21,31 +22,37 @@ import 'package:spendee/widgets/button.dart';
     required this.date_time,
     required this.index,
   });
-  //const EditTransaction({super.key});
 
   @override
   State<EditTransaction> createState() => _EditTransactionState();
 }
- */
-/* class _EditTransactionState extends State<EditTransaction> {
-  TextEditingController _nameOfStudent = TextEditingController();
-  TextEditingController explain_c = TextEditingController();
-  TextEditingController amount_c = TextEditingController();
-  TextEditingController finanac = TextEditingController();
-  TextEditingController date = TextEditingController();
+
+class _EditTransactionState extends State<EditTransaction> {
+  DateTime date1 = DateTime.now();
   String? selecteditem;
   String? selecteditemi;
 
   final _formKey = GlobalKey<FormState>();
 
-  final List<String> _item = ['food', 'transportation', 'health', 'education'];
+  TextEditingController _name = TextEditingController();
+  TextEditingController explain_c = TextEditingController();
+  TextEditingController amount_c = TextEditingController();
+  TextEditingController finanac = TextEditingController();
+  TextEditingController date = TextEditingController();
+
   final List<String> _iteminex = ['income', 'expense'];
+
+  final _formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
 
-    _nameOfStudent = TextEditingController(text: widget.name);
+    //_name = TextEditingController(text: widget.name);
+    //_name.text = _name.toString();
+    _name.text = selecteditemi.toString();
+
+    //_dropdownController.text = selecteditemi;
     explain_c = TextEditingController(text: widget.explain);
     amount_c = TextEditingController(text: widget.amount);
     finanac = TextEditingController(text: widget.finanace);
@@ -63,10 +70,148 @@ import 'package:spendee/widgets/button.dart';
           background_container(context),
           Positioned(
             top: 120,
-            child: main_container(),
+            child: Container(
+              child: main_container(),
+            ),
           )
         ],
       )),
+
+      /* appBar: AppBar(
+        title: const Text('Edit'),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Form(
+              key: _formkey,
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Edit transaction ',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _name,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: '',
+                        labelText: 'Name',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Name';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      // maxLength: 2,
+                      controller: explain_c,
+                      keyboardType: TextInputType.number,
+
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter note',
+                        labelText: 'explain',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Age';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: amount_c,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter your address',
+                        labelText: 'amount',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Address';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      //maxLength: 10,
+                      controller: finanac,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter finanace',
+                        labelText: 'finanace',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Number';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFormField(
+                      //maxLength: 10,
+                      controller: date,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter date',
+                        labelText: 'date',
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              //checkLogin(context);
+
+                              var add = Add_Data(
+                                  _name.text,
+                                  amount_c.text,
+                                  DateTime.parse(date.text),
+                                  explain_c.text,
+                                  finanac.text);
+
+                              Navigator.of(context).pop();
+                            } else {
+                              print('data empty');
+                            }
+                          },
+                          icon: const Icon(Icons.check),
+                          label: const Text('Save'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+        ),
+      ), */
     );
   }
 
@@ -106,20 +251,9 @@ import 'package:spendee/widgets/button.dart';
             const Spacer(),
             GestureDetector(
               onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  //checkLogin(context);
-
-                  var add = Add_Data(_nameOfStudent.text, amount_c.text,
-                      DateTime.parse(date.text), explain_c.text, finanac.text);
-                  //
-                  //
-                  //box.add(add);
-                  Navigator.of(context).pop();
-                } else {
-                  print('data empty');
-                }
+                if (_formKey.currentState!.validate()) {}
               },
-              child: button(120, 50, 'Update', 18),
+              child: button(120, 50, 'Save', 18),
             ),
             const SizedBox(
               height: 20,
@@ -132,101 +266,34 @@ import 'package:spendee/widgets/button.dart';
 
   Container date_time() {
     return Container(
-      alignment: Alignment.bottomLeft,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 2, color: Colors.grey)),
-      width: 300,
-
-      /*  child: GestureDetector(
-        
-        onTap: () async {
-          DateTime? newDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime.parse('0'),
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2100));
-          if (newDate == Null) return;
-          setState(() {
-            //date = newDate!;
-          });
-        
-        
-        },
-        child: TextFormField(
-          
-          //maxLength: 10,
-          controller: date,
-          //keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-          
-            border: OutlineInputBorder(),
-            hintText: 'Enter date',
-            labelText: 'date',
-          ),
-           */
-
-      /* onTap: () async {
-            DateTime? newDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.parse('0'),
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2100));
-            if (newDate == Null) return;
-            setState(() {
-              //date = newDate!;
-            });
-          }, */
-
-      /* child: Text(
-              'Date : ${date.year}/${date.month}/${date.day}',
-              style: const TextStyle(
-                  fontSize: 16,
-                  //fontWeight: FontWeight.normal,
-                  color: Colors.black),
-            ), */
-
-      /*  validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Required Number';
-                          } /* else if (value.length < 10) {
-                            return 'invalid phone number';
-                          } */ else {
-                            return null;
-                          }
-                        }, */
-      // ),
-      //),
-
-      /*  child: TextButton(
+        alignment: Alignment.bottomLeft,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(width: 2, color: Colors.grey)),
+        width: 300,
+        child: TextButton(
           onPressed: () async {
             DateTime? newDate = await showDatePicker(
                 context: context,
-                initialDate: DateTime.parse(date.text),
+                initialDate: date1,
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2100));
             if (newDate == Null) return;
             setState(() {
-              date.text = newDate!.toString();
-
               //date = newDate!;
             });
           },
-          child: Text(
-            'date:$date.text',
-
-            //'Date : ${date.text.year}/${date.month}/${date.day}',
-            style: const TextStyle(
+          child: Text('hai'
+              //'Date : ${date.year}/${date.month}/${date.day}',
+              /* style: const TextStyle(
                 fontSize: 16,
                 //fontWeight: FontWeight.normal,
-                color: Colors.black),
-          ),
-        ) */
-    );
+                color: Colors.black), */
+              ),
+        ));
   }
 
   Padding finance() {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -238,13 +305,15 @@ import 'package:spendee/widgets/button.dart';
                 width: 2,
                 color: Colors.grey,
               )),
-          child: DropdownButton<String>(
+          child: DropdownButtonFormField<String>(
             value: selecteditemi,
+
             onChanged: ((value) {
               setState(() {
                 selecteditemi = value!;
               });
             }),
+
             items: _iteminex
                 .map((e) => DropdownMenuItem(
                       child: Row(
@@ -265,6 +334,7 @@ import 'package:spendee/widgets/button.dart';
                       value: e,
                     ))
                 .toList(),
+
             selectedItemBuilder: (BuildContext context) => _iteminex
                 .map((e) => Row(
                       children: [
@@ -272,9 +342,9 @@ import 'package:spendee/widgets/button.dart';
                           width: 40,
                           child: Image.asset('assets/images/image/$e.png'),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        /* const SizedBox(
+                          width: 20,
+                        ) */
                         Text(
                           e,
                           style: const TextStyle(fontSize: 18),
@@ -283,13 +353,21 @@ import 'package:spendee/widgets/button.dart';
                     ))
                 //return [];
                 .toList(),
+
             hint: const Text(
               'Select',
               style: TextStyle(color: Colors.grey),
             ),
             dropdownColor: Colors.white,
             isExpanded: true,
-            underline: Container(),
+            //underline: Container(),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Required Name';
+              } else {
+                return null;
+              }
+            },
           )),
     );
   }
@@ -299,7 +377,14 @@ import 'package:spendee/widgets/button.dart';
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         width: 300,
-        child: TextField(
+        child: TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Required Name';
+            } else {
+              return null;
+            }
+          },
           keyboardType: TextInputType.number,
           //focusNode: amount,
           controller: amount_c,
@@ -356,97 +441,57 @@ import 'package:spendee/widgets/button.dart';
   Padding name() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      /* child: TextFormField(
-        controller: _nameOfStudent,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'name',
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Required Name';
-          } else {
-            return null;
-          }
-        },
-      ), */
-
       child: Container(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
-          width: 300,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              )),
-          child: DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white))),
-            value: selecteditem,
-            items: _item
-                .map((e) => DropdownMenuItem(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            child: Image.asset('assets/images/image/$e.png'),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            e,
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      value: e,
-                    ))
-                .toList(),
-            selectedItemBuilder: (BuildContext context) => _item
-                .map((e) => Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          child: Image.asset('assets/images/image/$e.png'),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          e,
-                          style: const TextStyle(fontSize: 18),
-                        )
-                      ],
-                    ))
-                //return [];
-                .toList(),
-            hint: const Text(
-              'Name',
-              style: TextStyle(color: Colors.grey),
-            ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            //underline: Container(),
-            onChanged: ((value) {
-              setState(
-                () {
-                  selecteditem = value!;
-                },
-              );
-            }),
-
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Required Name';
-              } else {
-                return null;
-              }
-            },
-          )),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 15),
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 2,
+            color: Colors.grey,
+          ),
+        ),
+        child: DropdownButtonFormField<String>(
+          value: _name.text,
+          items: dropdownitems(),
+          /*  validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Required Name';
+            } else {
+              return null;
+            }
+          }, */
+          //value: _name.text,
+          onChanged: (value) {
+            setState(() {
+              selecteditem = _name.text;
+              //selecteditem = value!;
+            });
+          },
+        ),
+      ),
     );
+  }
+
+  List<CategoryModel> get items => model.toList();
+  List<DropdownMenuItem<String>> dropdownitems() {
+    var boxItems = categoryDB.values.map(
+      (item) => DropdownMenuItem<String>(
+        value: item.name,
+        child: Row(children: [
+          Text(item.name),
+          Container(
+            width: 40,
+            child: Image.asset('assets/images/image/${item.image}.png'),
+          )
+        ]),
+        //Text(item.name),
+        onTap: () {
+          selecteditem = item.name;
+        },
+      ),
+    );
+    return boxItems.toList();
   }
 
   Column background_container(BuildContext context) {
@@ -484,7 +529,7 @@ import 'package:spendee/widgets/button.dart';
                       width: 80,
                     ),
                     const Text(
-                      'Add Transaction',
+                      'Update Transaction',
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
@@ -499,232 +544,4 @@ import 'package:spendee/widgets/button.dart';
       ],
     );
   }
-}
- */
-
-class EditTransaction extends StatefulWidget {
-  final String name;
-  final String explain;
-  final String amount;
-  final String finanace;
-  final String date_time;
-  final int index;
-
-  const EditTransaction({
-    super.key,
-    required this.name,
-    required this.explain,
-    required this.amount,
-    required this.finanace,
-    required this.date_time,
-    required this.index,
-  });
-
-  @override
-  State<EditTransaction> createState() => _EditTransactionState();
-}
-
-class _EditTransactionState extends State<EditTransaction> {
-  TextEditingController _nameOfStudent = TextEditingController();
-  TextEditingController explain_c = TextEditingController();
-  TextEditingController amount_c = TextEditingController();
-  TextEditingController finanac = TextEditingController();
-  TextEditingController date = TextEditingController();
-
-  final _formkey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _nameOfStudent = TextEditingController(text: widget.name);
-    explain_c = TextEditingController(text: widget.explain);
-    amount_c = TextEditingController(text: widget.amount);
-    finanac = TextEditingController(text: widget.finanace);
-    date = TextEditingController(text: widget.date_time);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit'),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Form(
-              key: _formkey,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Edit student details',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: _nameOfStudent,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '',
-                        labelText: 'Name',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Required Name';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      maxLength: 2,
-                      controller: explain_c,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter note',
-                        labelText: 'explain',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Required Age';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: amount_c,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter your address',
-                        labelText: 'amount',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Required Address';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      maxLength: 10,
-                      controller: finanac,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter finanace',
-                        labelText: 'finanace',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Required Number';
-                        }
-                        /*  else if (value.length < 10) {
-                          return 'invalid phone number';
-                        }  */
-                        else {
-                          return null;
-                        }
-                      },
-                    ),
-                    TextFormField(
-                      //maxLength: 10,
-                      controller: date,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter date',
-                        labelText: 'date',
-                      ),
-                      /*  validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Required Number';
-                        } /* else if (value.length < 10) {
-                          return 'invalid phone number';
-                        } */ else {
-                          return null;
-                        }
-                      }, */
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            if (_formkey.currentState!.validate()) {
-                              //checkLogin(context);
-
-                              var add = Add_Data(
-                                  _nameOfStudent.text,
-                                  amount_c.text,
-                                  DateTime.parse(date.text),
-                                  explain_c.text,
-                                  finanac.text);
-                              //
-                              //
-                              //box.add(add);
-                              Navigator.of(context).pop();
-                            } else {
-                              print('data empty');
-                            }
-                          },
-                          icon: const Icon(Icons.check),
-                          label: const Text('Save'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )),
-        ),
-      ),
-    );
-  }
-  /*  Future<void> onEditSaveButton(ctx) async {
-
-
-
-    
-    
-    final box = Add_Data(
-      name: _nameOfStudent.text,
-      age: _ageOfStudent.text,
-      phnNumber: _phnOfStudent.text,
-      address: _addressOfStudent.text,
-      photo: photoPath,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(30),
-        backgroundColor: Colors.blueGrey,
-        content: Text(
-          'Saved',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-    editList(widget.index, box);
-  } */
 }

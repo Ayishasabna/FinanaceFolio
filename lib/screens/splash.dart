@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendee/screens/first_screen.dart';
 import 'package:spendee/screens/home_screen.dart';
+import 'package:spendee/widgets/bottomnavigation.dart';
 
 import '../main.dart';
 
@@ -29,12 +30,13 @@ class _ScreenSplashState extends State<ScreenSplash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+        /*  body: Center(
       child: Image.asset(
         'assets/images/image.jpg',
         height: 300,
       ),
-    ));
+    ) */
+        );
   }
 
   @override
@@ -60,7 +62,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
       gotoLogin();
     } else {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (ctx1) => Home()));
+          .pushReplacement(MaterialPageRoute(builder: (ctx1) => FirstScreen()));
     }
   }
 }
