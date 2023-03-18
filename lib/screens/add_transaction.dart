@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/db/category_db.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 
@@ -13,26 +11,30 @@ import 'package:spendee/widgets/button.dart';
 
 import '../models/transactions/transaction_model.dart';
 
-class Add_Screen extends StatefulWidget {
-  const Add_Screen({super.key});
+class AddTransaction extends StatefulWidget {
+  const AddTransaction({super.key});
 
   @override
-  State<Add_Screen> createState() => _Add_ScreenState();
+  State<AddTransaction> createState() => _AddTransactionState();
 }
 
-class _Add_ScreenState extends State<Add_Screen> {
-  //final box = Hive.box<Add_Data>('data');
-
+class _AddTransactionState extends State<AddTransaction> {
   DateTime date = DateTime.now();
-  String? selecteditem;
-  String? selecteditemi;
+  //String? selectedCategory;
+  String? selectedFinanace;
+  String? selectedCategoryName;
+  CategoryModel? selectedCategoryModel;
+  String? categoryID;
+
+  //DateTime? _selectedDate;
+  //CategoryType? _selectedCategorytype;
 
   final _formKey = GlobalKey<FormState>();
-  final _nameOfStudent = TextEditingController();
-  final TextEditingController explain_C = TextEditingController();
+  final _nameController = TextEditingController();
+  final TextEditingController explainController = TextEditingController();
 
   FocusNode ex = FocusNode();
-  final TextEditingController amount_c = TextEditingController();
+  final TextEditingController amountcontroller = TextEditingController();
   FocusNode amount = FocusNode();
 
   final List<String> _iteminex = ['income', 'expense'];
@@ -47,6 +49,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -58,7 +61,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           Positioned(
             top: 120,
             child: Container(
-              child: main_container(),
+              child: mainContainer(),
             ),
           )
         ],
@@ -66,7 +69,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     );
   }
 
-  Container main_container() {
+  Container mainContainer() {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -95,21 +98,22 @@ class _Add_ScreenState extends State<Add_Screen> {
             const SizedBox(
               height: 30,
             ),
-            date_time(),
+            dateTime(),
             const SizedBox(
               height: 30,
             ),
             const Spacer(),
             GestureDetector(
               onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  var add = TransactionModel(selecteditemi!, amount_c.text,
-                      date, explain_C.text, selecteditem!);
-                  TransactionDB.instance.insertCategory(add);
+                addTransaction();
+                /* if (_formKey.currentState!.validate()) {
+                  /* var add = TransactionModel(selecteditemi!, amount_c.text,
+                      date, explain_C.text, selecteditem!); */
+                  //TransactionDB.instance.insertCategory(add);
                   //transactionDB.add(add);
-                  Navigator.of(context).pop();
-                  TransactionDB.instance.getAllTransactions();
-                }
+                  /*  Navigator.of(context).pop();
+                  TransactionDB.instance.getAllTransactions(); */
+                } */
               },
               child: button(120, 50, 'Save', 18),
             ),
@@ -122,7 +126,7 @@ class _Add_ScreenState extends State<Add_Screen> {
     );
   }
 
-  Container date_time() {
+  Container dateTime() {
     return Container(
         alignment: Alignment.bottomLeft,
         decoration: BoxDecoration(
@@ -133,7 +137,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           onPressed: () async {
             DateTime? newDate = await showDatePicker(
                 context: context,
-                initialDate: date,
+                initialDate: DateTime.now(),
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2100));
             if (newDate == Null) return;
@@ -164,11 +168,11 @@ class _Add_ScreenState extends State<Add_Screen> {
                 color: Colors.grey,
               )),
           child: DropdownButtonFormField<String>(
-            value: selecteditemi,
+            value: selectedFinanace,
 
             onChanged: ((value) {
               setState(() {
-                selecteditemi = value!;
+                selectedFinanace = value!;
               });
             }),
 
@@ -176,16 +180,17 @@ class _Add_ScreenState extends State<Add_Screen> {
                 .map((e) => DropdownMenuItem(
                       child: Row(
                         children: [
-                          Container(
-                            width: 40,
-                            child: Image.asset('assets/images/image/$e.png'),
+                          Image.asset(
+                            'assets/images/image/$e.png',
+                            width: 30,
+                            height: 30,
                           ),
                           const SizedBox(
                             width: 10,
                           ),
                           Text(
                             e,
-                            style: const TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 17),
                           )
                         ],
                       ),
@@ -203,10 +208,10 @@ class _Add_ScreenState extends State<Add_Screen> {
                         /* const SizedBox(
                           width: 20,
                         ) */
-                        Text(
-                          e,
-                          style: const TextStyle(fontSize: 18),
-                        )
+                        Text(e,
+                            //style: const TextStyle(fontSize: 18),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 17))
                       ],
                     ))
                 //return [];
@@ -221,7 +226,7 @@ class _Add_ScreenState extends State<Add_Screen> {
             //underline: Container(),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Required Name';
+                return 'Select finanace';
               } else {
                 return null;
               }
@@ -245,7 +250,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           },
           keyboardType: TextInputType.number,
           focusNode: amount,
-          controller: amount_c,
+          controller: amountcontroller,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -274,7 +279,7 @@ class _Add_ScreenState extends State<Add_Screen> {
         width: 300,
         child: TextField(
           focusNode: ex,
-          controller: explain_C,
+          controller: explainController,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -320,7 +325,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           },
           onChanged: (value) {
             setState(() {
-              selecteditem = value!;
+              //selectedCategoryModel = value;
             });
           },
         ),
@@ -332,68 +337,164 @@ class _Add_ScreenState extends State<Add_Screen> {
   List<DropdownMenuItem<String>> dropdownitems() {
     var boxItems = categoryDB.values.map(
       (item) => DropdownMenuItem<String>(
-          value: item.name,
-          child: Row(children: [
-            Text(item.name),
-            Container(
-              width: 40,
-              child: Image.asset('assets/images/image/${item.image}.png'),
-            )
-          ])
-          //Text(item.name),
+        //value: selectedCategoryModel,
+        value: item.categoryName,
+        child: Row(children: [
+          Image.asset(
+            'assets/images/image/${item.categoryImage}.png',
+            width: 25,
+            height: 25,
           ),
+          SizedBox(
+            width: 7,
+          ),
+          Text(
+            item.categoryName,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 17),
+          ),
+        ]),
+        onTap: () {
+          selectedCategoryModel = item;
+        },
+        //Text(item.name),
+      ),
     );
     return boxItems.toList();
   }
 
-  Column background_container(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 240,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromRGBO(199, 12, 12, 0.88),
-                Color.fromRGBO(255, 67, 40, 0.88),
-                Color.fromRGBO(255, 152, 100, 0.88)
-              ]),
-              //color: Colors.amber,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-          child: Column(
-            children: [
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                    const SizedBox(
-                      width: 80,
-                    ),
-                    const Text(
-                      'Add Transaction',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        )
-      ],
+  addTransaction() {
+    final name = _nameController.text;
+    final amountText = amountcontroller.text;
+
+    /*  if (name.isEmpty) {
+      return;
+    }
+    if (amountText.isEmpty) {
+      return;
+    }
+
+    if (categoryID == null) {
+      return;
+    }
+
+    final parsedAmount = double.tryParse(amountText);
+    if (parsedAmount == null) {
+      return;
+    }
+
+    if (selectedCategoryModel == null) {
+      return;
+    }
+ */
+    final model = TransactionModel(
+        categoryName: name,
+        finanace: selectedFinanace!,
+        amount: amountcontroller.text,
+        datetime: date,
+        explain: explainController.text,
+        category: selectedCategoryModel!,
+        id: DateTime.now().microsecondsSinceEpoch.toString());
+    TransactionDB.instance.insertTransaction(model);
+    Navigator.of(context).pop();
+    TransactionDB.instance.getAllTransactions();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Transaction Added Successfully')),
     );
+
+    /*  final model= TransactionModel(
+        purpose: _purposeText,
+        amount: parsedAmount,
+        date: _selectedDate!,
+        type: CategoryType.expense,
+        category: _selectedCategoryModel!,
+        id: DateTime.now().microsecondsSinceEpoch.toString(),
+      ); */
+
+    /* await TransactionDB.instance.addTransaction(model);
+     Navigator.of(context).pop();
+     
+     
+     TransactionDB.instance.refresh();
+ */
   }
+}
+
+/* Container dateTime(BuildContext context) {
+    return Container(
+        alignment: Alignment.bottomLeft,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(width: 2, color: Colors.grey)),
+        width: 300,
+        child: TextButton(
+          onPressed: () async {
+            DateTime? newDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2100));
+            if (newDate == Null) return;
+            setState(() {
+              date = newDate!;
+            });
+          },
+          child: Text(
+            'Date : ${date.year}/${date.month}/${date.day}',
+            style: const TextStyle(
+                fontSize: 16,
+                //fontWeight: FontWeight.normal,
+                color: Colors.black),
+          ),
+        ));
+  } */
+
+Column background_container(BuildContext context) {
+  return Column(
+    children: [
+      Container(
+        width: double.infinity,
+        height: 240,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(199, 12, 12, 0.88),
+              Color.fromRGBO(255, 67, 40, 0.88),
+              Color.fromRGBO(255, 152, 100, 0.88)
+            ]),
+            //color: Colors.amber,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                  const SizedBox(
+                    width: 80,
+                  ),
+                  const Text(
+                    'Add Transaction',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
+    ],
+  );
 }

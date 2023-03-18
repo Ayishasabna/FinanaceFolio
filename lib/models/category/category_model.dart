@@ -4,19 +4,14 @@ part 'category_model.g.dart';
 @HiveType(typeId: 2)
 class CategoryModel extends HiveObject {
   @HiveField(0)
-  final String id;
+  final String categoryName;
   @HiveField(1)
-  final String name;
+  final String categoryImage;
   @HiveField(2)
   final bool isDeleted;
-  @HiveField(3)
-  final String image;
-
-  static var item;
 
   CategoryModel(
-      {required this.id,
-      required this.name,
-      required this.image,
+      {required this.categoryName,
+      required this.categoryImage,
       this.isDeleted = false});
 }

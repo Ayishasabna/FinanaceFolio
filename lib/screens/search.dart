@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/db/category_db.dart';
 import 'package:spendee/db/transaction_db.dart';
 
 import 'package:spendee/models/transactions/transaction_model.dart';
@@ -43,7 +43,10 @@ class SearchWidget extends SearchDelegate {
           itemBuilder: (ctx, index) {
             final data = transaction[index];
 
-            if (data.name.toLowerCase().contains(query.toLowerCase())) {
+            if (data.category
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase())) {
               return Column(
                 children: [
                   ListTile(
@@ -57,7 +60,7 @@ class SearchWidget extends SearchDelegate {
                         ),
                       );
                     },
-                    title: Text(data.name),
+                    title: Text(data.category.toString()),
                   ),
                   const Divider()
                 ],
@@ -84,7 +87,10 @@ class SearchWidget extends SearchDelegate {
         return ListView.builder(
           itemBuilder: (ctx, index) {
             final data = transaction[index];
-            if (data.name.toLowerCase().contains(query.toLowerCase())) {
+            if (data.category
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase())) {
               //if (data.name.contains(query)) {
               return Column(
                 children: [
@@ -105,7 +111,7 @@ class SearchWidget extends SearchDelegate {
                         ),
                       );
                     },
-                    title: Text(data.name),
+                    title: Text(data.category.toString()),
                     /* leading: CircleAvatar(
                       backgroundImage: FileImage(File(data.photo)),
                     ), */

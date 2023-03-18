@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/db/category_db.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 
@@ -16,7 +16,7 @@ int total() {
   var history2 = transactionDB.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].IN == 'income'
+    a.add(history2[i].finanace == 'income'
         ? int.parse(history2[i].amount)
         : int.parse(history2[i].amount) * -1);
   }
@@ -28,7 +28,7 @@ int income() {
   var history2 = transactionDB.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].IN == 'income' ? int.parse(history2[i].amount) : 0);
+    a.add(history2[i].finanace == 'income' ? int.parse(history2[i].amount) : 0);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;
@@ -38,7 +38,9 @@ int expense() {
   var history2 = transactionDB.values.toList();
   List a = [0, 0];
   for (var i = 0; i < history2.length; i++) {
-    a.add(history2[i].IN == 'income' ? 0 : int.parse(history2[i].amount) * -1);
+    a.add(history2[i].finanace == 'income'
+        ? 0
+        : int.parse(history2[i].amount) * -1);
   }
   totals = a.reduce((value, element) => value + element);
   return totals;

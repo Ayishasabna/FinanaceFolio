@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/screens/transactionlist.dart';
 
 import '../models/transactions/transaction_model.dart';
 
@@ -25,25 +26,31 @@ class TransactionDB {
     transactionListNotifier.notifyListeners();
   }
 
-  Future<void> insertCategory(TransactionModel value) async {
+  Future<void> insertTransaction(TransactionModel obj) async {
     final transactionDB =
         await Hive.openBox<TransactionModel>(transactionDBName);
-    await transactionDB.add(value);
+    await transactionDB.put(obj.id, obj);
     getAllTransactions();
   }
 
-  Future<void> deleteTransaction(int id) async {
+  Future<void> deleteTransaction(TransactionModel transactionModel) async {
+    //final db= await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
+    //await db.delete(id);
+    // refresh();
+    print('before operation  : ${transactionModel}');
     final transactionDB =
         await Hive.openBox<TransactionModel>(transactionDBName);
-    await transactionDB.delete(id);
+    transactionDB.delete(transactionModel.id);
+    //await transactionDB.delete(transactionModel);
+    print(transactionModel.id);
+    overViewListNotifier.notifyListeners();
     getAllTransactions();
-    transactionListNotifier.notifyListeners();
   }
 
-  Future<void> edittransaction(int id, TransactionModel value) async {
+  Future<void> editTransaction(TransactionModel value) async {
     final transactionDB =
         await Hive.openBox<TransactionModel>(transactionDBName);
-    transactionDB.put(id, value);
+    transactionDB.put(value.id, value);
     getAllTransactions();
   }
 }

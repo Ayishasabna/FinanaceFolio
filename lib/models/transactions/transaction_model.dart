@@ -5,21 +5,29 @@ part 'transaction_model.g.dart';
 @HiveType(typeId: 1)
 class TransactionModel extends HiveObject {
   @HiveField(0)
-  String name;
+  //CategoryModel category;
+  String categoryName;
   @HiveField(1)
   String explain;
   @HiveField(2)
   String amount;
   @HiveField(3)
-  String IN;
+  String finanace;
   @HiveField(4)
   DateTime datetime;
+  @HiveField(5)
+  String id;
+  @HiveField(6)
+  CategoryModel category;
 
   TransactionModel(
-    this.IN,
-    this.amount,
-    this.datetime,
-    this.explain,
-    this.name,
-  );
+      {required this.finanace,
+      required this.amount,
+      required this.datetime,
+      required this.explain,
+      required this.categoryName,
+      required this.id,
+      required this.category});
+
+  get int => null;
 }

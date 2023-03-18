@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/db/category_db.dart';
+
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 
@@ -20,22 +21,22 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
-  /*  if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
-    Hive.registerAdapter(CategoryTypeAdapter());
-  }
-
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
-  } */
+  }
+
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
+  }
 
   /*  final Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocDir.path);
  */
 
-  Hive.registerAdapter(TransactionModelAdapter());
+  //Hive.registerAdapter(TransactionModelAdapter());
   await Hive.openBox<TransactionModel>(transactionDBName);
 
-  Hive.registerAdapter(CategoryModelAdapter());
+  //Hive.registerAdapter(CategoryModelAdapter());
   await Hive.openBox<CategoryModel>(categoryDBName);
 
   runApp(const MyApp());

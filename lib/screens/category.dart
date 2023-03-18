@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/functions/db_functions.dart';
+import 'package:spendee/db/category_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/screens/add_category.dart';
 
@@ -87,7 +87,7 @@ class CategoryState extends State<Category> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const add_category()),
+                                builder: (context) => const AddCategory()),
                           );
                         },
                         child: button(120, 50, 'Add', 18),
@@ -110,12 +110,12 @@ class CategoryState extends State<Category> {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(
-            'assets/images/image/${model.image}.png',
+            'assets/images/image/${model.categoryImage}.png',
             height: 40,
           ),
         ),
         title: Text(
-          model.name,
+          model.categoryName,
           style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 17,

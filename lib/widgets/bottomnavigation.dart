@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/add.dart';
+import 'package:spendee/screens/add_transaction.dart';
 import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/settings.dart';
-import 'package:spendee/screens/statitics.dart';
+
+import 'package:spendee/statitics/statitics_screen.dart';
 
 class Bottom_NavBar extends StatefulWidget {
   const Bottom_NavBar({super.key});
@@ -23,7 +24,7 @@ class _Bottom_NavBarState extends State<Bottom_NavBar> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const Add_Screen()));
+              MaterialPageRoute(builder: (context) => const AddTransaction()));
         },
         child: const Icon(Icons.add),
         backgroundColor: const Color.fromRGBO(255, 67, 40, 0.88),

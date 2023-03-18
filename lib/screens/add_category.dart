@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/functions/db_functions.dart';
-
 import 'package:spendee/models/category/category_model.dart';
-
-import 'package:spendee/screens/category.dart';
-import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
 
-class add_category extends StatefulWidget {
-  const add_category({super.key});
+class AddCategory extends StatefulWidget {
+  const AddCategory({super.key});
 
   @override
-  State<add_category> createState() => _add_categoryState();
+  State<AddCategory> createState() => _AddCategoryState();
 }
 
-class _add_categoryState extends State<add_category> {
+class _AddCategoryState extends State<AddCategory> {
   DateTime date = DateTime.now();
-  String? selecteditem;
-  String? selecteditemi;
+  //String? categoryName;
+  String? selectedCategoryImage;
   final _formKey = GlobalKey<FormState>();
   final _nameOfCategory = TextEditingController();
   //final _categoryimage = TextEditingController();
@@ -47,17 +41,17 @@ class _add_categoryState extends State<add_category> {
           child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          background_container(context),
+          backgroundContainer(context),
           Positioned(
             top: 120,
-            child: main_container(),
+            child: mainContainer(),
           )
         ],
       )),
     );
   }
 
-  Container main_container() {
+  Container mainContainer() {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -78,7 +72,7 @@ class _add_categoryState extends State<add_category> {
             const SizedBox(
               height: 50,
             ),
-            date_time(),
+            dateTime(),
             const SizedBox(
               height: 30,
             ),
@@ -86,19 +80,20 @@ class _add_categoryState extends State<add_category> {
             GestureDetector(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  print('hai');
+                  //print('hai');
+                  addCategory();
                   //checkLogin(context);
-                  var add = CategoryModel(
+                  /*  var add = CategoryModel(
                     id: '_formKey',
                     name: _nameOfCategory.text,
                     image: selecteditem!,
                     //image: _categoryimage.text
-                  );
+                  ); */
                   //CategoryDB.instance.insertCategory(add);
-                  categoryDB.add(add);
+                  //categoryDB.add(add);
                   //print(selecteditem);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Bottom_NavBar()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Bottom_NavBar()));
                 }
 
                 /* final _sample = CategoryModel(
@@ -118,6 +113,13 @@ class _add_categoryState extends State<add_category> {
     );
   }
 
+  addCategory() {
+    var category = CategoryModel(
+        categoryName: _nameOfCategory.text,
+        categoryImage: selectedCategoryImage!);
+    categoryDB.add(category);
+  }
+
   Padding image() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -131,14 +133,18 @@ class _add_categoryState extends State<add_category> {
                 color: Colors.grey,
               )),
           child: DropdownButtonFormField<String>(
-            value: selecteditem,
+            value: selectedCategoryImage,
             items: _item
                 .map((e) => DropdownMenuItem(
                       child: Row(
                         children: [
                           Container(
                             width: 40,
-                            child: Image.asset('assets/images/image/$e.png'),
+                            child: Image.asset(
+                              'assets/images/image/$e.png',
+                              height: 30,
+                              width: 30,
+                            ),
                           ),
                           const SizedBox(
                             width: 10,
@@ -172,7 +178,7 @@ class _add_categoryState extends State<add_category> {
             // underline: Container(),
             onChanged: ((value) {
               setState(() {
-                selecteditem = value!;
+                selectedCategoryImage = value!;
                 // print(selecteditem);
               });
             }),
@@ -180,7 +186,7 @@ class _add_categoryState extends State<add_category> {
     );
   }
 
-  Container date_time() {
+  Container dateTime() {
     return Container(
         alignment: Alignment.bottomLeft,
         decoration: BoxDecoration(
@@ -261,7 +267,7 @@ class _add_categoryState extends State<add_category> {
     );
   }
 
-  Column background_container(BuildContext context) {
+  Column backgroundContainer(BuildContext context) {
     return Column(
       children: [
         Container(
