@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
@@ -13,12 +13,10 @@ class AddCategory extends StatefulWidget {
 
 class _AddCategoryState extends State<AddCategory> {
   DateTime date = DateTime.now();
-  //String? categoryName;
+
   String? selectedCategoryImage;
   final _formKey = GlobalKey<FormState>();
   final _nameOfCategory = TextEditingController();
-  //final _categoryimage = TextEditingController();
-//final _categoryimage = selecteditem;
 
   final List<String> _item = ['food', 'transportation', 'health', 'education'];
 
@@ -28,9 +26,6 @@ class _AddCategoryState extends State<AddCategory> {
     _nameOfCategory.addListener(() {
       setState(() {});
     });
-    /*  _categoryimage.addListener(() {
-      setState(() {});
-    }); */
   }
 
   @override
@@ -72,7 +67,7 @@ class _AddCategoryState extends State<AddCategory> {
             const SizedBox(
               height: 50,
             ),
-            dateTime(),
+            //dateTime(),
             const SizedBox(
               height: 30,
             ),
@@ -80,27 +75,11 @@ class _AddCategoryState extends State<AddCategory> {
             GestureDetector(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  //print('hai');
                   addCategory();
-                  //checkLogin(context);
-                  /*  var add = CategoryModel(
-                    id: '_formKey',
-                    name: _nameOfCategory.text,
-                    image: selecteditem!,
-                    //image: _categoryimage.text
-                  ); */
-                  //CategoryDB.instance.insertCategory(add);
-                  //categoryDB.add(add);
-                  //print(selecteditem);
+
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const Bottom_NavBar()));
                 }
-
-                /* final _sample = CategoryModel(
-                    id: DateTime.now().microsecondsSinceEpoch.toString(),
-                    name: 'hh',
-                    type: CategoryType.expense); */
-                //CategoryDB().insertCategory(_sample).then((value) {});
               },
               child: button(120, 50, 'Save', 18),
             ),
@@ -184,32 +163,6 @@ class _AddCategoryState extends State<AddCategory> {
             }),
           )),
     );
-  }
-
-  Container dateTime() {
-    return Container(
-        alignment: Alignment.bottomLeft,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 2, color: Colors.grey)),
-        width: 300,
-        child: TextButton(
-          onPressed: () async {
-            DateTime? newDate = await showDatePicker(
-                context: context,
-                initialDate: date,
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2100));
-
-            setState(() {
-              date = newDate!;
-            });
-          },
-          child: Text(
-            'Date : ${date.year}/${date.month}/${date.day}',
-            style: const TextStyle(fontSize: 16, color: Colors.black),
-          ),
-        ));
   }
 
   Padding explain() {

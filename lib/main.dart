@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/category_db.dart';
 
 import 'package:spendee/db/transaction_db.dart';

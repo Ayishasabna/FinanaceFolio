@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendee/main.dart';
-import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
+
+final _usernameController = TextEditingController();
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,7 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _usernameController = TextEditingController();
+  //final _usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override

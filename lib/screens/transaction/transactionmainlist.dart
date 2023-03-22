@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:spendee/data/utility.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
 import 'package:spendee/screens/edit.dart';
+import 'package:spendee/screens/home_screen.dart';
+import 'package:spendee/widgets/uppercase.dart';
 
 class SlidableTransaction extends StatelessWidget {
   const SlidableTransaction({super.key, required this.transaction});
 
   final TransactionModel transaction;
-
-  String parseDateTime(DateTime date) {
-    final dateFormatted = DateFormat.MMMMd().format(date);
-    //using split we split the date into two parts
-    final splitedDate = dateFormatted.split(' ');
-    //here _splitedDate.last is second word that is month name and other one is the first word
-    return "${splitedDate.last}  ${splitedDate.first} ";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +23,6 @@ class SlidableTransaction extends StatelessWidget {
               MaterialPageRoute(
                 builder: ((context) {
                   return EditTransaction(obj: transaction);
-
-                  /* if (transaction.finanace=='expence'){
-                          return EditExpenseTransaction(
-                          obj: transaction,
-                  );
-                  }
-                  else
-                   {
-                     return EditIncomeTransaction(
-                    obj: transaction,
-                  );
-                   } */
                 }),
               ),
             );
@@ -63,11 +44,8 @@ class SlidableTransaction extends StatelessWidget {
                           onPressed: (() async {
                             await TransactionDB()
                                 .deleteTransaction(transaction);
-                            print(transaction.id);
-                            //await TransactionDB.instance.deleteTransaction(transaction);
-                            // .deleteTransaction(transaction);
+
                             Navigator.of(context).pop();
-                            //print();
                           }),
                           child: const Text(
                             'Yes',
@@ -110,25 +88,29 @@ class SlidableTransaction extends StatelessWidget {
               height: 30,
               width: 30,
             ),
-            /*  Icon(
-              transaction.finanace == 'income'
-                  ? Icons.arrow_upward_outlined
-                  : Icons.arrow_downward_outlined,
-              color: transaction.finanace == 'income'
-                  ? Color.fromARGB(255, 2, 155, 43)
-                  : Color.fromARGB(255, 195, 0, 0),
-            ), */
           ),
           title: Text(
             '₹ ${transaction.amount}',
             style: const TextStyle(color: Colors.black),
           ),
-          subtitle: Text('${transaction.category.categoryName}'),
+          subtitle: Text('${transaction.category.categoryName.capitalize()}'),
           trailing: Text(
-            parseDateTime(transaction.datetime),
+            parseDate(transaction.datetime),
           ),
         ),
       ),
     );
+  }
+
+  String parseDateTime(DateTime date) {
+    final dateFormatted = DateFormat.MMMMd().format(date);
+    //using split we split the date into two parts
+    final splitedDate = dateFormatted.split(' ');
+    //here _splitedDate.last is second word that is month name and other one is the first word
+    return "${splitedDate.last}  ${splitedDate.first} ";
+  }
+
+  String parseDate(DateTime date) {
+    return '${day[date.weekday - 1]}-${date.year} ${DateFormat.MMMd().format(date)}';
   }
 }

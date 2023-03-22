@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/add_transaction.dart';
-import 'package:spendee/screens/category.dart';
+import 'package:spendee/screens/transaction/add_transaction.dart';
+import 'package:spendee/screens/category/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/settings.dart';
 

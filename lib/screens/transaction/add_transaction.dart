@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:spendee/data/utility.dart';
+
 import 'package:spendee/db/category_db.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
+import 'package:spendee/models/transactions/transaction_model.dart';
 
-import 'package:spendee/screens/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/button.dart';
-
-import '../models/transactions/transaction_model.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -106,14 +105,6 @@ class _AddTransactionState extends State<AddTransaction> {
             GestureDetector(
               onTap: () {
                 addTransaction();
-                /* if (_formKey.currentState!.validate()) {
-                  /* var add = TransactionModel(selecteditemi!, amount_c.text,
-                      date, explain_C.text, selecteditem!); */
-                  //TransactionDB.instance.insertCategory(add);
-                  //transactionDB.add(add);
-                  /*  Navigator.of(context).pop();
-                  TransactionDB.instance.getAllTransactions(); */
-                } */
               },
               child: button(120, 50, 'Save', 18),
             ),
@@ -333,7 +324,6 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
-  List<CategoryModel> get items => model.toList();
   List<DropdownMenuItem<String>> dropdownitems() {
     var boxItems = categoryDB.values.map(
       (item) => DropdownMenuItem<String>(
@@ -372,20 +362,17 @@ class _AddTransactionState extends State<AddTransaction> {
     if (amountText.isEmpty) {
       return;
     }
-
     if (categoryID == null) {
       return;
     }
-
     final parsedAmount = double.tryParse(amountText);
     if (parsedAmount == null) {
       return;
-    }
-
+    }*/
     if (selectedCategoryModel == null) {
       return;
     }
- */
+
     final model = TransactionModel(
         categoryName: name,
         finanace: selectedFinanace!,
@@ -400,53 +387,8 @@ class _AddTransactionState extends State<AddTransaction> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Transaction Added Successfully')),
     );
-
-    /*  final model= TransactionModel(
-        purpose: _purposeText,
-        amount: parsedAmount,
-        date: _selectedDate!,
-        type: CategoryType.expense,
-        category: _selectedCategoryModel!,
-        id: DateTime.now().microsecondsSinceEpoch.toString(),
-      ); */
-
-    /* await TransactionDB.instance.addTransaction(model);
-     Navigator.of(context).pop();
-     
-     
-     TransactionDB.instance.refresh();
- */
   }
 }
-
-/* Container dateTime(BuildContext context) {
-    return Container(
-        alignment: Alignment.bottomLeft,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(width: 2, color: Colors.grey)),
-        width: 300,
-        child: TextButton(
-          onPressed: () async {
-            DateTime? newDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2100));
-            if (newDate == Null) return;
-            setState(() {
-              date = newDate!;
-            });
-          },
-          child: Text(
-            'Date : ${date.year}/${date.month}/${date.day}',
-            style: const TextStyle(
-                fontSize: 16,
-                //fontWeight: FontWeight.normal,
-                color: Colors.black),
-          ),
-        ));
-  } */
 
 Column background_container(BuildContext context) {
   return Column(

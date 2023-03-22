@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-
-import 'package:spendee/data/utility.dart';
-import 'package:spendee/db/category_db.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/transaction_db.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:spendee/models/category/category_model.dart';
-import 'package:spendee/screens/transactionmainlist.dart';
-
-import 'package:spendee/screens/transactions.dart';
+import 'package:spendee/screens/transaction/transactions.dart';
 import 'package:spendee/widgets/home_head.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:spendee/widgets/uppercase.dart';
 import '../models/transactions/transaction_model.dart';
 
-enum SearchItems { categories, date, description }
+//enum SearchItems { categories, date, description }
 
-var history;
-var model;
 final List<String> day = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
 
 class Home extends StatefulWidget {
@@ -30,10 +21,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var displayList = [];
+
   @override
   Widget build(BuildContext context) {
-    //history = transactionDB.values.toList();
-
     return Scaffold(
         body: SafeArea(
       child: ValueListenableBuilder(
@@ -41,7 +31,7 @@ class _HomeState extends State<Home> {
           builder: (context, value, index) {
             return Column(
               children: [
-                SizedBox(height: 350, child: HomeHead()),
+                const SizedBox(height: 350, child: HomeHead()),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
@@ -54,11 +44,8 @@ class _HomeState extends State<Home> {
                               color: Color.fromARGB(255, 15, 14, 14))),
                       GestureDetector(
                         onTap: () {
-                          /*   TransactionDB()
-                            .transactionListNotifier
-                            .notifyListeners(); */
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Transactions()));
+                              builder: (context) => const Transactions()));
                         },
                         child: const Text('See all',
                             style: TextStyle(
@@ -78,10 +65,8 @@ class _HomeState extends State<Home> {
                             TransactionDB.instance.transactionListNotifier,
                         builder: (BuildContext ctx,
                             List<TransactionModel> newList, Widget? _) {
-                          // return newList.length==0? Center(child: Text('NO VALUE'),) :
-
                           return newList.isEmpty
-                              ? Center(
+                              ? const Center(
                                   child: Text('No transactions added yet'),
                                 )
                               : ListView.separated(
@@ -91,42 +76,36 @@ class _HomeState extends State<Home> {
                                         transactionDB.length - 1;
                                     final int reversedIndex = lastIndex - index;
 
-                                    final _value = newList[reversedIndex];
+                                    final value = newList[reversedIndex];
                                     return Card(
-                                      color: Color.fromARGB(255, 248, 246, 246),
+                                      color: const Color.fromARGB(
+                                          255, 248, 246, 246),
                                       elevation: 0,
                                       child: ListTile(
                                         leading: CircleAvatar(
-                                          backgroundColor: Color.fromARGB(
+                                          backgroundColor: const Color.fromARGB(
                                               255, 244, 240, 228),
                                           radius: 50,
                                           child: Image.asset(
-                                            'assets/images/image/${_value.category.categoryImage}.png',
+                                            'assets/images/image/${value.category.categoryImage}.png',
                                             height: 30,
                                             width: 30,
                                           ),
                                         ),
-                                        // CircleAvatar(
-                                        //   radius: 50,
 
-                                        //   backgroundColor: _value.type == CategoryType.income ? Colors.green : Colors.red,
-                                        //   child: Text(
-                                        //     parseDate(_value.date),
-                                        //     textAlign: TextAlign.center,
-                                        //   ),
-                                        // ),
-                                        title: Text('RS ${_value.amount}',
+                                        title: Text('₹ ${value.amount}',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 17,
                                                 color:
-                                                    _value.finanace == 'income'
+                                                    value.finanace == 'income'
                                                         ? Colors.green
                                                         : Colors.red)),
-                                        subtitle:
-                                            Text(_value.category.categoryName),
+                                        subtitle: Text(value
+                                            .category.categoryName
+                                            .capitalize()),
                                         trailing: Text(
-                                          parseDate(_value.datetime),
+                                          parseDateTime(value.datetime),
                                         ),
                                         //
                                       ),
@@ -138,9 +117,9 @@ class _HomeState extends State<Home> {
                                       thickness: 2,
                                     );
                                   },
-                                  itemCount: 3
-                                  //newList.length > 4 ? 3 : newList.length,
-                                  );
+                                  itemCount:
+                                      newList.length > 3 ? 3 : newList.length,
+                                );
                         }),
                   ),
                 )
@@ -149,69 +128,6 @@ class _HomeState extends State<Home> {
           }),
     ));
   }
-
-  /*  Expanded(
-                      child: ListView.separated(
-                        itemBuilder: ((context, index) {
-                          ValueListenableBuilder:
-                          valueListenable:
-                          transactionDB.listenable();
-                          //final transaction = displayList[index];
-                          final transaction = transactionDB.values.toList();
-                          SlidableTransaction(transaction: transaction);
-                          /* history = transactionDB.values.toList()[index];
-                          return get(index, history); */
-                        }),
-                        separatorBuilder: (context, index) {
-                          return const Divider(
-                            height: 5,
-                            thickness: 5,
-                          );
-                        },
-                        itemCount: displayList.length,
-                      ),
-                    ) */
-  // SlidableTransaction(transaction: transaction);
-}
-
-ListTile get(int index, TransactionModel history) {
-  //print(index);
-  return ListTile(
-    leading: ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Image.asset(
-        'assets/images/image/${history.category.categoryImage}.png',
-        //'assets/images/image/${model.categoryImage}.png',
-        height: 30,
-        width: 30,
-      ),
-    ),
-    title: Text(
-      //geter()[index].name!,
-      history.category.categoryName,
-      //history.category.toString(),
-
-      style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 17,
-          color: Color.fromARGB(255, 15, 14, 14)),
-    ),
-    subtitle: Text(
-      parseDate(history.datetime),
-      //'${day[history.datetime.weekday - 1]}-${history.datetime.year} ${DateFormat.MMMd().format(history.datetime)}',
-      //DateFormat.MMMd().format(date);
-      //'${day[history.datetime.weekday - 1]}-${history.datetime.year}-${history.datetime.month}-${history.datetime.day}',
-      style:
-          const TextStyle(fontSize: 15, color: Color.fromARGB(255, 15, 14, 14)),
-    ),
-    trailing: Text(history.amount,
-        //geter()[index].fee!,
-
-        style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 17,
-            color: history.finanace == 'income' ? Colors.green : Colors.red)),
-  );
 }
 
 String parseDateTime(DateTime date) {
@@ -220,8 +136,4 @@ String parseDateTime(DateTime date) {
   final splitedDate = dateFormatted.split(' ');
 
   return "${splitedDate.last}  ${splitedDate.first} ";
-}
-
-String parseDate(DateTime date) {
-  return '${day[date.weekday - 1]}-${date.year} ${DateFormat.MMMd().format(date)}';
 }

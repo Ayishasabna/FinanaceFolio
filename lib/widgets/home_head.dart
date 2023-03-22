@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 
 class HomeHead extends StatelessWidget {
   const HomeHead({super.key});
@@ -93,7 +93,7 @@ Widget _head() {
               const SizedBox(height: 7),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text('Rs. ${total()}',
+                child: Text('₹ ${total()}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 19,
@@ -152,12 +152,15 @@ Widget _head() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Rs.${income()}',
+                    Text('₹ ${income()}',
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 19,
                             color: Colors.green)),
-                    Text('Rs.${expense()}',
+                    /* const SizedBox(
+                      width: 155,
+                    ), */
+                    Text('₹ ${expense()}',
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 19,

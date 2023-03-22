@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/secondscreen.dart';
+import 'package:spendee/onboarding/secondscreen.dart';
 import 'package:spendee/widgets/button.dart';
 
 class FirstScreen extends StatelessWidget {

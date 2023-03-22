@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
 import 'package:spendee/statitics/statitics_screen.dart';
@@ -38,7 +38,8 @@ class ScreenIncomeChart extends StatelessWidget {
                         xValueMapper: (TransactionModel incomeDate, _) =>
                             incomeDate.category.categoryName,
                         yValueMapper: (TransactionModel incomeDate, _) =>
-                            num.parse(incomeDate.amount),
+                            int.parse(incomeDate.amount),
+                        //num.parse(incomeDate.amount),
                         //incomeDate.hashCode,
                         dataLabelSettings: const DataLabelSettings(
                           isVisible: true,

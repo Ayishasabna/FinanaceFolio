@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/category_db.dart';
 import 'package:spendee/models/category/category_model.dart';
-import 'package:spendee/screens/add_category.dart';
-
-import 'package:spendee/screens/home_screen.dart';
-import 'package:spendee/screens/search.dart';
+import 'package:spendee/screens/category/add_category.dart';
 import 'package:spendee/widgets/button.dart';
+import 'package:spendee/widgets/uppercase.dart';
 
 class Category extends StatefulWidget {
   const Category({super.key});
@@ -36,10 +34,10 @@ class CategoryState extends State<Category> {
                 actions: <Widget>[
                   IconButton(
                       onPressed: () {
-                        showSearch(
+                        /* showSearch(
                           context: context,
                           delegate: SearchWidget(),
-                        );
+                        ); */
                       },
                       icon: const Icon(Icons.search))
                 ],
@@ -70,7 +68,8 @@ class CategoryState extends State<Category> {
                                 delegate: SliverChildBuilderDelegate(
                                   (context, index) {
                                     //return getCategories();
-                                    model = categoryDB.values.toList()[index];
+                                    var model =
+                                        categoryDB.values.toList()[index];
 
                                     return get(index, model);
                                   },
@@ -83,7 +82,6 @@ class CategoryState extends State<Category> {
                     SingleChildScrollView(
                       child: GestureDetector(
                         onTap: () {
-                          //showCategoryAddPopup(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -107,15 +105,17 @@ class CategoryState extends State<Category> {
   ListTile get(int index, CategoryModel model) {
     //print(model.image);
     return ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
+        leading: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 50,
           child: Image.asset(
             'assets/images/image/${model.categoryImage}.png',
-            height: 40,
+            height: 30,
+            width: 30,
           ),
         ),
         title: Text(
-          model.categoryName,
+          model.categoryName.capitalize(),
           style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 17,
@@ -151,8 +151,8 @@ class CategoryState extends State<Category> {
                           TextButton(
                             onPressed: (() {
                               popoutfuction(context);
-                              //CategoryDB.instance.deleteCategory(model.key);
-                              CategoryDB().deleteCategory(model.key);
+                              CategoryDB.instance.deleteCategory(model.key);
+                              //CategoryDB().deleteCategory(model.key);
                             }),
                             child: const Text('Yes'),
                           ),

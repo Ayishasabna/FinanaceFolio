@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/category_db.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
@@ -345,6 +345,7 @@ class _EditTransactionState extends State<EditTransaction> {
           ),
         ),
         child: DropdownButtonFormField<String>(
+          //hint: Text(widget.obj.categoryName),
           items: dropdownitems(),
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -469,11 +470,8 @@ class _EditTransactionState extends State<EditTransaction> {
         finanace: _selectedFinanace!,
         category: _selectedCategoryModel!,
         id: widget.obj.id);
-    print(model.amount);
 
     await TransactionDB.instance.editTransaction(model);
     Navigator.of(context).pop();
-
-    TransactionDB.instance.getAllTransactions();
   }
 }

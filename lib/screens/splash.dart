@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spendee/screens/first_screen.dart';
+import 'package:spendee/onboarding/first_screen.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 

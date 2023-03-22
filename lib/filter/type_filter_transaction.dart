@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
 import 'package:spendee/screens/home_screen.dart';
-import 'package:spendee/screens/transactions.dart';
+import 'package:spendee/screens/transaction/transactions.dart';
 
 class TypeFilterClass extends StatelessWidget {
   const TypeFilterClass({super.key});

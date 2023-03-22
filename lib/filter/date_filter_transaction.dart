@@ -1,8 +1,7 @@
 import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:spendee/db/transaction_db.dart';
-import 'package:spendee/screens/transactionlist.dart';
-import 'package:spendee/screens/transactions.dart';
+import 'package:spendee/screens/transaction/transactionlist.dart';
 
 class DateFilterTransaction extends StatefulWidget {
   const DateFilterTransaction({
@@ -25,8 +24,6 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
       ),
       child: const Icon(
         Icons.calendar_view_day_rounded,
-        // size: 0,
-        // shadows: <Shadow>[Shadow(color: Colors.white, blurRadius: 15.0)],
       ),
       itemBuilder: (ctx) => [
         PopupMenuItem(
@@ -37,14 +34,6 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
           onTap: () {
             overViewListNotifier.value =
                 TransactionDB.instance.transactionListNotifier.value;
-            overViewListNotifier.notifyListeners();
-            print(overViewListNotifier.value);
-            setState(() {
-              TransactionDB.instance.getAllTransactions();
-            });
-
-            //overViewListNotifier.value =
-            //TransactionDB.instance.transactionListNotifier.value;
           },
         ),
         PopupMenuItem(
@@ -128,47 +117,6 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
               startDate = null;
               endDate = null;
             }),
-
-        /* PopupMenuItem(
-            value: 2,
-            child: const Text(
-              "Date Range",
-            ),
-            onTap: () {
-              showCustomDateRangePicker(
-                context,
-                dismissible: true,
-                minimumDate: DateTime(2010),
-                maximumDate: DateTime.now(),
-                endDate: endDate,
-                startDate: startDate,
-                onApplyClick: (start, end) {
-                  setState(() {
-                    endDate = end;
-                    startDate = start;
-                  });
-                },
-                onCancelClick: () {
-                  setState(() {
-                    endDate = null;
-                    startDate = null;
-                  });
-                },
-                backgroundColor: Colors.white,
-                primaryColor: Colors.white,
-              );
-              //print('start date $startDate , end date $endDate');
-
-              overViewListNotifier.value =
-                  TransactionDB.instance.transactionListNotifier.value;
-              overViewListNotifier.value = overViewListNotifier.value
-                  .where((element) =>
-                      element.datetime.isAfter(startDate!) &&
-                      element.datetime.isBefore(endDate!))
-                  .toList();
-              startDate = null;
-              endDate = null;
-            }), */
       ],
     );
   }

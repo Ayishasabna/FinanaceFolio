@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:spendee/data/utility.dart';
-import 'package:spendee/filter/date_filter_transaction.dart';
-import 'package:spendee/filter/type_filter_transaction.dart';
-
-import 'package:spendee/screens/home_screen.dart';
-import 'package:spendee/screens/transactionmainlist.dart';
-import 'package:spendee/screens/transactions.dart';
-
-import '../db/transaction_db.dart';
-import '../models/transactions/transaction_model.dart';
+import 'package:spendee/screens/transaction/transactionmainlist.dart';
+import 'package:spendee/screens/transaction/transactions.dart';
+import '../../db/transaction_db.dart';
+import '../../models/transactions/transaction_model.dart';
 
 ValueNotifier<List<TransactionModel>> overViewListNotifier =
     ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
@@ -21,18 +14,13 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     TransactionDB().getAllTransactions();
     return ValueListenableBuilder(
-        valueListenable: TransactionDB().transactionListNotifier,
+        valueListenable: overViewListNotifier,
         builder: (BuildContext context, newList, Widget? _) {
           return ValueListenableBuilder(
               valueListenable: showCategory,
-              //TransactionDB().transactionListNotifier,
               builder: (context, showcategorylist, child) {
                 //here we building the list using displayList list
                 var displayList = [];
-                // history = transactionDB.values.toList();
-                //model = categoryDB.values.toList();
-
-                //print('$history');
 
                 if (showCategory.value == 'income') {
                   //here i am creating an empty list for the transaction,
@@ -55,7 +43,7 @@ class TransactionList extends StatelessWidget {
                 }
 
                 return displayList.isEmpty
-                    ? SingleChildScrollView(
+                    ? const SingleChildScrollView(
                         child: Center(
                         child: Text('No transactions added yet'),
                       ))
@@ -76,5 +64,4 @@ class TransactionList extends StatelessWidget {
               });
         });
   }
-  //here if the showCategory notifier value is income (which will be changed based on the changes in popMenuItem )
 }

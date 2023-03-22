@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:spendee/data/utility.dart';
+import 'package:spendee/db/income_expence.dart';
+import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 
 const categoryDBName = 'category_database';
@@ -8,7 +9,6 @@ const categoryDBName = 'category_database';
 ValueNotifier<List<CategoryModel>> CategoryNotifier = ValueNotifier([]);
 
 class CategoryDB {
-  // get refreshUI => null;
   CategoryDB.internal();
 
   static CategoryDB instance = CategoryDB.internal();
@@ -18,7 +18,6 @@ class CategoryDB {
   }
 
   Future<void> getAllCategory() async {
-    //final box1 = await Hive.openBox<CategoryModel>(Category_DB_Name);
     final categoryDB = await Hive.openBox<CategoryModel>(categoryDBName);
     CategoryNotifier.value.clear();
     CategoryNotifier.value.addAll(categoryDB.values);
