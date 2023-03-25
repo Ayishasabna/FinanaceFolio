@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/db/income_expence.dart';
-import 'package:spendee/models/transactions/transaction_model.dart';
-import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/transaction/transactions.dart';
 
 class TypeFilterClass extends StatelessWidget {
@@ -35,7 +32,6 @@ class TypeFilterClass extends StatelessWidget {
         child: const Icon(
           Icons.filter_list_sharp,
           size: 30,
-          // shadows: <Shadow>[Shadow(color: Colors.white, blurRadius: 15.0)],
         ));
   }
 }

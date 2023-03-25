@@ -9,6 +9,9 @@ class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    //final Size size = MediaQuery.of(context).size;
+    //final double screenWidth = size.width;
+    final double screenHeight = size.height;
     final double imageHeight = size.height * .5;
     final double textSize = size.width * 0.05;
     final double buttonWidth = size.width * 0.3;
@@ -30,9 +33,7 @@ class SecondScreen extends StatelessWidget {
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: 80,
-            ),
+            SizedBox(height: screenHeight * .08),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -42,7 +43,7 @@ class SecondScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Login()),
+                        MaterialPageRoute(builder: (context) => const Login()),
                       );
                     },
                     child: button(buttonWidth, buttonHeight, 'Skip', textSize),

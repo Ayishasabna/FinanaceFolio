@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:spendee/db/income_expence.dart';
-import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 
 const categoryDBName = 'category_database';
 
-ValueNotifier<List<CategoryModel>> CategoryNotifier = ValueNotifier([]);
-
 class CategoryDB {
   CategoryDB.internal();
+  ValueNotifier<List<CategoryModel>> categoryNotifier = ValueNotifier([]);
 
   static CategoryDB instance = CategoryDB.internal();
 
@@ -19,9 +16,9 @@ class CategoryDB {
 
   Future<void> getAllCategory() async {
     final categoryDB = await Hive.openBox<CategoryModel>(categoryDBName);
-    CategoryNotifier.value.clear();
-    CategoryNotifier.value.addAll(categoryDB.values);
-    CategoryNotifier.notifyListeners();
+    categoryNotifier.value.clear();
+    categoryNotifier.value.addAll(categoryDB.values);
+    categoryNotifier.notifyListeners();
   }
 
   Future<void> insertCategory(CategoryModel value) async {
@@ -35,10 +32,10 @@ class CategoryDB {
     return categoryDB.values.toList();
   }
 
-  Future<void> deleteCategory(int id) async {
-    final categoryDB = await Hive.openBox<CategoryModel>('category');
-    await categoryDB.delete(id);
+  Future<void> deleteCategory(String categoryID) async {
+    final categoryDB = await Hive.openBox<CategoryModel>(categoryDBName);
+    await categoryDB.delete(categoryID);
     getAllCategory();
-    CategoryNotifier.notifyListeners();
+    categoryNotifier.notifyListeners();
   }
 }

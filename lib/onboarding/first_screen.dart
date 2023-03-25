@@ -8,63 +8,66 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: size.height * 0.5, // use percentage of screen height
-              width: size.width * 0.9, // use percentage of screen width
-              child: Padding(
-                padding: EdgeInsets.all(
-                    size.width * 0.05), // use percentage of screen width
-                child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/allocation.png'),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.5, // use percentage of screen height
+                width: size.width * 0.9, // use percentage of screen width
+                child: Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.07),
+                  //EdgeInsets.all(size.width * 0.05), // use percentage of screen width
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/allocation.png'),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.05,
-            ),
-            Text(
-              "Let's \n Manage\n  money with us",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: size.width * 0.1, // use percentage of screen width
-                color: const Color.fromARGB(255, 218, 148, 19),
-                shadows: const <Shadow>[
-                  Shadow(
-                    offset: Offset(1, 1),
-                    color: Color.fromARGB(255, 218, 148, 19),
-                  ),
-                ],
+              SizedBox(
+                height: size.height * 0.05,
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: size.height * 0.1), // use percentage of screen height
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SecondScreen()),
-                  );
-                },
-                child: button(
-                    size.width * 0.3,
-                    size.height * 0.05,
-                    'Get Started',
-                    size.width *
-                        0.05), // use percentage of screen width and height
+              Text(
+                "Let's \n Manage\n  money with us",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: size.width * 0.1, // use percentage of screen width
+                  color: const Color.fromARGB(255, 218, 148, 19),
+                  shadows: const <Shadow>[
+                    Shadow(
+                      offset: Offset(1, 1),
+                      color: Color.fromARGB(255, 218, 148, 19),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(
+                    top: size.height * 0.1,
+                    left: size.width * 0.07), // use percentage of screen height
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SecondScreen()),
+                    );
+                  },
+                  child: button(
+                      size.width * 0.3,
+                      size.height * 0.05,
+                      'Get Started',
+                      size.width *
+                          0.05), // use percentage of screen width and height
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

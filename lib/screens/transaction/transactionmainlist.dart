@@ -45,6 +45,7 @@ class SlidableTransaction extends StatelessWidget {
                             await TransactionDB()
                                 .deleteTransaction(transaction);
 
+                            // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           }),
                           child: const Text(
@@ -81,7 +82,7 @@ class SlidableTransaction extends StatelessWidget {
         child: ListTile(
           //onLongPress: () {},
           leading: CircleAvatar(
-            backgroundColor: Color.fromARGB(255, 244, 240, 228),
+            backgroundColor: const Color.fromARGB(255, 244, 240, 228),
             radius: 50,
             child: Image.asset(
               'assets/images/image/${transaction.category.categoryImage}.png',
@@ -91,8 +92,14 @@ class SlidableTransaction extends StatelessWidget {
           ),
           title: Text(
             '₹ ${transaction.amount}',
-            style: const TextStyle(color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 17,
+                color: transaction.finanace == 'income'
+                    ? Colors.green
+                    : Colors.red),
           ),
+          // ignore: unnecessary_string_interpolations
           subtitle: Text('${transaction.category.categoryName.capitalize()}'),
           trailing: Text(
             parseDate(transaction.datetime),

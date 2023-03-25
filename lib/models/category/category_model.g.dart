@@ -19,6 +19,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
     return CategoryModel(
       categoryName: fields[0] as String,
       categoryImage: fields[1] as String,
+      categoryid: fields[3] as String,
       isDeleted: fields[2] as bool,
     );
   }
@@ -26,13 +27,15 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
   @override
   void write(BinaryWriter writer, CategoryModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.categoryName)
       ..writeByte(1)
       ..write(obj.categoryImage)
       ..writeByte(2)
-      ..write(obj.isDeleted);
+      ..write(obj.isDeleted)
+      ..writeByte(3)
+      ..write(obj.categoryid);
   }
 
   @override

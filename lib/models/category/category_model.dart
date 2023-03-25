@@ -9,9 +9,12 @@ class CategoryModel extends HiveObject {
   final String categoryImage;
   @HiveField(2)
   final bool isDeleted;
+  @HiveField(3)
+  final String categoryid;
 
   CategoryModel(
       {required this.categoryName,
       required this.categoryImage,
+      required this.categoryid,
       this.isDeleted = false});
 }

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/transaction/transactionmainlist.dart';
-import 'package:spendee/screens/transaction/transactions.dart';
-import '../../db/transaction_db.dart';
-import '../../models/transactions/transaction_model.dart';
+import 'package:spendee/db/category_db.dart';
+import 'package:spendee/models/category/category_model.dart';
+import '../transaction/transactions.dart';
+import 'slidablecategory.dart';
 
-ValueNotifier<List<TransactionModel>> overViewListNotifier =
-    ValueNotifier(TransactionDB.instance.transactionListNotifier.value);
+//ValueNotifier<List<TransactionModel>> overViewListNotifier =
+//ValueNotifier(TransactionDB.instance.CategoryListNotifier.value);
 
-class TransactionList extends StatelessWidget {
-  const TransactionList({super.key});
+class CategoryList extends StatelessWidget {
+  const CategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TransactionDB().getAllTransactions();
+    CategoryDB().getAllCategory();
     return ValueListenableBuilder(
-        valueListenable: overViewListNotifier,
+        valueListenable: CategoryDB().categoryNotifier,
         builder: (BuildContext context, newList, Widget? _) {
           return ValueListenableBuilder(
               valueListenable: showCategory,
@@ -25,19 +25,19 @@ class TransactionList extends StatelessWidget {
                 if (showCategory.value == 'income') {
                   //here i am creating an empty list for the transaction,
                   //so i can pick the income only through the where function
-                  List<TransactionModel> incomeTransactionList = [];
+                  List<CategoryModel> incomeCategoryList1 = [];
                   //here i converting the element into list using toList function
-                  incomeTransactionList = newList
-                      .where((element) => element.finanace == 'income')
+                  incomeCategoryList1 = newList
+                      .where((element) => element.categoryName == 'income')
                       .toList();
                   //assigning the list into displayList which is the list i declared above
-                  displayList = incomeTransactionList;
+                  displayList = incomeCategoryList1;
                 } else if (showCategory.value == "Expense") {
-                  List<TransactionModel> expenseTransactionList = [];
-                  expenseTransactionList = newList
-                      .where((element) => element.finanace == 'expense')
+                  List<CategoryModel> expenseCategoryList1 = [];
+                  expenseCategoryList1 = newList
+                      .where((element) => element.categoryName == 'expense')
                       .toList();
-                  displayList = expenseTransactionList;
+                  displayList = expenseCategoryList1;
                 } else {
                   displayList = newList;
                 }
@@ -45,7 +45,7 @@ class TransactionList extends StatelessWidget {
                 return (displayList.isEmpty)
                     ? const SingleChildScrollView(
                         child: Center(
-                        child: Text('No transactions added yet'),
+                        child: Text('No categories added yet'),
                       ))
                     : ListView.separated(
                         padding: const EdgeInsets.all(5),
@@ -54,9 +54,9 @@ class TransactionList extends StatelessWidget {
                           final int reversedIndex = lastIndex - index; */
 
                           //final value = newList[reversedIndex];
-                          final transaction = displayList[index];
+                          final category = displayList[index];
 
-                          return SlidableTransaction(transaction: transaction);
+                          return SlidableCategory(category: category);
                         },
                         separatorBuilder: (ctx, index) {
                           return const Divider(

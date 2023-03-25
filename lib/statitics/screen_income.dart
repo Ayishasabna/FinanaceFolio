@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/db/income_expence.dart';
-import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
 import 'package:spendee/statitics/statitics_screen.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ScreenIncomeChart extends StatelessWidget {
-  ScreenIncomeChart({super.key});
+  const ScreenIncomeChart({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 246, 245, 245),
+        backgroundColor: const Color.fromARGB(255, 246, 245, 245),
         body: ValueListenableBuilder(
           valueListenable: overViewGraphNotifier,
           builder: (BuildContext context, List<TransactionModel> newList,

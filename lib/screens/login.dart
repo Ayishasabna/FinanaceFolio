@@ -25,6 +25,7 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        // ignore: sized_box_for_whitespace
         child: Container(
           height: screenHeight,
           child: Column(
@@ -45,6 +46,9 @@ class _LoginState extends State<Login> {
                     controller: _usernameController,
                     decoration: InputDecoration(
                         isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                            horizontal: screenHeight * 0.01),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -59,9 +63,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 60,
-              ),
+              SizedBox(height: screenHeight * .08),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: GestureDetector(
@@ -71,7 +73,7 @@ class _LoginState extends State<Login> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Bottom_NavBar()),
+                            builder: (context) => const BottomNavBar()),
                       );
                     }
                   },
@@ -88,11 +90,11 @@ class _LoginState extends State<Login> {
   void checkLogin(BuildContext ctx) async {
     final username = _usernameController.text;
 
-    if (username == 'ayisha') {
-      final sharedPref = await SharedPreferences.getInstance();
-      await sharedPref.setBool(SAVE_KEY_NAME, true);
-      Navigator.pushReplacement(
-          ctx, MaterialPageRoute(builder: (ctx1) => Bottom_NavBar()));
-    }
+    final sharedPref = await SharedPreferences.getInstance();
+    await sharedPref.setBool(saveKeyName, true);
+    await sharedPref.setString('username', username);
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        ctx, MaterialPageRoute(builder: (ctx1) => const BottomNavBar()));
   }
 }

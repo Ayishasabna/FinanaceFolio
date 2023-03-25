@@ -37,10 +37,7 @@ class _AddCategoryState extends State<AddCategory> {
         alignment: AlignmentDirectional.center,
         children: [
           backgroundContainer(context),
-          Positioned(
-            top: 120,
-            child: mainContainer(),
-          )
+          SingleChildScrollView(child: Container(child: mainContainer()))
         ],
       )),
     );
@@ -78,7 +75,7 @@ class _AddCategoryState extends State<AddCategory> {
                   addCategory();
 
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Bottom_NavBar()));
+                      builder: (context) => const BottomNavBar()));
                 }
               },
               child: button(120, 50, 'Save', 18),
@@ -94,8 +91,11 @@ class _AddCategoryState extends State<AddCategory> {
 
   addCategory() {
     var category = CategoryModel(
-        categoryName: _nameOfCategory.text,
-        categoryImage: selectedCategoryImage!);
+      categoryName: _nameOfCategory.text,
+      categoryImage: selectedCategoryImage!,
+      categoryid: DateTime.now().microsecondsSinceEpoch.toString(),
+    );
+
     categoryDB.add(category);
   }
 
@@ -115,8 +115,10 @@ class _AddCategoryState extends State<AddCategory> {
             value: selectedCategoryImage,
             items: _item
                 .map((e) => DropdownMenuItem(
+                      value: e,
                       child: Row(
                         children: [
+                          // ignore: sized_box_for_whitespace
                           Container(
                             width: 40,
                             child: Image.asset(
@@ -130,13 +132,13 @@ class _AddCategoryState extends State<AddCategory> {
                           ),
                         ],
                       ),
-                      value: e,
                     ))
                 .toList(),
 
             selectedItemBuilder: (BuildContext context) => _item
                 .map((e) => Row(
                       children: [
+                        // ignore: sized_box_for_whitespace
                         Container(
                           width: 40,
                           child: Image.asset('assets/images/image/$e.png'),

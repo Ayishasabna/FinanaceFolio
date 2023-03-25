@@ -27,7 +27,7 @@ class _ScreenAll extends State<ScreenAll> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 246, 245, 245),
+        backgroundColor: const Color.fromARGB(255, 246, 245, 245),
         //Color.fromARGB(255, 205, 204, 204),
         body: ValueListenableBuilder(
           valueListenable: overViewGraphNotifier,

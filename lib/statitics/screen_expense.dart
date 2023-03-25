@@ -15,7 +15,7 @@ class _ScreenExpenseChartState extends State<ScreenExpenseChart> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 246, 245, 245),
+        backgroundColor: const Color.fromARGB(255, 246, 245, 245),
         body: ValueListenableBuilder(
           valueListenable: overViewGraphNotifier,
           builder: (BuildContext context, List<TransactionModel> newList,

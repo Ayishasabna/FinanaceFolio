@@ -24,48 +24,57 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: ValueListenableBuilder(
-          valueListenable: transactionDB.listenable(),
-          builder: (context, value, index) {
-            return Column(
-              children: [
-                const SizedBox(height: 350, child: HomeHead()),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Recent Transactions',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Color.fromARGB(255, 15, 14, 14))),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Transactions()));
-                        },
-                        child: const Text('See all',
+    // ignore: unused_local_variable
+    final Size size = MediaQuery.of(context).size;
+    final double screenWidth = size.width;
+    final double screenHeight = size.height;
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          body: SafeArea(
+        child: ValueListenableBuilder(
+            valueListenable: transactionDB.listenable(),
+            builder: (context, value, index) {
+              return Column(
+                children: [
+                  //HomeHead(),
+                  SizedBox(
+                      height: screenHeight * .42,
+                      width: screenWidth,
+                      child: const HomeHead()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Recent Transactions',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 17,
                                 color: Color.fromARGB(255, 15, 14, 14))),
-                      )
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Transactions()));
+                          },
+                          child: const Text('See all',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: Color.fromARGB(255, 15, 14, 14))),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
+                  Container(
                     color: Colors.white24,
-                    height: 80,
+                    height: 400,
                     child: ValueListenableBuilder(
                         valueListenable:
                             TransactionDB.instance.transactionListNotifier,
                         builder: (BuildContext ctx,
                             List<TransactionModel> newList, Widget? _) {
-                          return newList.isEmpty
+                          return (newList.isEmpty)
                               ? const Center(
                                   child: Text('No transactions added yet'),
                                 )
@@ -121,12 +130,12 @@ class _HomeState extends State<Home> {
                                       newList.length > 3 ? 3 : newList.length,
                                 );
                         }),
-                  ),
-                )
-              ],
-            );
-          }),
-    ));
+                  )
+                ],
+              );
+            }),
+      )),
+    );
   }
 }
 

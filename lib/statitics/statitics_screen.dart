@@ -30,11 +30,11 @@ class _TransactionInsightsAllState extends State<Statitics> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 246, 245, 245),
+      backgroundColor: const Color.fromARGB(255, 246, 245, 245),
       appBar: appbar('Statitics', true),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Padding(
@@ -186,11 +186,11 @@ class _TransactionInsightsAllState extends State<Statitics> {
                       ],
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                       child: TabBarView(children: [
-                    const ScreenAll(),
+                    ScreenAll(),
                     ScreenIncomeChart(),
-                    const ScreenExpenseChart(),
+                    ScreenExpenseChart(),
                   ]))
                 ],
               ),

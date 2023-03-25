@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendee/onboarding/first_screen.dart';
-import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
-
 import '../main.dart';
 
 class ScreenSplash extends StatefulWidget {
@@ -17,19 +15,17 @@ class _ScreenSplashState extends State<ScreenSplash> {
   @override
   void initState() {
     checkUserLoggedIn();
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         /*  body: Center(
       child: Image.asset(
         'assets/images/image.jpg',
@@ -41,7 +37,6 @@ class _ScreenSplashState extends State<ScreenSplash> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -50,19 +45,19 @@ class _ScreenSplashState extends State<ScreenSplash> {
       const Duration(seconds: 3),
     );
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (ctx) => FirstScreen()),
+      MaterialPageRoute(builder: (ctx) => const FirstScreen()),
     );
   }
 
   Future<void> checkUserLoggedIn() async {
     final sharedpref = await SharedPreferences.getInstance();
-
-    final userLoggedIn = sharedpref.getBool(SAVE_KEY_NAME);
+    final userLoggedIn = sharedpref.getBool(saveKeyName);
     if (userLoggedIn == null || userLoggedIn == false) {
       gotoLogin();
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (ctx1) => FirstScreen()));
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (ctx1) => const BottomNavBar()));
     }
   }
 }

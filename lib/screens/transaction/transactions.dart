@@ -18,7 +18,7 @@ class Transactions extends StatefulWidget {
 
 class _TransactionsState extends State<Transactions> {
   ValueNotifier showCategory = ValueNotifier('All');
-  TextEditingController amount_c = TextEditingController();
+  // TextEditingController amountC = TextEditingController();
 
   @override
   void initState() {
@@ -56,9 +56,9 @@ class _TransactionsState extends State<Transactions> {
             ),
           ),
           body: Column(
-            children: [
+            children: const [
               SearchField(),
-              const Expanded(
+              Expanded(
                 child: TransactionList(),
               ),
             ],

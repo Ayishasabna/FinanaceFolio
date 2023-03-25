@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
-import 'package:spendee/db/category_db.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/transaction_db.dart';
 import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
-
-import 'package:spendee/screens/home_screen.dart';
+import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
+import 'package:spendee/widgets/limit.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -19,17 +17,13 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   DateTime date = DateTime.now();
-  //String? selectedCategory;
-  String? selectedFinanace;
-  String? selectedCategoryName;
-  CategoryModel? selectedCategoryModel;
-  String? categoryID;
 
-  //DateTime? _selectedDate;
-  //CategoryType? _selectedCategorytype;
+  String? selectedFinanace;
+
+  CategoryModel? selectedCategoryModel;
 
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+
   final TextEditingController explainController = TextEditingController();
 
   FocusNode ex = FocusNode();
@@ -50,18 +44,20 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    //final size = MediaQuery.of(context).size;
+    //final double screenWidth = size.width;
+    //final double screenHeight = size.height;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
           child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          background_container(context),
-          Positioned(
-            top: 120,
-            child: Container(
-              child: mainContainer(),
-            ),
+          backgroundContainer(context),
+          // ignore: avoid_unnecessary_containers
+          Container(
+            //width: screenWidth * 0.9,
+            child: SingleChildScrollView(child: mainContainer()),
           )
         ],
       )),
@@ -69,44 +65,57 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   Container mainContainer() {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
-      height: 550,
-      width: 340,
+      //SizedBox(height: screenHeight * .08),
+
+      /* height: 550,
+       width: 340, */
+
+      height: size.height * 0.7,
+      width: size.width * 0.9,
       child: Form(
         key: _formKey,
         child: Column(
           children: [
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             name(),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             explain(),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
-            Amount(),
+            transactionAmount(),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             finance(),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             dateTime(),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
-            const Spacer(),
+            //const Spacer(),
             GestureDetector(
               onTap: () {
-                addTransaction();
+                if (_formKey.currentState!.validate()) {
+                  addTransaction();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Transaction Added Successfully')),
+                  );
+                }
               },
-              child: button(120, 50, 'Save', 18),
+              child: button(size.width * 0.30, size.height * 0.06, 'Save', 18),
+              //child: button(120, 50, 'Save', 18),
             ),
             const SizedBox(
               height: 20,
@@ -131,6 +140,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2100));
+            // ignore: unrelated_type_equality_checks
             if (newDate == Null) return;
             setState(() {
               date = newDate!;
@@ -169,6 +179,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
             items: _iteminex
                 .map((e) => DropdownMenuItem(
+                      value: e,
                       child: Row(
                         children: [
                           Image.asset(
@@ -185,27 +196,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           )
                         ],
                       ),
-                      value: e,
                     ))
-                .toList(),
-
-            selectedItemBuilder: (BuildContext context) => _iteminex
-                .map((e) => Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          child: Image.asset('assets/images/image/$e.png'),
-                        ),
-                        /* const SizedBox(
-                          width: 20,
-                        ) */
-                        Text(e,
-                            //style: const TextStyle(fontSize: 18),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 17))
-                      ],
-                    ))
-                //return [];
                 .toList(),
 
             hint: const Text(
@@ -226,7 +217,7 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
-  Padding Amount() {
+  Padding transactionAmount() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
@@ -234,7 +225,7 @@ class _AddTransactionState extends State<AddTransaction> {
         child: TextFormField(
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Required Name';
+              return 'Select Amount';
             } else {
               return null;
             }
@@ -309,7 +300,7 @@ class _AddTransactionState extends State<AddTransaction> {
           items: dropdownitems(),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Required Name';
+              return 'Select Name';
             } else {
               return null;
             }
@@ -335,12 +326,12 @@ class _AddTransactionState extends State<AddTransaction> {
             width: 25,
             height: 25,
           ),
-          SizedBox(
+          const SizedBox(
             width: 7,
           ),
           Text(
             item.categoryName,
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 17),
+            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 17),
           ),
         ]),
         onTap: () {
@@ -352,29 +343,13 @@ class _AddTransactionState extends State<AddTransaction> {
     return boxItems.toList();
   }
 
-  addTransaction() {
-    final name = _nameController.text;
-    final amountText = amountcontroller.text;
-
-    /*  if (name.isEmpty) {
-      return;
-    }
-    if (amountText.isEmpty) {
-      return;
-    }
-    if (categoryID == null) {
-      return;
-    }
-    final parsedAmount = double.tryParse(amountText);
-    if (parsedAmount == null) {
-      return;
-    }*/
+  Future addTransaction() async {
     if (selectedCategoryModel == null) {
       return;
     }
 
     final model = TransactionModel(
-        categoryName: name,
+        // categoryName: name,
         finanace: selectedFinanace!,
         amount: amountcontroller.text,
         datetime: date,
@@ -387,10 +362,30 @@ class _AddTransactionState extends State<AddTransaction> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Transaction Added Successfully')),
     );
+    final sharedPref = await SharedPreferences.getInstance();
+    var limitvariable = sharedPref.getString('limit')!;
+    expense1 = expense();
+    // ignore: use_build_context_synchronously
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const BottomNavBar()));
+
+    if (int.parse(limitvariable) <= expense1) {
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text(
+                '        Alert: \n Expense cross the limit',
+                style: TextStyle(color: Colors.red),
+              ),
+            );
+          });
+    }
   }
 }
 
-Column background_container(BuildContext context) {
+Column backgroundContainer(BuildContext context) {
   return Column(
     children: [
       Container(

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 appbar(String text, bool value, [IconData? icon]) {
   return AppBar(
-    systemOverlayStyle: SystemUiOverlayStyle(
+    /*  systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.red,
       statusBarIconBrightness: Brightness.light,
-    ),
+    ), */
     flexibleSpace: Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/about.dart';
 import 'package:spendee/screens/settings_screens/privacypolicy.dart';
-import 'package:spendee/screens/settings_screens/reset.dart';
-import 'package:spendee/screens/settings_screens/share.dart';
+import 'package:spendee/screens/settings_screens/settings_functions.dart';
 import 'package:spendee/screens/settings_screens/termsandconditions.dart';
 import 'package:spendee/widgets/app_bar.dart';
-import 'package:spendee/widgets/bottomnavigation.dart';
+import 'package:share_plus/share_plus.dart';
 
-class settings extends StatelessWidget {
-  const settings({super.key});
+TextEditingController limitchangecontroller = TextEditingController();
+
+class Settings extends StatelessWidget {
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,40 +23,8 @@ class settings extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Enter the Limit'),
-                              content: TextField(
-                                style: TextStyle(fontSize: 20),
-                                keyboardType: TextInputType.number,
-                              ),
-                              actions: [
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Bottom_NavBar()),
-                                      );
-                                    },
-                                    child: Text('Save'),
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Colors.redAccent)),
-                                  ),
-                                )
-                              ],
-                            );
-                          });
-
-                      /* Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const About())); */
+                    onTap: () async {
+                      editLimit(context);
                     },
                     child: const Icon(
                       Icons.warning,
@@ -109,8 +77,7 @@ class settings extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Reset()));
+                      resetApp(context);
                     },
                     child: const Icon(
                       Icons.restore,
@@ -136,8 +103,7 @@ class settings extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const share()));
+                      Share.share('hey! check out this new app......');
                     },
                     child: const Icon(
                       Icons.share,

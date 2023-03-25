@@ -38,6 +38,7 @@ dependencies:
   hive_flutter: ^1.1.0
   intl: ^0.18.0
   path_provider: ^2.0.13
+  share_plus: ^6.3.1
   shared_preferences: ^2.0.18
   sharedpreference: ^0.0.1
   syncfusion_flutter_charts: ^20.4.52
