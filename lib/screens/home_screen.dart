@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
                 children: [
                   //HomeHead(),
                   SizedBox(
-                      height: screenHeight * .42,
+                      height: screenHeight * .44,
                       width: screenWidth,
                       child: const HomeHead()),
                   Padding(
@@ -66,70 +66,74 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  Container(
-                    color: Colors.white24,
-                    height: 400,
-                    child: ValueListenableBuilder(
-                        valueListenable:
-                            TransactionDB.instance.transactionListNotifier,
-                        builder: (BuildContext ctx,
-                            List<TransactionModel> newList, Widget? _) {
-                          return (newList.isEmpty)
-                              ? const Center(
-                                  child: Text('No transactions added yet'),
-                                )
-                              : ListView.separated(
-                                  padding: const EdgeInsets.all(5),
-                                  itemBuilder: (ctx, index) {
-                                    final int lastIndex =
-                                        transactionDB.length - 1;
-                                    final int reversedIndex = lastIndex - index;
+                  Expanded(
+                    child: Container(
+                      color: Colors.white24,
+                      height: 300,
+                      child: ValueListenableBuilder(
+                          valueListenable:
+                              TransactionDB.instance.transactionListNotifier,
+                          builder: (BuildContext ctx,
+                              List<TransactionModel> newList, Widget? _) {
+                            return (newList.isEmpty)
+                                ? const Center(
+                                    child: Text('No transactions added yet'),
+                                  )
+                                : ListView.separated(
+                                    padding: const EdgeInsets.all(5),
+                                    itemBuilder: (ctx, index) {
+                                      final int lastIndex =
+                                          transactionDB.length - 1;
+                                      final int reversedIndex =
+                                          lastIndex - index;
 
-                                    final value = newList[reversedIndex];
-                                    return Card(
-                                      color: const Color.fromARGB(
-                                          255, 248, 246, 246),
-                                      elevation: 0,
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 244, 240, 228),
-                                          radius: 50,
-                                          child: Image.asset(
-                                            'assets/images/image/${value.category.categoryImage}.png',
-                                            height: 30,
-                                            width: 30,
+                                      final value = newList[reversedIndex];
+                                      return Card(
+                                        color: const Color.fromARGB(
+                                            255, 248, 246, 246),
+                                        elevation: 0,
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 244, 240, 228),
+                                            radius: 50,
+                                            child: Image.asset(
+                                              'assets/images/image/${value.category.categoryImage}.png',
+                                              height: 30,
+                                              width: 30,
+                                            ),
                                           ),
-                                        ),
 
-                                        title: Text('₹ ${value.amount}',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                                color:
-                                                    value.finanace == 'income'
-                                                        ? Colors.green
-                                                        : Colors.red)),
-                                        subtitle: Text(value
-                                            .category.categoryName
-                                            .capitalize()),
-                                        trailing: Text(
-                                          parseDateTime(value.datetime),
+                                          title: Text('₹ ${value.amount}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 17,
+                                                  color:
+                                                      value.finanace == 'income'
+                                                          ? Colors.green
+                                                          : Colors.red)),
+                                          subtitle: Text(value
+                                              .category.categoryName
+                                              .capitalize()),
+                                          trailing: Text(
+                                            parseDateTime(value.datetime),
+                                          ),
+                                          //
                                         ),
-                                        //
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (ctx, index) {
-                                    return const Divider(
-                                      height: 4,
-                                      thickness: 2,
-                                    );
-                                  },
-                                  itemCount:
-                                      newList.length > 3 ? 3 : newList.length,
-                                );
-                        }),
+                                      );
+                                    },
+                                    separatorBuilder: (ctx, index) {
+                                      return const Divider(
+                                        height: 4,
+                                        thickness: 2,
+                                      );
+                                    },
+                                    itemCount:
+                                        newList.length > 3 ? 3 : newList.length,
+                                  );
+                          }),
+                    ),
                   )
                 ],
               );

@@ -8,7 +8,6 @@ import 'package:spendee/onboarding/first_screen.dart';
 import 'package:spendee/screens/settings_screens/settings.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import '../../models/category/category_model.dart';
-import '../login.dart';
 
 editLimit(BuildContext context) async {
   final sharedPref = await SharedPreferences.getInstance();
@@ -63,7 +62,8 @@ resetApp(BuildContext context) {
       builder: (ctx) {
         return AlertDialog(
           content: const Text(
-            'Do you want to reset the app?',
+            'Do you want to Reset the app?',
+            style: TextStyle(color: Colors.black, fontSize: 18),
           ),
           actions: [
             TextButton(
@@ -89,13 +89,16 @@ resetApp(BuildContext context) {
                       builder: (context) => const FirstScreen(),
                     ),
                   );
-                  TransactionDB().transactionListNotifier.notifyListeners();
+                  //TransactionDB().transactionListNotifier.notifyListeners();
                   CategoryDB().categoryNotifier.notifyListeners();
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  await pref.clear();
                 }),
                 child: const Text(
                   'Yes',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.red,
                   ),
                 )),
             TextButton(
@@ -104,7 +107,7 @@ resetApp(BuildContext context) {
               }),
               child: const Text(
                 'No',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.green),
               ),
             ),
           ],

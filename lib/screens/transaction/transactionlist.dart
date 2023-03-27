@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spendee/screens/transaction/transactionmainlist.dart';
+import 'package:spendee/screens/transaction/slidabletransaction.dart';
 import 'package:spendee/screens/transaction/transactions.dart';
 import '../../db/transaction_db.dart';
 import '../../models/transactions/transaction_model.dart';

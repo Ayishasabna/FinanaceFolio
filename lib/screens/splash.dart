@@ -25,14 +25,14 @@ class _ScreenSplashState extends State<ScreenSplash> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        /*  body: Center(
+    return Scaffold(
+        body: Center(
       child: Image.asset(
-        'assets/images/image.jpg',
+        'assets/images/iconmoneymanager.png',
+        //'assets/images/image.jpg',
         height: 300,
       ),
-    ) */
-        );
+    ));
   }
 
   @override

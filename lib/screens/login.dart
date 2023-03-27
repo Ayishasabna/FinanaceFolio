@@ -35,13 +35,13 @@ class _LoginState extends State<Login> {
                 child: Image.asset('assets/images/smartphone.png'),
               ),
               const SizedBox(
-                height: 60,
+                height: 80,
               ),
               Form(
                 key: _formKey,
                 child: SizedBox(
                   width: screenWidth * .6,
-                  height: screenHeight * .07,
+                  height: screenHeight * .08,
                   child: TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight * .08),
+              SizedBox(height: screenHeight * .09),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: GestureDetector(

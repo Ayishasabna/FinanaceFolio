@@ -48,8 +48,6 @@ class _CategoryState extends State<Category> {
           ),
           body: Column(
             children: [
-              //CategoryDisplay(),
-              //SearchField(),
               const Expanded(
                 child: CategoryList(),
               ),

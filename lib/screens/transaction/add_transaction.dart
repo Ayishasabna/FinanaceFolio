@@ -362,25 +362,49 @@ class _AddTransactionState extends State<AddTransaction> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Transaction Added Successfully')),
     );
-    final sharedPref = await SharedPreferences.getInstance();
-    var limitvariable = sharedPref.getString('limit')!;
-    expense1 = expense();
-    // ignore: use_build_context_synchronously
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const BottomNavBar()));
+    limitCheck(selectedFinanace!);
+  }
 
-    if (int.parse(limitvariable) <= expense1) {
+  limitCheck(String finance) async {
+    if (finance == 'expense') {
+      final sharedPref = await SharedPreferences.getInstance();
+      var limitvariable = sharedPref.getString('limit')!;
+      expense1 = expense();
       // ignore: use_build_context_synchronously
-      showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              title: Text(
-                '        Alert: \n Expense cross the limit',
-                style: TextStyle(color: Colors.red),
-              ),
-            );
-          });
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const BottomNavBar()));
+      double limit = double.parse(limitvariable);
+      double expenses = expense1.toDouble();
+      double eightyPercentOfLimit = limit * 0.8;
+
+      if (expenses >= eightyPercentOfLimit && expenses < limit) {
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Center(
+                  child: Text(
+                    ' Expense has crossed \n   80% of the limit',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              );
+            });
+      }
+      if (expenses >= limit) {
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text(
+                  'Expense has crossed \n    the limit',
+                  style: TextStyle(color: Colors.red),
+                ),
+              );
+            });
+      }
     }
   }
 }

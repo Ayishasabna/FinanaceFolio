@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:spendee/db/category_db.dart';
 import 'package:spendee/models/category/category_model.dart';
-import 'package:spendee/widgets/uppercase.dart';
 
 class SlidableCategory extends StatelessWidget {
   const SlidableCategory({super.key, required this.category});
@@ -12,49 +10,7 @@ class SlidableCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: ActionPane(motion: const StretchMotion(), children: [
-        SlidableAction(
-          onPressed: ((context) {
-            showDialog(
-                context: context,
-                builder: ((context) {
-                  return AlertDialog(
-                    content: const Text(
-                      'Do you want to Delete?',
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: (() {
-                            //await category.delete();
-                            CategoryDB.instance
-                                .deleteCategory(category.categoryid);
-                            //await CategoryDB().deleteCategory(category);
-
-                            Navigator.of(context).pop();
-                          }),
-                          child: const Text(
-                            'Yes',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          )),
-                      TextButton(
-                        onPressed: (() {
-                          Navigator.of(context).pop();
-                        }),
-                        child: const Text(
-                          'No',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  );
-                }));
-          }),
-          icon: Icons.delete,
-          foregroundColor: Colors.red,
-        ),
-      ]),
+      endActionPane: const ActionPane(motion: StretchMotion(), children: []),
       child: Card(
         color: Colors.white,
         elevation: 3,
@@ -72,7 +28,7 @@ class SlidableCategory extends StatelessWidget {
             ),
           ),
           // ignore: unnecessary_string_interpolations
-          title: Text('${category.categoryImage.capitalize()}'),
+          title: Text('${category.categoryName}'),
         ),
       ),
     );

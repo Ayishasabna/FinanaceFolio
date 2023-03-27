@@ -70,15 +70,13 @@ flutter:
   assets:
     #   - images/a_dot_burr.jpeg
     #   - images/a_dot_ham.jpeg
-    - assets/images/Rectangle 1 (1).png
     - assets/images/Vector.png
-    - assets/images/ph_money-fill.png
     - assets/images/Vector (1).png
     - assets/images/image/food.png
     - assets/images/image/education.png
     - assets/images/image/health.png
     - assets/images/image/transportation.png
-    - assets/images/loginpic.png
+    
     - assets/images/secondpic.png
     - assets/images/thirdpic.png
     - assets/images/allocation.png

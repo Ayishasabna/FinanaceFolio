@@ -44,16 +44,15 @@ class CategoryList extends StatelessWidget {
 
                 return (displayList.isEmpty)
                     ? const SingleChildScrollView(
+                        child: Padding(
+                        padding: EdgeInsets.all(20.0),
                         child: Center(
-                        child: Text('No categories added yet'),
+                          child: Text('No categories added yet'),
+                        ),
                       ))
                     : ListView.separated(
                         padding: const EdgeInsets.all(5),
                         itemBuilder: (ctx, index) {
-                          /* final int lastIndex = transactionDB.length - 1;
-                          final int reversedIndex = lastIndex - index; */
-
-                          //final value = newList[reversedIndex];
                           final category = displayList[index];
 
                           return SlidableCategory(category: category);

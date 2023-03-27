@@ -15,6 +15,10 @@ class TransactionDB {
   }
   ValueNotifier<List<TransactionModel>> transactionListNotifier =
       ValueNotifier([]);
+  Future<void> add(TransactionModel value) async {
+    final db = await Hive.openBox<TransactionModel>('name');
+    await db.add(value);
+  }
 
   Future<void> getAllTransactions() async {
     final transactionDB =

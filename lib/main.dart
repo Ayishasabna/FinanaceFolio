@@ -50,8 +50,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-            systemOverlayStyle:
-                SystemUiOverlayStyle(statusBarColor: Colors.red)),
+            /* systemOverlayStyle:
+                SystemUiOverlayStyle(statusBarColor: Colors.red) */
+            ),
         primarySwatch: Colors.blue,
       ),
       home: const SafeArea(

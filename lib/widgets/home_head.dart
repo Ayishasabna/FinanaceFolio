@@ -55,19 +55,16 @@ class HomeHead extends StatelessWidget {
                             const SizedBox(
                               width: 230,
                             ),
-                            Tooltip(
-                              message: "sss",
-                              child: GestureDetector(
-                                onTap: () async {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => const Limit()));
-                                },
-                                child: const Icon(
-                                  Icons.add_box,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
+                            GestureDetector(
+                              onTap: () async {
+                                Navigator.of(context, rootNavigator: true).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => const Limit()));
+                              },
+                              child: const Icon(
+                                Icons.add_box,
+                                size: 30,
+                                color: Colors.white,
                               ),
                             )
                           ],

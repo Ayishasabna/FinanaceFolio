@@ -89,16 +89,6 @@ class _AddCategoryState extends State<AddCategory> {
     );
   }
 
-  addCategory() {
-    var category = CategoryModel(
-      categoryName: _nameOfCategory.text,
-      categoryImage: selectedCategoryImage!,
-      categoryid: DateTime.now().microsecondsSinceEpoch.toString(),
-    );
-
-    categoryDB.add(category);
-  }
-
   Padding image() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -135,7 +125,7 @@ class _AddCategoryState extends State<AddCategory> {
                     ))
                 .toList(),
 
-            selectedItemBuilder: (BuildContext context) => _item
+            /* selectedItemBuilder: (BuildContext context) => _item
                 .map((e) => Row(
                       children: [
                         // ignore: sized_box_for_whitespace
@@ -147,9 +137,10 @@ class _AddCategoryState extends State<AddCategory> {
                           width: 10,
                         ),
                       ],
-                    ))
+                    )
+                    )
                 //return [];
-                .toList(),
+                .toList(), */
             hint: const Text(
               'Image',
               style: TextStyle(color: Colors.grey),
@@ -164,33 +155,6 @@ class _AddCategoryState extends State<AddCategory> {
               });
             }),
           )),
-    );
-  }
-
-  Padding explain() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: SizedBox(
-        width: 300,
-        child: TextField(
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            labelText: 'explain',
-            labelStyle: const TextStyle(fontSize: 17, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(width: 2, color: Colors.black),
-            ),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(width: 2, color: Colors.grey)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(width: 2, color: Colors.green)),
-          ),
-        ),
-      ),
     );
   }
 
@@ -271,5 +235,15 @@ class _AddCategoryState extends State<AddCategory> {
         )
       ],
     );
+  }
+
+  addCategory() {
+    var category = CategoryModel(
+      categoryName: _nameOfCategory.text,
+      categoryImage: selectedCategoryImage!,
+      categoryid: DateTime.now().microsecondsSinceEpoch.toString(),
+    );
+
+    categoryDB.add(category);
   }
 }
