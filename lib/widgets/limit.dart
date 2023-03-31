@@ -30,7 +30,10 @@ class _LimitState extends State<Limit> {
   void new1() async {
     final sharedPref = await SharedPreferences.getInstance();
     var limitvariable = sharedPref.getString('limit');
-    limitController.text = limitvariable!;
+    //limitController.text = limitvariable;
+    if (limitvariable != null) {
+      limitController.text = limitvariable;
+    }
   }
 
   @override
@@ -99,7 +102,7 @@ class _LimitState extends State<Limit> {
                 onTap: () {
                   limit = limitController.text;
                   Navigator.of(context).pop();
-                  expense1 = expense();
+                  expense1 = IncomeAndExpence().expense();
 
                   if (int.parse(limit) <= expense1) {}
                   checkLogin(context);

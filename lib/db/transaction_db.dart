@@ -5,7 +5,7 @@ import '../models/transactions/transaction_model.dart';
 
 const transactionDBName = 'Transaction_database';
 
-class TransactionDB {
+class TransactionDB extends ChangeNotifier {
   TransactionDB.internal();
 
   static TransactionDB instance = TransactionDB.internal();
@@ -15,10 +15,6 @@ class TransactionDB {
   }
   ValueNotifier<List<TransactionModel>> transactionListNotifier =
       ValueNotifier([]);
-  Future<void> add(TransactionModel value) async {
-    final db = await Hive.openBox<TransactionModel>('name');
-    await db.add(value);
-  }
 
   Future<void> getAllTransactions() async {
     final transactionDB =
@@ -26,6 +22,7 @@ class TransactionDB {
     transactionListNotifier.value.clear();
 
     transactionListNotifier.value.addAll(transactionDB.values);
+
     transactionListNotifier.notifyListeners();
   }
 

@@ -34,12 +34,12 @@ class _ScreenAll extends State<ScreenAll> {
           builder: (BuildContext context, List<TransactionModel> newList,
               Widget? child) {
             Map incomeMap = {
-              'name': 'Income', "amount": income(),
+              'name': 'Income', "amount": IncomeAndExpence().income(),
               // income()
               // incomeTotal.value
             };
             Map expenseMap = {
-              "name": "Expense", "amount": expense()
+              "name": "Expense", "amount": IncomeAndExpence().expense()
               //expenseTotal.value
             };
             List<Map> totalMap = [incomeMap, expenseMap];

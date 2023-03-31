@@ -12,16 +12,22 @@ class Terms extends StatelessWidget {
               'Terms & Conditins', true, Icons.document_scanner_outlined),
           body: ListView(
             children: const [
+              SizedBox(
+                height: 15,
+              ),
               Center(
                 child: Text(
                   'Spendee',
                   style: TextStyle(
-                      fontSize: 20, color: Color.fromARGB(255, 208, 160, 14)),
+                    fontSize: 24,
+                    color: Color.fromARGB(255, 208, 160, 14),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-              SizedBox(
+              /* SizedBox(
                 height: 15,
-              ),
+              ), */
               Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
@@ -55,11 +61,7 @@ class Terms extends StatelessWidget {
                 ),
               ),
             ],
-          )
-
-          /* Text(
-            'Welcome to Money Manager\nThese terms and conditions outline the rules and regulations for the use of money manager.By using this app we assume that you accept these terms and conditins'), */
-          ),
+          )),
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/models/transactions/transaction_model.dart';
 import 'package:spendee/widgets/bottomnavigation.dart';
 import 'package:spendee/widgets/button.dart';
-import 'package:spendee/widgets/limit.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({super.key});
@@ -34,19 +33,11 @@ class _AddTransactionState extends State<AddTransaction> {
 
   void initstate() {
     super.initState();
-    ex.addListener(() {
-      setState(() {});
-    });
-    amount.addListener(() {
-      setState(() {});
-    });
+    IncomeAndExpence().income();
   }
 
   @override
   Widget build(BuildContext context) {
-    //final size = MediaQuery.of(context).size;
-    //final double screenWidth = size.width;
-    //final double screenHeight = size.height;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
@@ -108,14 +99,9 @@ class _AddTransactionState extends State<AddTransaction> {
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   addTransaction();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Transaction Added Successfully')),
-                  );
                 }
               },
               child: button(size.width * 0.30, size.height * 0.06, 'Save', 18),
-              //child: button(120, 50, 'Save', 18),
             ),
             const SizedBox(
               height: 20,
@@ -141,10 +127,13 @@ class _AddTransactionState extends State<AddTransaction> {
                 firstDate: DateTime(2020),
                 lastDate: DateTime(2100));
             // ignore: unrelated_type_equality_checks
-            if (newDate == Null) return;
-            setState(() {
-              date = newDate!;
-            });
+            if (newDate == null) {
+              return;
+            } else {
+              setState(() {
+                date = newDate;
+              });
+            }
           },
           child: Text(
             'Date : ${date.year}/${date.month}/${date.day}',
@@ -356,11 +345,20 @@ class _AddTransactionState extends State<AddTransaction> {
         explain: explainController.text,
         category: selectedCategoryModel!,
         id: DateTime.now().microsecondsSinceEpoch.toString());
-    TransactionDB.instance.insertTransaction(model);
+    await TransactionDB().insertTransaction(model);
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
     TransactionDB.instance.getAllTransactions();
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Transaction Added Successfully')),
+      const SnackBar(
+        content: Text(
+          'Transaction Added Successfully',
+          textAlign: TextAlign.center,
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.amber,
+      ),
     );
     limitCheck(selectedFinanace!);
   }
@@ -368,12 +366,13 @@ class _AddTransactionState extends State<AddTransaction> {
   limitCheck(String finance) async {
     if (finance == 'expense') {
       final sharedPref = await SharedPreferences.getInstance();
-      var limitvariable = sharedPref.getString('limit')!;
-      expense1 = expense();
+      var limitvariable = sharedPref.getString('limit');
+
+      int expense1 = IncomeAndExpence().expense();
       // ignore: use_build_context_synchronously
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const BottomNavBar()));
-      double limit = double.parse(limitvariable);
+      double limit = double.parse(limitvariable!);
       double expenses = expense1.toDouble();
       double eightyPercentOfLimit = limit * 0.8;
 
@@ -383,7 +382,8 @@ class _AddTransactionState extends State<AddTransaction> {
             context: context,
             builder: (context) {
               return const AlertDialog(
-                title: Center(
+                title: Align(
+                  alignment: Alignment.center,
                   child: Text(
                     ' Expense has crossed \n   80% of the limit',
                     style: TextStyle(color: Colors.red),
@@ -398,9 +398,11 @@ class _AddTransactionState extends State<AddTransaction> {
             context: context,
             builder: (context) {
               return const AlertDialog(
-                title: Text(
-                  'Expense has crossed \n    the limit',
-                  style: TextStyle(color: Colors.red),
+                title: Center(
+                  child: Text(
+                    'Expense has crossed \n the limit',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               );
             });

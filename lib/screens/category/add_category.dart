@@ -124,23 +124,14 @@ class _AddCategoryState extends State<AddCategory> {
                       ),
                     ))
                 .toList(),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Select Image';
+              } else {
+                return null;
+              }
+            },
 
-            /* selectedItemBuilder: (BuildContext context) => _item
-                .map((e) => Row(
-                      children: [
-                        // ignore: sized_box_for_whitespace
-                        Container(
-                          width: 40,
-                          child: Image.asset('assets/images/image/$e.png'),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    )
-                    )
-                //return [];
-                .toList(), */
             hint: const Text(
               'Image',
               style: TextStyle(color: Colors.grey),
@@ -163,8 +154,15 @@ class _AddCategoryState extends State<AddCategory> {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         width: 300,
-        child: TextField(
+        child: TextFormField(
           controller: _nameOfCategory,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Enter Category Name';
+            } else {
+              return null;
+            }
+          },
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 15),

@@ -90,13 +90,22 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
               showCustomDateRangePicker(context,
                   dismissible: true,
                   minimumDate: DateTime(2010),
-                  maximumDate: DateTime.now(),
+                  maximumDate: DateTime(DateTime.now().year + 500),
                   endDate: endDate,
                   startDate: startDate, onApplyClick: (start, end) {
                 setState(() {
                   endDate = end;
                   startDate = start;
                 });
+                overViewListNotifier.value =
+                    TransactionDB.instance.transactionListNotifier.value;
+                overViewListNotifier.value = overViewListNotifier.value
+                    .where((element) =>
+                        element.datetime.isAfter(startDate!) &&
+                        element.datetime.isBefore(endDate!))
+                    .toList();
+                startDate = null;
+                endDate = null;
               }, onCancelClick: () {
                 setState(() {
                   endDate = null;
@@ -106,16 +115,6 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
                   backgroundColor: Colors.white,
                   primaryColor: const Color.fromARGB(255, 244, 98, 54));
               //print('start date $startDate , end date $endDate');
-
-              overViewListNotifier.value =
-                  TransactionDB.instance.transactionListNotifier.value;
-              overViewListNotifier.value = overViewListNotifier.value
-                  .where((element) =>
-                      element.datetime.isAfter(startDate!) &&
-                      element.datetime.isBefore(endDate!))
-                  .toList();
-              startDate = null;
-              endDate = null;
             }),
       ],
     );

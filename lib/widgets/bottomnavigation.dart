@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:spendee/models/category/category_model.dart';
 import 'package:spendee/screens/transaction/add_transaction.dart';
 import 'package:spendee/screens/category/category.dart';
 import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/settings_screens/settings.dart';
 import 'package:spendee/statitics/statitics_screen.dart';
+import '../db/category_db.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -27,9 +30,26 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: Screen[indexColor],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const AddTransaction()));
+        onPressed: () async {
+          final categorydb = await Hive.openBox<CategoryModel>(categoryDBName);
+          if (categorydb.isNotEmpty) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const AddTransaction()));
+          } else {
+            // ignore: use_build_context_synchronously
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Please Add Category First  !!!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 17),
+                ),
+                duration: Duration(seconds: 3),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         },
         // ignore: sort_child_properties_last
         child: const Icon(Icons.add),

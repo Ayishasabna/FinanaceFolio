@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/db/transaction_db.dart';
@@ -7,6 +6,7 @@ import 'package:spendee/screens/transaction/transactions.dart';
 import 'package:spendee/widgets/home_head.dart';
 import 'package:spendee/widgets/uppercase.dart';
 import '../models/transactions/transaction_model.dart';
+import 'transaction/transactionlist.dart';
 
 //enum SearchItems { categories, date, description }
 
@@ -23,6 +23,15 @@ class _HomeState extends State<Home> {
   var displayList = [];
 
   @override
+  void initState() {
+    overViewListNotifier.value =
+        TransactionDB.instance.transactionListNotifier.value;
+    super.initState();
+    TransactionDB().transactionListNotifier;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     final Size size = MediaQuery.of(context).size;
@@ -33,7 +42,8 @@ class _HomeState extends State<Home> {
       home: Scaffold(
           body: SafeArea(
         child: ValueListenableBuilder(
-            valueListenable: transactionDB.listenable(),
+            valueListenable: TransactionDB.instance.transactionListNotifier,
+            //transactionDB.listenable(),
             builder: (context, value, index) {
               return Column(
                 children: [
@@ -41,7 +51,9 @@ class _HomeState extends State<Home> {
                   SizedBox(
                       height: screenHeight * .44,
                       width: screenWidth,
-                      child: const HomeHead()),
+                      child: HomeHead(
+                        key: UniqueKey(),
+                      )),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spendee/db/income_expence.dart';
 import 'package:spendee/widgets/limit.dart';
 
-var _usernameController = TextEditingController();
-
-class HomeHead extends StatelessWidget {
+class HomeHead extends StatefulWidget {
   const HomeHead({super.key});
 
   @override
+  State<HomeHead> createState() => _HomeHeadState();
+}
+
+class _HomeHeadState extends State<HomeHead> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -115,7 +116,7 @@ class HomeHead extends StatelessWidget {
                 const SizedBox(height: 7),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
-                  child: Text('₹ ${total()}',
+                  child: Text('₹ ${IncomeAndExpence().total()}',
                       style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 19,
@@ -174,7 +175,7 @@ class HomeHead extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('₹ ${income()}',
+                      Text('₹ ${IncomeAndExpence().income()}',
                           style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 19,
@@ -182,7 +183,7 @@ class HomeHead extends StatelessWidget {
                       /* const SizedBox(
                       width: 155,
                     ), */
-                      Text('₹ ${expense()}',
+                      Text('₹ ${IncomeAndExpence().expense()}',
                           style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 19,
@@ -196,14 +197,5 @@ class HomeHead extends StatelessWidget {
         )
       ],
     );
-  }
-
-  edituser() async {
-    final sharedPref = await SharedPreferences.getInstance();
-    var limitvariable1 = sharedPref.getString('limit')!;
-
-    _usernameController = TextEditingController(text: limitvariable1);
-    // ignore: use_build_context_synchronously
-    //showdialog(context);
   }
 }

@@ -14,7 +14,7 @@ class About extends StatelessWidget {
             child: Container(
               width: 250,
               height: 300,
-              color: Colors.amber,
+              color: Colors.grey,
               child: Material(
                 borderRadius: BorderRadius.circular(20),
                 elevation: 10,
@@ -26,18 +26,19 @@ class About extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.only(top: 30, left: 10),
                           child: Text(
-                            'Money Manager',
+                            'Spendee',
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.w500),
                           ),
                         )),
                     const SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15, right: 10),
                       child: Text(
-                        '"This is an app where you can add your daily transactions according to the category which it belongs to."',
+                        '"This is an app where you can\nadd your daily transactions\naccording to the category which it belongs to."',
+                        textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 17),
                       ),
                     ),
