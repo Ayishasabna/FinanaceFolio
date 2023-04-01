@@ -10,7 +10,6 @@ class ThirdScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double screenWidth = size.width;
     final double screenHeight = size.height;
-    //final double scaleFactor = size.aspectRatio;
     final double buttonWidth = size.width * 0.3;
     final double buttonHeight = size.height * 0.05;
     final double textSize = size.width * 0.05;
@@ -31,7 +30,7 @@ class ThirdScreen extends StatelessWidget {
             ),
             //SizedBox(height: screenHeight * .04),
             Container(
-              padding: EdgeInsets.only(top: screenHeight * 0.03),
+              padding: EdgeInsets.only(top: screenHeight * 0.05),
               width: screenWidth * 0.7,
               height: screenHeight * 0.25,
               decoration: const BoxDecoration(
@@ -41,11 +40,13 @@ class ThirdScreen extends StatelessWidget {
                   Color.fromRGBO(255, 152, 100, 0.88),
                 ]),
               ),
-              child: const Text(
-                '    Money moves from\n      those who do not\n    manage it to those\n              who do.',
+              child: Text(
+                '"Money moves from\nthose who do not\nmanage it to those\nwho do."',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: textSize,
+                  //24,
                 ),
               ),
             ),

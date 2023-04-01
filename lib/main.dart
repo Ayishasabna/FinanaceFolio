@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:spendee/db/category_db.dart';
 import 'package:spendee/db/transaction_db.dart';
@@ -23,7 +24,6 @@ Future<void> main() async {
   await Hive.openBox<TransactionModel>(transactionDBName);
 
   await Hive.openBox<CategoryModel>(categoryDBName);
-
   runApp(const MyApp());
   TransactionDB().getAllTransactions();
 }
@@ -38,9 +38,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-            /* systemOverlayStyle:
-                SystemUiOverlayStyle(statusBarColor: Colors.red) */
-            ),
+            systemOverlayStyle:
+                SystemUiOverlayStyle(statusBarColor: Colors.red)),
         primarySwatch: Colors.blue,
       ),
       home: const SafeArea(

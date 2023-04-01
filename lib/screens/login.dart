@@ -21,7 +21,6 @@ class _LoginState extends State<Login> {
     final Size size = MediaQuery.of(context).size;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final double textSize = size.width * 0.05;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -31,7 +30,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset('assets/images/smartphone.png'),
               ),
               const SizedBox(
@@ -65,7 +64,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: screenHeight * .09),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 10),
                 child: GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
@@ -77,7 +76,9 @@ class _LoginState extends State<Login> {
                       );
                     }
                   },
-                  child: button(120, 50, 'Login', textSize),
+                  child: button(size.width * 0.3, size.height * 0.05, 'Login',
+                      size.width * 0.05),
+                  //button(120, 50, 'Login', textSize),
                 ),
               ),
             ],

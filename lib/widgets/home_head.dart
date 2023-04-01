@@ -12,6 +12,9 @@ class HomeHead extends StatefulWidget {
 class _HomeHeadState extends State<HomeHead> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double screenWidth = size.width;
+    final double screenHeight = size.height;
     // ignore: unused_local_variable
     TextEditingController limitController = TextEditingController();
     return Stack(
@@ -20,7 +23,8 @@ class _HomeHeadState extends State<HomeHead> {
           children: [
             Container(
               width: double.infinity,
-              height: 240,
+              height: screenHeight * 0.3,
+              //240,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(colors: [
                     Color.fromRGBO(199, 12, 12, 0.88),
@@ -32,12 +36,9 @@ class _HomeHeadState extends State<HomeHead> {
                       bottomRight: Radius.circular(20))),
               child: Stack(
                 children: [
-                  Positioned(
-                      top: 35,
-                      left: 340,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(7),
-                      )),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 35, left: 10),
                     child: Column(
@@ -53,8 +54,9 @@ class _HomeHeadState extends State<HomeHead> {
                                   fontSize: 19,
                                   color: Color.fromARGB(255, 224, 223, 223)),
                             ),
-                            const SizedBox(
-                              width: 230,
+                            SizedBox(
+                              width: screenWidth * .6,
+                              //230,
                             ),
                             GestureDetector(
                               onTap: () async {
@@ -89,109 +91,114 @@ class _HomeHeadState extends State<HomeHead> {
             ),
           ],
         ),
-        Positioned(
-          top: 160,
-          left: 35,
-          child: Container(
-            height: 170,
-            width: 320,
-            decoration: BoxDecoration(boxShadow: const [
-              BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0, 6),
-                  blurRadius: 12,
-                  spreadRadius: 6),
-            ], color: Colors.white, borderRadius: BorderRadius.circular(24)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('Total Balance',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 19,
-                          color: Color.fromARGB(255, 15, 14, 14))),
-                ),
-                const SizedBox(height: 7),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text('₹ ${IncomeAndExpence().total()}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 19,
-                          color: Color.fromARGB(255, 15, 14, 14))),
-                ),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: const [
-                          CircleAvatar(
-                            radius: 13,
-                            backgroundColor: Colors.green,
-                            child: Icon(
-                              Icons.arrow_upward,
-                              color: Colors.white,
-                              size: 19,
-                            ),
-                          ),
-                          SizedBox(width: 7),
-                          Text('Income',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 15, 14, 14))),
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          CircleAvatar(
-                            radius: 13,
-                            backgroundColor: Colors.red,
-                            child: Icon(
-                              Icons.arrow_downward,
-                              color: Colors.white,
-                              size: 19,
-                            ),
-                          ),
-                          SizedBox(width: 7),
-                          Text('Expense',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 15, 14, 14))),
-                        ],
-                      )
-                    ],
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: screenHeight * 0.15),
+            child: Container(
+              height:
+                  //screenHeight * 0.2,
+                  170,
+              width:
+                  //screenWidth * 0.6,
+                  320,
+              decoration: BoxDecoration(boxShadow: const [
+                BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 6),
+                    blurRadius: 12,
+                    spreadRadius: 6),
+              ], color: Colors.white, borderRadius: BorderRadius.circular(24)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Total Balance',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 19,
+                            color: Color.fromARGB(255, 15, 14, 14))),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('₹ ${IncomeAndExpence().income()}',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 19,
-                              color: Colors.green)),
-                      /* const SizedBox(
-                      width: 155,
-                    ), */
-                      Text('₹ ${IncomeAndExpence().expense()}',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 19,
-                              color: Colors.red)),
-                    ],
+                  const SizedBox(height: 7),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text('₹ ${IncomeAndExpence().total()}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 19,
+                            color: Color.fromARGB(255, 15, 14, 14))),
                   ),
-                )
-              ],
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            CircleAvatar(
+                              radius: 13,
+                              backgroundColor: Colors.green,
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Colors.white,
+                                size: 19,
+                              ),
+                            ),
+                            SizedBox(width: 7),
+                            Text('Income',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: Color.fromARGB(255, 15, 14, 14))),
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            CircleAvatar(
+                              radius: 13,
+                              backgroundColor: Colors.red,
+                              child: Icon(
+                                Icons.arrow_downward,
+                                color: Colors.white,
+                                size: 19,
+                              ),
+                            ),
+                            SizedBox(width: 7),
+                            Text('Expense',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: Color.fromARGB(255, 15, 14, 14))),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('₹ ${IncomeAndExpence().income()}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19,
+                                color: Colors.green)),
+                        /* const SizedBox(
+                        width: 155,
+                      ), */
+                        Text('₹ ${IncomeAndExpence().expense()}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19,
+                                color: Colors.red)),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         )

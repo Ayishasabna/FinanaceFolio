@@ -4,7 +4,7 @@ import 'package:spendee/models/category/category_model.dart';
 
 const categoryDBName = 'category_database';
 
-class CategoryDB {
+class CategoryDB extends ChangeNotifier {
   CategoryDB.internal();
   ValueNotifier<List<CategoryModel>> categoryNotifier = ValueNotifier([]);
 

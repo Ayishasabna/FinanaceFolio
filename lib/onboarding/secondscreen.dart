@@ -9,8 +9,6 @@ class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    //final Size size = MediaQuery.of(context).size;
-    //final double screenWidth = size.width;
     final double screenHeight = size.height;
     final double imageHeight = size.height * .5;
     final double textSize = size.width * 0.05;
@@ -38,7 +36,9 @@ class SecondScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: screenHeight * 0.1
+                      //40
+                      ),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -53,7 +53,7 @@ class SecondScreen extends StatelessWidget {
                   width: 40,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: screenHeight * 0.1),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(

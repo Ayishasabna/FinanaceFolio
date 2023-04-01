@@ -215,6 +215,12 @@ class _AddTransactionState extends State<AddTransaction> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Select Amount';
+            } else if (value.contains(',')) {
+              return 'Please remove special character';
+            } else if (value.contains('.')) {
+              return 'Please remove special character';
+            } else if (value.contains(' ')) {
+              return 'Please Enter a valid number';
             } else {
               return null;
             }

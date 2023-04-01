@@ -34,6 +34,19 @@ class SettingFunctions extends ChangeNotifier {
                 child: ElevatedButton(
                   onPressed: () async {
                     var newLimit = limitchangecontroller.text;
+                    if (!RegExp(r'^\d+$').hasMatch(newLimit)) {
+                      //Navigator.of(context).push(MaterialPageRoute(builder:Limit()));
+                      // Show an error message
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          'Please enter a valide number..!!!',
+                          style: TextStyle(color: Colors.white, fontSize: 17),
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Colors.red,
+                      ));
+                      return;
+                    }
 
                     final sharedPref = await SharedPreferences.getInstance();
                     sharedPref.setString('limit', newLimit);

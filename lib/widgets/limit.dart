@@ -66,10 +66,9 @@ class _LimitState extends State<Limit> {
                       const EdgeInsets.only(top: 200),
                   child: SizedBox(
                     width: 300,
-                    child: TextField(
+                    child: TextFormField(
                       //focusNode: ex,
                       controller: limitController,
-
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 15),
@@ -104,8 +103,19 @@ class _LimitState extends State<Limit> {
                   Navigator.of(context).pop();
                   expense1 = IncomeAndExpence().expense();
 
-                  if (int.parse(limit) <= expense1) {}
-                  checkLogin(context);
+                  checkLimit(context);
+                  if (!RegExp(r'^\d+$').hasMatch(limit)) {
+                    // Show an error message
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                        'Please enter a valide number..!!!',
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ),
+                      backgroundColor: Colors.red,
+                    ));
+                    return;
+                  }
                 },
                 child: button(120, 50, 'Save', 17),
               ),
@@ -116,9 +126,10 @@ class _LimitState extends State<Limit> {
     );
   }
 
-  void checkLogin(BuildContext ctx) async {
+  void checkLimit(BuildContext ctx) async {
     var limit = limitController.text;
     final sharedPref = await SharedPreferences.getInstance();
+
     sharedPref.setString('limit', limit);
     //var limitvariable = sharedPref.getString('limit');
   }
