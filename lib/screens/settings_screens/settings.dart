@@ -126,7 +126,8 @@ class Settings extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Share.share('Hey! check out this new app......');
+                  Share.share(
+                      'Hey! check out this new app......https://play.google.com/store/apps/details?id=in.brototype.spendee');
                 },
                 child: Row(
                   children: [

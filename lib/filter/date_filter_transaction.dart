@@ -1,6 +1,7 @@
 import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:spendee/db/transaction_db.dart';
+import 'package:spendee/screens/home_screen.dart';
 import 'package:spendee/screens/transaction/transactionlist.dart';
 
 class DateFilterTransaction extends StatefulWidget {
@@ -94,9 +95,10 @@ class _DateFilterTransactionState extends State<DateFilterTransaction> {
                   endDate: endDate,
                   startDate: startDate, onApplyClick: (start, end) {
                 setState(() {
-                  endDate = end;
-                  startDate = start;
+                  endDate = end.add(const Duration(days: 1));
+                  startDate = start.subtract(const Duration(days: 1));
                 });
+
                 overViewListNotifier.value =
                     TransactionDB.instance.transactionListNotifier.value;
                 overViewListNotifier.value = overViewListNotifier.value
